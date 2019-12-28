@@ -5,6 +5,18 @@ import * as path from 'path';
 
 export class Files {
 
+    public readonly files : string[] = [
+        "RMenu.lua",
+        "menu/RageUI.lua",
+        "menu/Menu.lua",
+        "menu/MenuController.lua",
+        "components/",
+        "menu/elements/",
+        "menu/items/",
+        "menu/panels/",
+        "menu/windows/",
+    ];
+
     public readonly directory: string = "../src/";
 
     public readonly filename: string = "RageShared.lua";
@@ -27,37 +39,41 @@ export class Files {
 
     public onBuild = (): void => {
         // https://stackoverflow.com/questions/5827612/node-js-fs-readdir-recursive-directory-search
-        let fetching = function (dir, done) {
+        const fetchDir = function (dir) {
             let results = [];
-            filesystem.readdir(dir, function (err, list) {
-                if (err) return done(err);
-                let pending = list.length;
-                if (!pending) return done(null, results);
-                list.forEach(function (file) {
-                    file = path.resolve(dir, file);
-                    fs.stat(file, function (err, stat) {
-                        if (stat && stat.isDirectory()) {
-                            fetching(file, function (err, res) {
-                                results = results.concat(res);
-                                if (!--pending) done(null, results);
-                            });
-                        } else {
-                            results.push(file);
-                            if (!--pending) done(null, results);
-                        }
-                    });
-                });
+            let files = fs.readdirSync(dir);
+            files.forEach(function(file) {
+                file = path.resolve(dir, file);
+                let stat = fs.statSync(file);
+                if (stat && stat.isDirectory()) {
+                    let subdir = fetchDir(file);
+                    results = results.concat(subdir);
+                } else {
+                    results.push(file);
+                }
             });
+            return results;
         };
-        fetching(`${this.directory}`, function (err, results) {
+        const fetchFiles = function (dir, files, done) {
+            let pending = files.length;
+            let results = [];
+            for (var index in files) {
+                let file = path.resolve(dir, files[index]);
+                let stat = fs.statSync(file);
+                if (stat && stat.isDirectory()) {
+                    let subdir = fetchDir(file);
+                    results = results.concat(subdir);
+                } else {
+                    results.push(file);
+                }
+            }
+            done(null, results);
+        };
+        fetchFiles(`${this.directory}`, this.files, function (err, results) {
             if (err) throw err;
             results.forEach(function (x) {
-                fs.readFile(x, 'utf8', function (err, contents) {
-                    filesystem.appendFile("../src/RageShared.lua", contents, (error) => {
-                        if (error)
-                            console.error("can't update file ../src/RageShared.lua");
-                    });
-                });
+                let contents = fs.readFileSync(x, 'utf8')
+                filesystem.appendFileSync("../src/RageShared.lua", contents, 'utf8');
             });
         });
     };
