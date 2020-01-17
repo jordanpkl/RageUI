@@ -606,7 +606,7 @@ end
 ---@public
 function RageUI.ItemsDescription(CurrentMenu, Description, Selected)
     ---@type table
- if Description ~= "" then
+ if Description ~= "" or Description ~= nil then
         local SettingsDescription = RageUI.Settings.Items.Description;
         if Selected and CurrentMenu.Description ~= Description then
             CurrentMenu.Description = Description or nil
