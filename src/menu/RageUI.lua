@@ -606,15 +606,17 @@ end
 ---@public
 function RageUI.ItemsDescription(CurrentMenu, Description, Selected)
     ---@type table
-    local SettingsDescription = RageUI.Settings.Items.Description;
-    if Selected and CurrentMenu.Description ~= Description then
-        CurrentMenu.Description = Description or nil
-        ---@type number
-        local DescriptionLineCount = GetLineCount(CurrentMenu.Description, CurrentMenu.X + SettingsDescription.Text.X, CurrentMenu.Y + SettingsDescription.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsDescription.Text.Scale, 255, 255, 255, 255, nil, false, false, SettingsDescription.Background.Width + CurrentMenu.WidthOffset)
-        if DescriptionLineCount > 1 then
-            CurrentMenu.DescriptionHeight = SettingsDescription.Background.Height * DescriptionLineCount
-        else
-            CurrentMenu.DescriptionHeight = SettingsDescription.Background.Height + 7
+ if Description ~= "" or Description ~= nil then
+        local SettingsDescription = RageUI.Settings.Items.Description;
+        if Selected and CurrentMenu.Description ~= Description then
+            CurrentMenu.Description = Description or nil
+            ---@type number
+            local DescriptionLineCount = GetLineCount(CurrentMenu.Description, CurrentMenu.X + SettingsDescription.Text.X, CurrentMenu.Y + SettingsDescription.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsDescription.Text.Scale, 255, 255, 255, 255, nil, false, false, SettingsDescription.Background.Width + CurrentMenu.WidthOffset)
+            if DescriptionLineCount > 1 then
+                CurrentMenu.DescriptionHeight = SettingsDescription.Background.Height * DescriptionLineCount
+            else
+                CurrentMenu.DescriptionHeight = SettingsDescription.Background.Height + 7
+            end
         end
     end
 end
