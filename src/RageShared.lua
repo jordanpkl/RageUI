@@ -516,6 +516,9 @@ function RageUI.Subtitle()
             if RageUI.CurrentMenu.Subtitle ~= "" then
                 RenderRectangle(RageUI.CurrentMenu.X, RageUI.CurrentMenu.Y + RageUI.ItemOffset, RageUI.Settings.Items.Subtitle.Background.Width + RageUI.CurrentMenu.WidthOffset, RageUI.Settings.Items.Subtitle.Background.Height + RageUI.CurrentMenu.SubtitleHeight, 0, 0, 0, 255)
                 RenderText(RageUI.CurrentMenu.Subtitle, RageUI.CurrentMenu.X + RageUI.Settings.Items.Subtitle.Text.X, RageUI.CurrentMenu.Y + RageUI.Settings.Items.Subtitle.Text.Y + RageUI.ItemOffset, 0, RageUI.Settings.Items.Subtitle.Text.Scale, 245, 245, 245, 255, nil, false, false, RageUI.Settings.Items.Subtitle.Background.Width + RageUI.CurrentMenu.WidthOffset)
+                if RageUI.CurrentMenu.Index > RageUI.CurrentMenu.Options or RageUI.CurrentMenu.Index < 0 then
+                        RageUI.CurrentMenu.Index = 1
+                end
                 if RageUI.CurrentMenu.PageCounter == nil then
                     RenderText(RageUI.CurrentMenu.PageCounterColour .. RageUI.CurrentMenu.Index .. " / " .. RageUI.CurrentMenu.Options, RageUI.CurrentMenu.X + RageUI.Settings.Items.Subtitle.PreText.X + RageUI.CurrentMenu.WidthOffset, RageUI.CurrentMenu.Y + RageUI.Settings.Items.Subtitle.PreText.Y + RageUI.ItemOffset, 0, RageUI.Settings.Items.Subtitle.PreText.Scale, 245, 245, 245, 255, 2)
                 else
@@ -676,15 +679,17 @@ end
 ---@public
 function RageUI.ItemsDescription(CurrentMenu, Description, Selected)
     ---@type table
-    local SettingsDescription = RageUI.Settings.Items.Description;
-    if Selected and CurrentMenu.Description ~= Description then
-        CurrentMenu.Description = Description or nil
-        ---@type number
-        local DescriptionLineCount = GetLineCount(CurrentMenu.Description, CurrentMenu.X + SettingsDescription.Text.X, CurrentMenu.Y + SettingsDescription.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsDescription.Text.Scale, 255, 255, 255, 255, nil, false, false, SettingsDescription.Background.Width + CurrentMenu.WidthOffset)
-        if DescriptionLineCount > 1 then
-            CurrentMenu.DescriptionHeight = SettingsDescription.Background.Height * DescriptionLineCount
-        else
-            CurrentMenu.DescriptionHeight = SettingsDescription.Background.Height + 7
+ if Description ~= "" or Description ~= nil then
+        local SettingsDescription = RageUI.Settings.Items.Description;
+        if Selected and CurrentMenu.Description ~= Description then
+            CurrentMenu.Description = Description or nil
+            ---@type number
+            local DescriptionLineCount = GetLineCount(CurrentMenu.Description, CurrentMenu.X + SettingsDescription.Text.X, CurrentMenu.Y + SettingsDescription.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsDescription.Text.Scale, 255, 255, 255, 255, nil, false, false, SettingsDescription.Background.Width + CurrentMenu.WidthOffset)
+            if DescriptionLineCount > 1 then
+                CurrentMenu.DescriptionHeight = SettingsDescription.Background.Height * DescriptionLineCount
+            else
+                CurrentMenu.DescriptionHeight = SettingsDescription.Background.Height + 7
+            end
         end
     end
 end
