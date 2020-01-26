@@ -35,7 +35,6 @@ function string.starts(String, Start)
     return string.sub(String, 1, string.len(Start)) == Start
 end
 
-
 ---@type table
 RageUI.Menus = setmetatable({}, RageUI.Menus)
 
@@ -444,7 +443,7 @@ function RageUI.Subtitle()
                 RenderRectangle(RageUI.CurrentMenu.X, RageUI.CurrentMenu.Y + RageUI.ItemOffset, RageUI.Settings.Items.Subtitle.Background.Width + RageUI.CurrentMenu.WidthOffset, RageUI.Settings.Items.Subtitle.Background.Height + RageUI.CurrentMenu.SubtitleHeight, 0, 0, 0, 255)
                 RenderText(RageUI.CurrentMenu.Subtitle, RageUI.CurrentMenu.X + RageUI.Settings.Items.Subtitle.Text.X, RageUI.CurrentMenu.Y + RageUI.Settings.Items.Subtitle.Text.Y + RageUI.ItemOffset, 0, RageUI.Settings.Items.Subtitle.Text.Scale, 245, 245, 245, 255, nil, false, false, RageUI.Settings.Items.Subtitle.Background.Width + RageUI.CurrentMenu.WidthOffset)
                 if RageUI.CurrentMenu.Index > RageUI.CurrentMenu.Options or RageUI.CurrentMenu.Index < 0 then
-                        RageUI.CurrentMenu.Index = 1
+                    RageUI.CurrentMenu.Index = 1
                 end
                 if RageUI.CurrentMenu.PageCounter == nil then
                     RenderText(RageUI.CurrentMenu.PageCounterColour .. RageUI.CurrentMenu.Index .. " / " .. RageUI.CurrentMenu.Options, RageUI.CurrentMenu.X + RageUI.Settings.Items.Subtitle.PreText.X + RageUI.CurrentMenu.WidthOffset, RageUI.CurrentMenu.Y + RageUI.Settings.Items.Subtitle.PreText.Y + RageUI.ItemOffset, 0, RageUI.Settings.Items.Subtitle.PreText.Scale, 245, 245, 245, 255, 2)
@@ -662,10 +661,11 @@ end
 ---@param type number
 ---@return void
 ---@public
-function RageUI.CreateWhile(wait, closure, type)
+function RageUI.CreateWhile(wait, enabled, closure, type)
     type = 1;
+    enabled = enabled or true;
     Citizen.CreateThread(function()
-        while true do
+        while (enabled) do
             if (type == 1) then
                 Citizen.Wait(wait or 0.1)
             end
