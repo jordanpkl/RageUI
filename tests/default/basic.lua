@@ -13,7 +13,7 @@ end;
 
 local submenu = RageUI.CreateSubMenu(mainMenu, "RageUI", "~b~RAGEUI SHOWCASE", nil, nil, "casinoui_roulette_high", "casinoui_roulette_high")
 
-RageUI.CreateWhile(1.0, function()
+RageUI.CreateWhile(1.0, true, function()
 
     if IsControlJustPressed(1, 51) then
         RageUI.Visible(mainMenu, not RageUI.Visible(mainMenu))
