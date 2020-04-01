@@ -43,17 +43,35 @@ This project would never have been possible without the trust [Frazzle] placed i
 
 <br>
 
-# The documentation of this library. :book:
+# Empty menu example
 
-<p align="center">
-  <a href="https://github.com/iTexZoz/RageUI/wiki">
-<img width="80%" src="https://i.gyazo.com/9007f2f30c5cb52b4e2a1f799ac5c1c1.png">
-  </a>
-</p>
+```lua
+RMenu.Add('showcase', 'main', RageUI.CreateMenu("RageUI", "~b~RAGEUI SHOWCASE"))
+RMenu.Add('showcase', 'submenu', RageUI.CreateSubMenu(RMenu:Get('showcase', 'main'), "RageUI", "~b~RAGEUI SHOWCASE", nil, nil, "root_cause", "shopui_title_dynasty8"))
 
-The documentation of this library is provided and updated by the community, if you have a question on how to use an item in this library you will find your answer at the following address (if you have a problem with it we invite you to keep us informed as soon as possible)
+-- RageUI.CreateWhile(wait, menu, key, closure)
+RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
 
-<br>
+ -- RageUI.IsVisible(menu, header, glare, instructional, items, panels)
+    RageUI.IsVisible(RMenu:Get('showcase', 'main'), true, true, true, function()
+        --- Items
+     
+    end, function()
+        ---Panels
+    end)
+
+ -- RageUI.IsVisible(menu, header, glare, instructional, items, panels)
+    RageUI.IsVisible(RMenu:Get('showcase', 'submenu'), false, false, false, function()
+        --- Items
+
+    end, function()
+        ---Panels
+      
+    end)
+
+end)
+
+```
 
 # Troubleshooting :bug:
 
