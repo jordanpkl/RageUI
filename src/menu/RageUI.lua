@@ -305,6 +305,30 @@ RageUI.Settings = {
     },
 }
 
+function RageUI.SetScaleformParams(scaleform, data)
+    data = data or {}
+    for k, v in pairs(data) do
+        PushScaleformMovieFunction(scaleform, v.name)
+        if v.param then
+            for _, par in pairs(v.param) do
+                if math.type(par) == "integer" then
+                    PushScaleformMovieFunctionParameterInt(par)
+                elseif type(par) == "boolean" then
+                    PushScaleformMovieFunctionParameterBool(par)
+                elseif math.type(par) == "float" then
+                    PushScaleformMovieFunctionParameterFloat(par)
+                elseif type(par) == "string" then
+                    PushScaleformMovieFunctionParameterString(par)
+                end
+            end
+        end
+        if v.func then
+            v.func()
+        end
+        PopScaleformMovieFunctionVoid()
+    end
+end
+
 ---Visible
 ---@param Menu function
 ---@param Value boolean
@@ -368,6 +392,7 @@ function RageUI.PlaySound(Library, Sound, IsLooped)
     end
 end
 
+
 ---Banner
 ---@return nil
 ---@public
@@ -409,6 +434,10 @@ function RageUI.Banner(Enabled, Glare)
                         local GlareX = RageUI.CurrentMenu.X / 1860 + RageUI.CurrentMenu.SafeZoneSize.X / 53.211
                         ---@type number
                         local GalreY = RageUI.CurrentMenu.Y / 1080 + RageUI.CurrentMenu.SafeZoneSize.Y / 33.195020746888
+
+                        RageUI.SetScaleformParams(ScaleformMovie, {
+                            { name = "SET_DATA_SLOT", param = { GetGameplayCamRelativeHeading()} }
+                        })
 
                         DrawScaleformMovie(ScaleformMovie, GlareX, GalreY, Glarewidth / 430, Glareheight / 100, 255, 255, 255, 255, 0)
 
@@ -607,7 +636,7 @@ end
 ---@public
 function RageUI.ItemsDescription(CurrentMenu, Description, Selected)
     ---@type table
- if Description ~= "" or Description ~= nil then
+    if Description ~= "" or Description ~= nil then
         local SettingsDescription = RageUI.Settings.Items.Description;
         if Selected and CurrentMenu.Description ~= Description then
             CurrentMenu.Description = Description or nil

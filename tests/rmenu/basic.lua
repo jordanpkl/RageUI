@@ -6,7 +6,7 @@
 
 RMenu.Add('showcase', 'main', RageUI.CreateMenu("RageUI", "Undefined for using SetSubtitle"))
 RMenu:Get('showcase', 'main'):SetSubtitle("~b~RAGEUI SHOWCASE")
-RMenu:Get('showcase', 'main').EnableMouse = true
+RMenu:Get('showcase', 'main').EnableMouse = false
 RMenu:Get('showcase', 'main').Closed = function()
     -- TODO Perform action
 end;
