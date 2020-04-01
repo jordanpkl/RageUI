@@ -16,11 +16,11 @@ local Percentage = {
 ---@param Callback function
 ---@return nil
 ---@public
-function RageUI.PercentagePanel(Percent, HeaderText, MinText, MaxText, Callback)
+function RageUI.PercentagePanel(Index, Percent, HeaderText, MinText, MaxText, Callback)
     local CurrentMenu = RageUI.CurrentMenu
 
     if CurrentMenu ~= nil then
-        if CurrentMenu() then
+        if CurrentMenu() and (CurrentMenu.Index == Index) then
 
             ---@type boolean
             local Hovered = RageUI.IsMouseInBounds(CurrentMenu.X + Percentage.Bar.X + CurrentMenu.SafeZoneSize.X, CurrentMenu.Y + Percentage.Bar.Y + CurrentMenu.SafeZoneSize.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset - 4, Percentage.Bar.Width + CurrentMenu.WidthOffset, Percentage.Bar.Height + 8)
@@ -67,6 +67,8 @@ function RageUI.PercentagePanel(Percent, HeaderText, MinText, MaxText, Callback)
 
             if Hovered and Selected then
                 local Audio = RageUI.Settings.Audio
+                print(Audio)
+                print(json.encode(Audio[Audio.Use].Slider))
                 RageUI.PlaySound(Audio[Audio.Use].Slider.audioName, Audio[Audio.Use].Slider.audioRef, true)
             end
 

@@ -21,10 +21,10 @@ local Grid = {
 ---@param Callback table
 ---@return table
 ---@public
-function RageUI.GridPanel(X, Y, TopText, BottomText, LeftText, RightText, Callback)
+function RageUI.GridPanel(Index, X, Y, TopText, BottomText, LeftText, RightText, Callback)
     local CurrentMenu = RageUI.CurrentMenu
     if CurrentMenu ~= nil then
-        if CurrentMenu() then
+        if CurrentMenu() and (CurrentMenu.Index == Index) then
 
             ---@type boolean
             local Hovered = RageUI.IsMouseInBounds(CurrentMenu.X + Grid.Grid.X + CurrentMenu.SafeZoneSize.X + 20, CurrentMenu.Y + Grid.Grid.Y + CurrentMenu.SafeZoneSize.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset + 20, Grid.Grid.Width + CurrentMenu.WidthOffset - 40, Grid.Grid.Height - 40)
