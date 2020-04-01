@@ -32,10 +32,19 @@ local index = {
 ---@type string
 local description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
 
+local items = 0;
+
 RageUI.CreateWhile(1.0, true, function()
 
     if IsControlJustPressed(1, 51) then
         RageUI.Visible(RMenu:Get('showcase', 'main'), not RageUI.Visible(RMenu:Get('showcase', 'main')))
+    end
+
+    if IsControlJustReleased(1, 167) then
+        items = items - 1;
+    end
+    if IsControlJustReleased(1, 168) then
+        items = items + 1;
     end
 
     if RageUI.Visible(RMenu:Get('showcase', 'main')) then
@@ -124,6 +133,14 @@ RageUI.CreateWhile(1.0, true, function()
     if RageUI.Visible(RMenu:Get('showcase', 'submenu')) then
         RageUI.DrawContent({ header = true, glare = true, instructionalButton = true }, function()
             ---Items
+
+            for i = 1, items do
+                RageUI.Button(string.format("Items - %s", i), "Sample description that takes more than one line. Moreso, it takes way more than two lines since it's so long. Wow, check out this length !", { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
+
+                end)
+            end
+
+
         end, function()
             ---Panels
         end)
