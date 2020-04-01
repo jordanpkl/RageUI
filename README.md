@@ -26,6 +26,7 @@ This project would never have been possible without the trust [Frazzle] placed i
 - [Development] [Dylan Malandain (iTexZoz)](https://github.com/iTexZoz)
 - [Development] [Parow](https://github.com/Parow)
 - [Development] [TDLC](https://github.com/TDLCTV)
+- [Additional banner] [root-cause](https://github.com/root-cause/MenuBannerPack)
 - [Media Previews] [eR0ot](https://github.com/eR0oT)
 
 # Read this message before using it. ⚠️
