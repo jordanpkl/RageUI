@@ -67,8 +67,6 @@ function RageUI.PercentagePanel(Index, Percent, HeaderText, MinText, MaxText, Ca
 
             if Hovered and Selected then
                 local Audio = RageUI.Settings.Audio
-                print(Audio)
-                print(json.encode(Audio[Audio.Use].Slider))
                 RageUI.PlaySound(Audio[Audio.Use].Slider.audioName, Audio[Audio.Use].Slider.audioRef, true)
             end
 
