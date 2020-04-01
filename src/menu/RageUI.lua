@@ -64,7 +64,7 @@ RageUI.StatisticPanelCount = 0
 
 ---@type table
 RageUI.Settings = {
-    Debug = true,
+    Debug = false,
     Controls = {
         Up = {
             Enabled = true,
