@@ -368,30 +368,6 @@ function RageUI.CloseAll()
     RageUI.Options = 0
     RageUI.ItemOffset = 0
 end
----PlaySound
----@param Library string
----@param Sound string
----@param IsLooped boolean
----@return nil
----@public
-function RageUI.PlaySound(Library, Sound, IsLooped)
-    local audioId
-    if not IsLooped then
-        PlaySoundFrontend(-1, Sound, Library, true)
-    else
-        if not audioId then
-            Citizen.CreateThread(function()
-                audioId = GetSoundId()
-                PlaySoundFrontend(audioId, Sound, Library, true)
-                Citizen.Wait(0)
-                StopSound(audioId)
-                ReleaseSoundId(audioId)
-                audioId = nil
-            end)
-        end
-    end
-end
-
 
 ---Banner
 ---@return nil
@@ -436,7 +412,7 @@ function RageUI.Banner(Enabled, Glare)
                         local GalreY = RageUI.CurrentMenu.Y / 1080 + RageUI.CurrentMenu.SafeZoneSize.Y / 33.195020746888
 
                         RageUI.SetScaleformParams(ScaleformMovie, {
-                            { name = "SET_DATA_SLOT", param = { GetGameplayCamRelativeHeading()} }
+                            { name = "SET_DATA_SLOT", param = { GetGameplayCamRelativeHeading() } }
                         })
 
                         DrawScaleformMovie(ScaleformMovie, GlareX, GalreY, Glarewidth / 430, Glareheight / 100, 255, 255, 255, 255, 0)
@@ -494,7 +470,7 @@ function RageUI.Background()
         if RageUI.CurrentMenu() then
             RageUI.ItemsSafeZone(RageUI.CurrentMenu)
             SetScriptGfxDrawOrder(0)
-            RenderSprite(RageUI.Settings.Items.Background.Dictionary, RageUI.Settings.Items.Background.Texture, RageUI.CurrentMenu.X, RageUI.CurrentMenu.Y + RageUI.Settings.Items.Background.Y + RageUI.CurrentMenu.SubtitleHeight, RageUI.Settings.Items.Background.Width + RageUI.CurrentMenu.WidthOffset, RageUI.ItemOffset, 0, 0, 0, 255)
+            RenderSprite(RageUI.Settings.Items.Background.Dictionary, RageUI.Settings.Items.Background.Texture, RageUI.CurrentMenu.X, RageUI.CurrentMenu.Y + RageUI.Settings.Items.Background.Y + RageUI.CurrentMenu.SubtitleHeight, RageUI.Settings.Items.Background.Width + RageUI.CurrentMenu.WidthOffset, RageUI.ItemOffset, 0, 0, 0, 0, 255)
             SetScriptGfxDrawOrder(1)
         end
     end
@@ -515,12 +491,6 @@ function RageUI.Description()
     end
 end
 
---- TODO
-
-function RageUI.Header(EnableBanner, EnableGlare)
-    RageUI.Banner(EnableBanner, EnableGlare)
-    RageUI.Subtitle()
-end
 
 ---Render
 ---@param instructionalButton boolean
@@ -529,39 +499,10 @@ end
 function RageUI.Render(instructionalButton)
     if RageUI.CurrentMenu ~= nil then
         if RageUI.CurrentMenu() then
-            if RageUI.Settings.Debug then
-                local up
-                if RageUI.CurrentMenu.Controls.Up.Pressed then
-                    up = "~g~True~s~"
-                else
-                    up = "~r~False~s~"
-                end
-                local down
-                if RageUI.CurrentMenu.Controls.Down.Pressed then
-                    down = "~g~True~s~"
-                else
-                    down = "~r~False~s~"
-                end
-                local left
-                if RageUI.CurrentMenu.Controls.Left.Pressed then
-                    left = "~g~True~s~"
-                else
-                    left = "~r~False~s~"
-                end
-                local right
-                if RageUI.CurrentMenu.Controls.Right.Pressed then
-                    right = "~g~True~s~"
-                else
-                    right = "~r~False~s~"
-                end
-                local text = "~r~Debug\n~s~Options max : " .. RageUI.Options .. "\n" .. "Current index : " .. RageUI.CurrentMenu.Index .. "\nTitle : " .. RageUI.CurrentMenu.Title .. "\n~s~Subtitle : " .. RageUI.CurrentMenu.Subtitle .. "\n~s~Up pressed : " .. up .. "\nDown pressed : " .. down .. "\nRight pressed : " .. right .. "\nLeft pressed : " .. left
-                RenderSprite(RageUI.Settings.Items.Description.Background.Dictionary, RageUI.Settings.Items.Description.Background.Texture, RageUI.CurrentMenu.X, RageUI.CurrentMenu.Y + RageUI.Settings.Items.Description.Background.Y + RageUI.CurrentMenu.SubtitleHeight + RageUI.ItemOffset, RageUI.Settings.Items.Description.Background.Width + RageUI.CurrentMenu.WidthOffset, 250, 0, 0, 0, 255)
-                RenderText(text, RageUI.CurrentMenu.X + RageUI.Settings.Items.Description.Text.X, RageUI.CurrentMenu.Y + RageUI.Settings.Items.Description.Text.Y + RageUI.CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, RageUI.Settings.Items.Description.Text.Scale, 255, 255, 255, 255, nil, false, false, RageUI.Settings.Items.Description.Background.Width + RageUI.CurrentMenu.WidthOffset)
-            end
             if RageUI.CurrentMenu.Safezone then
                 ResetScriptGfxAlign()
             end
-            if instructionalButton then
+            if (instructionalButton) then
                 DrawScaleformMovieFullscreen(RageUI.CurrentMenu.InstructionalScaleform, 255, 255, 255, 255, 0)
             end
             RageUI.CurrentMenu.Options = RageUI.Options
@@ -599,31 +540,6 @@ function RageUI.Render(instructionalButton)
                 end
             end
         end
-    end
-end
-
----DrawContent
----@param items function
----@param panels function
-function RageUI.DrawContent(settings, items, panels)
-    if (settings.header ~= nil and settings.glare ~= nil) then
-        RageUI.Header(settings.header, settings.glare);
-    else
-        RageUI.Header(true, true);
-    end
-    if (items ~= nil) then
-        items()
-    end
-    RageUI.Background();
-    RageUI.Navigation();
-    RageUI.Description();
-    if (panels ~= nil) then
-        panels()
-    end
-    if (settings.instructionalButton ~= nil) then
-        RageUI.Render(settings.instructionalButton)
-    else
-        RageUI.Render(true)
     end
 end
 
@@ -687,24 +603,34 @@ function RageUI.ItemsSafeZone(CurrentMenu)
     end
 end
 
----CreateWhile
----@param wait number
----@param closure function
----@param type number
----@return void
----@public
-function RageUI.CreateWhile(wait, enabled, closure, type)
-    type = 1;
-    enabled = enabled or true;
+function RageUI.IsVisible(menu, header, glare, instructional, items, panels)
+    if (RageUI.Visible(menu)) then
+        if (header == true) then
+            RageUI.Banner(true, glare or false)
+        end
+        RageUI.Subtitle()
+        if (items ~= nil) then
+            items()
+        end
+        RageUI.Background();
+        RageUI.Navigation();
+        RageUI.Description();
+        if (panels ~= nil) then
+            panels()
+        end
+        RageUI.Render(instructional or false)
+    end
+end
+
+function RageUI.CreateWhile(wait, menu, key, closure)
     Citizen.CreateThread(function()
-        while (enabled) do
-            if (type == 1) then
-                Citizen.Wait(wait or 0.1)
+        while (true) do
+            Citizen.Wait(wait or 0.1)
+            if IsControlJustPressed(1, key) then
+                RageUI.Visible(menu, not RageUI.Visible(menu))
             end
+
             closure()
-            if (type == 2) then
-                Citizen.Wait(wait or 0.1)
-            end
         end
     end)
 end
