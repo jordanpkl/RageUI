@@ -14,7 +14,7 @@
 ---@param IsLooped boolean
 ---@return nil
 ---@public
-function PlaySound(Library, Sound, IsLooped,  Audio)
+function RageUI.PlaySound(Library, Sound, IsLooped,  Audio)
 
     if not IsLooped then
         PlaySoundFrontend(-1, Sound, Library, true)
