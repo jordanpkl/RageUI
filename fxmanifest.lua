@@ -30,17 +30,6 @@ client_scripts {
 
 }
 
---[[
-client_scripts {
-    'tests/default/basic.lua',
-}
-
-
-client_scripts {
-    'tests/rmenu/basic.lua',
-}
-]]
-
 client_scripts {
     'tests/rmenu/basic.lua',
 }
