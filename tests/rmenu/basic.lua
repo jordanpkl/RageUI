@@ -40,13 +40,6 @@ RageUI.CreateWhile(1.0, true, function()
         RageUI.Visible(RMenu:Get('showcase', 'main'), not RageUI.Visible(RMenu:Get('showcase', 'main')))
     end
 
-    if IsControlJustReleased(1, 167) then
-        items = items - 1;
-    end
-    if IsControlJustReleased(1, 168) then
-        items = items + 1;
-    end
-
     if RageUI.Visible(RMenu:Get('showcase', 'main')) then
         RageUI.DrawContent({ header = true, glare = true, instructionalButton = true }, function()
             ---Items
