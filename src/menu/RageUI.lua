@@ -64,7 +64,7 @@ RageUI.StatisticPanelCount = 0
 
 ---@type table
 RageUI.Settings = {
-    Debug = false,
+    Debug = true,
     Controls = {
         Up = {
             Enabled = true,
@@ -390,6 +390,7 @@ function RageUI.Banner(Enabled, Glare)
                     end
 
                     if Glare then
+
                         local ScaleformMovie = RequestScaleformMovie("MP_MENU_GLARE")
                         Citizen.CreateThread(function()
                             if not HasScaleformMovieLoaded(ScaleformMovie) then
@@ -410,6 +411,7 @@ function RageUI.Banner(Enabled, Glare)
                         local GalreY = RageUI.CurrentMenu.Y / 1080 + RageUI.CurrentMenu.SafeZoneSize.Y / 33.195020746888
 
                         DrawScaleformMovie(ScaleformMovie, GlareX, GalreY, Glarewidth / 430, Glareheight / 100, 255, 255, 255, 255, 0)
+
                     end
 
                     RenderText(RageUI.CurrentMenu.Title, RageUI.CurrentMenu.X + RageUI.Settings.Items.Title.Text.X + (RageUI.CurrentMenu.WidthOffset / 2), RageUI.CurrentMenu.Y + RageUI.Settings.Items.Title.Text.Y, 1, RageUI.Settings.Items.Title.Text.Scale, 255, 255, 255, 255, 1)
@@ -500,7 +502,7 @@ function RageUI.Render(instructionalButton)
     if RageUI.CurrentMenu ~= nil then
         if RageUI.CurrentMenu() then
             if RageUI.Settings.Debug then
-                up = nil
+                local up = nil
                 if RageUI.CurrentMenu.Controls.Up.Pressed then
                     up = "~g~True~s~"
                 else
@@ -524,7 +526,7 @@ function RageUI.Render(instructionalButton)
                 else
                     right = "~r~False~s~"
                 end
-                text = "~r~Debug\n~s~Options max : " .. RageUI.Options .. "\n" .. "Current index : " .. RageUI.CurrentMenu.Index .. "\nTitle : " .. RageUI.CurrentMenu.Title .. "\n~s~Subtitle : " .. RageUI.CurrentMenu.Subtitle .. "\n~s~Up pressed : " .. up .. "\nDown pressed : " .. down .. "\nRight pressed : " .. right .. "\nLeft pressed : " .. left
+                local text = "~r~Debug\n~s~Options max : " .. RageUI.Options .. "\n" .. "Current index : " .. RageUI.CurrentMenu.Index .. "\nTitle : " .. RageUI.CurrentMenu.Title .. "\n~s~Subtitle : " .. RageUI.CurrentMenu.Subtitle .. "\n~s~Up pressed : " .. up .. "\nDown pressed : " .. down .. "\nRight pressed : " .. right .. "\nLeft pressed : " .. left
                 RenderSprite(RageUI.Settings.Items.Description.Background.Dictionary, RageUI.Settings.Items.Description.Background.Texture, RageUI.CurrentMenu.X, RageUI.CurrentMenu.Y + RageUI.Settings.Items.Description.Background.Y + RageUI.CurrentMenu.SubtitleHeight + RageUI.ItemOffset, RageUI.Settings.Items.Description.Background.Width + RageUI.CurrentMenu.WidthOffset, 250, 0, 0, 0, 255)
                 RenderText(text, RageUI.CurrentMenu.X + RageUI.Settings.Items.Description.Text.X, RageUI.CurrentMenu.Y + RageUI.Settings.Items.Description.Text.Y + RageUI.CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, RageUI.Settings.Items.Description.Text.Scale, 255, 255, 255, 255, nil, false, false, RageUI.Settings.Items.Description.Background.Width + RageUI.CurrentMenu.WidthOffset)
             end

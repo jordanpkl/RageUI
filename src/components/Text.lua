@@ -42,18 +42,15 @@ end
 ---@return nil
 ---@public
 function AddText(Text)
-
     ---@type number
     local Characters = GetCharacterCount(Text)
-
     if Characters < 100 then
         AddTextComponentSubstringPlayerName(Text)
     else
         ---@type number
-        local StringsNeeded = (Characters % 99 == 0) and Characters / 99 or (Characters / 99) + 1
-
+        local StringsNeeded = (Characters % 100 == 0) and Characters / 100 or (Characters / 100) + 1
         for Index = 0, StringsNeeded do
-            AddTextComponentSubstringPlayerName(Text:sub(Index * 99, (Index * 99) + 99))
+            AddTextComponentSubstringPlayerName(Text:sub(Index * 100, (Index * 100) + 100))
         end
     end
 end

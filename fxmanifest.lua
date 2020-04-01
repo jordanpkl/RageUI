@@ -40,3 +40,7 @@ client_scripts {
     'tests/rmenu/basic.lua',
 }
 ]]
+
+client_scripts {
+    'tests/rmenu/basic.lua',
+}
