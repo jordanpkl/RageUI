@@ -626,8 +626,11 @@ function RageUI.CreateWhile(wait, menu, key, closure)
     Citizen.CreateThread(function()
         while (true) do
             Citizen.Wait(wait or 0.1)
-            if IsControlJustPressed(1, key) then
-                RageUI.Visible(menu, not RageUI.Visible(menu))
+
+            if(key ~= nil)then
+                if IsControlJustPressed(1, key) then
+                    RageUI.Visible(menu, not RageUI.Visible(menu))
+                end
             end
 
             closure()
