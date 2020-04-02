@@ -12,7 +12,7 @@ RMenu:Get('showcase', 'main').Closed = function()
 end;
 
 RMenu.Add('showcase', 'submenu', RageUI.CreateSubMenu(RMenu:Get('showcase', 'main'), "RageUI", "~b~RAGEUI SHOWCASE", nil, nil, "root_cause", "shopui_title_dynasty8"))
-RMenu:Get('showcase', 'submenu').EnableMouse = false
+RMenu:Get('showcase', 'submenu').EnableMouse = true
 
 RMenu.Add('submenu', 'badges', RageUI.CreateSubMenu(RMenu:Get('showcase', 'main'), "RageUI", "~b~RageUI.BadgeStyle"))
 ---@type table
@@ -123,7 +123,6 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
             end
             index.panel.percentage = Percent
         end)
-
 
         RageUI.StatisticPanel(7, 0.9, "Weapon MK2")
         RageUI.StatisticPanel(7, 0.6, "Weapon")
