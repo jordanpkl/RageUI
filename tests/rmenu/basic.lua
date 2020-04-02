@@ -12,8 +12,9 @@ RMenu:Get('showcase', 'main').Closed = function()
 end;
 
 RMenu.Add('showcase', 'submenu', RageUI.CreateSubMenu(RMenu:Get('showcase', 'main'), "RageUI", "~b~RAGEUI SHOWCASE", nil, nil, "root_cause", "shopui_title_dynasty8"))
-RMenu:Get('showcase', 'submenu').EnableMouse = true
+RMenu:Get('showcase', 'submenu').EnableMouse = false
 
+RMenu.Add('submenu', 'badges', RageUI.CreateSubMenu(RMenu:Get('showcase', 'main'), "RageUI", "~b~BADGES"))
 ---@type table
 local foods = {
     "Banana",
@@ -85,6 +86,9 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
             end
         end, RMenu:Get('showcase', 'submenu'))
 
+        RageUI.Button("Available Badges", description, { RightLabel = "→→→" }, true, function()
+        end, RMenu:Get('submenu', 'badges'))
+
     end, function()
         ---Panels
 
@@ -120,10 +124,17 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
             index.panel.percentage = Percent
         end)
 
+
         RageUI.StatisticPanel(7, 0.9, "Weapon MK2")
         RageUI.StatisticPanel(7, 0.6, "Weapon")
     end)
 
+    RageUI.IsVisible(RMenu:Get('submenu', 'badges'), true, true, true, function()
+        --- Items
+        for BadgeName, Badge in pairs(RageUI.BadgeStyle) do
+            RageUI.CenterButton("RageUI.BadgeStyle." .. BadgeName, nil, {RightBadge = Badge, LeftBadge = Badge}, true, function(Hovered, Active, Selected)
+            end)
+        end
+    end, function()
+    end)
 end)
-
-
