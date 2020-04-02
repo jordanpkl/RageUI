@@ -24,7 +24,7 @@ local SettingsList = {
 ---@param Callback function
 ---@return nil
 ---@public
-function RageUI.List(Label, Items, Index, Description,Style, Enabled, Callback)
+function RageUI.List(Label, Items, Index, Description,Style, Enabled, Callback, Submenu)
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;
 
@@ -136,7 +136,6 @@ function RageUI.List(Label, Items, Index, Description,Style, Enabled, Callback)
                         ---@type table
                         local LeftBadge = RageUI.BadgeStyle.Lock
                         ---@type number
-                        local LeftBadgeOffset = ((LeftBadge == RageUI.BadgeStyle.None or LeftBadge == nil) and 0 or 27)
                         if LeftBadge ~= RageUI.BadgeStyle.None and LeftBadge ~= nil then
                             local BadgeData = LeftBadge(Selected)
 
@@ -170,6 +169,12 @@ function RageUI.List(Label, Items, Index, Description,Style, Enabled, Callback)
                 if Selected and (CurrentMenu.Controls.Select.Active or ((Hovered and CurrentMenu.Controls.Click.Active) and (not LeftArrowHovered and not RightArrowHovered))) then
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
+
+                    if Submenu ~= nil then
+                        if Submenu() then
+                            RageUI.NextMenu = Submenu
+                        end
+                    end
                 end
 
                 if (Enabled) then
