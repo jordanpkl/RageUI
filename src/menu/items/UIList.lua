@@ -24,7 +24,7 @@ local SettingsList = {
 ---@param Callback function
 ---@return nil
 ---@public
-function RageUI.List(Label, Items, Index, Description,Style, Enabled, Callback)
+function RageUI.List(Label, Items, Index, Description,Style, Enabled, Callback, Submenu)
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;
 
@@ -45,8 +45,8 @@ function RageUI.List(Label, Items, Index, Description,Style, Enabled, Callback)
                 RageUI.ItemsSafeZone(CurrentMenu)
 
                 local Hovered = false;
-                local LeftBadgeOffset = ((Style.LeftBadge == RageUI.BadgeStyle.None or tonumber(Style.LeftBadge) == nil) and 0 or 27)
-                local RightBadgeOffset = ((Style.RightBadge == RageUI.BadgeStyle.None or tonumber(Style.RightBadge) == nil) and 0 or 32)
+                local LeftBadgeOffset = ((Style.LeftBadge == RageUI.BadgeStyle.None or Style.LeftBadge == nil) and 0 or 27)
+                local RightBadgeOffset = ((Style.RightBadge == RageUI.BadgeStyle.None or Style.RightBadge == nil) and 0 or 32)
                 local RightOffset = 0
                 ---@type boolean
                 if CurrentMenu.EnableMouse == true then
@@ -117,13 +117,18 @@ function RageUI.List(Label, Items, Index, Description,Style, Enabled, Callback)
                     if Style.Enabled == true or Style.Enabled == nil then
                         if type(Style) == 'table' then
                             if Style.LeftBadge ~= nil then
-                                if Style.LeftBadge ~= RageUI.BadgeStyle.None and tonumber(Style.LeftBadge) ~= nil then
-                                    RenderSprite(RageUI.GetBadgeDictionary(Style.LeftBadge, Selected), RageUI.GetBadgeTexture(Style.LeftBadge, Selected), CurrentMenu.X, CurrentMenu.Y + SettingsButton.LeftBadge.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButton.LeftBadge.Width, SettingsButton.LeftBadge.Height, RageUI.GetBadgeColour(Style.LeftBadge, Selected))
+                                if Style.LeftBadge ~= RageUI.BadgeStyle.None then
+                                    local BadgeData = Style.LeftBadge(Selected)
+
+                                    RenderSprite(BadgeData.BadgeDictionary or "commonmenu", BadgeData.BadgeTexture or "", CurrentMenu.X, CurrentMenu.Y + SettingsButton.LeftBadge.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButton.LeftBadge.Width, SettingsButton.LeftBadge.Height, 0, BadgeData.BadgeColour and BadgeData.BadgeColour.R or 255, BadgeData.BadgeColour and BadgeData.BadgeColour.G or 255, BadgeData.BadgeColour and BadgeData.BadgeColour.B or 255, BadgeData.BadgeColour and BadgeData.BadgeColour.A or 255)
                                 end
                             end
+
                             if Style.RightBadge ~= nil then
-                                if Style.RightBadge ~= RageUI.BadgeStyle.None and tonumber(Style.RightBadge) ~= nil then
-                                    RenderSprite(RageUI.GetBadgeDictionary(Style.RightBadge, Selected), RageUI.GetBadgeTexture(Style.RightBadge, Selected), CurrentMenu.X + SettingsButton.RightBadge.X + CurrentMenu.WidthOffset, CurrentMenu.Y + SettingsButton.RightBadge.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButton.RightBadge.Width, SettingsButton.RightBadge.Height, 0, RageUI.GetBadgeColour(Style.RightBadge, Selected))
+                                if Style.RightBadge ~= RageUI.BadgeStyle.None then
+                                    local BadgeData = Style.RightBadge(Selected)
+
+                                    RenderSprite(BadgeData.BadgeDictionary or "commonmenu", BadgeData.BadgeTexture or "", CurrentMenu.X + SettingsButton.RightBadge.X + CurrentMenu.WidthOffset, CurrentMenu.Y + SettingsButton.RightBadge.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButton.RightBadge.Width, SettingsButton.RightBadge.Height, 0, BadgeData.BadgeColour and BadgeData.BadgeColour.R or 255, BadgeData.BadgeColour and BadgeData.BadgeColour.G or 255, BadgeData.BadgeColour and BadgeData.BadgeColour.B or 255, BadgeData.BadgeColour and BadgeData.BadgeColour.A or 255)
                                 end
                             end
                         end
@@ -131,9 +136,10 @@ function RageUI.List(Label, Items, Index, Description,Style, Enabled, Callback)
                         ---@type table
                         local LeftBadge = RageUI.BadgeStyle.Lock
                         ---@type number
-                        local LeftBadgeOffset = ((LeftBadge == RageUI.BadgeStyle.None or tonumber(LeftBadge) == nil) and 0 or 27)
-                        if LeftBadge ~= RageUI.BadgeStyle.None and tonumber(LeftBadge) ~= nil then
-                            RenderSprite(RageUI.GetBadgeDictionary(LeftBadge, Selected), RageUI.GetBadgeTexture(LeftBadge, Selected), CurrentMenu.X, CurrentMenu.Y + SettingsButton.LeftBadge.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButton.LeftBadge.Width, SettingsButton.LeftBadge.Height, nil, CheckBoxLockBadgeColor(Selected))
+                        if LeftBadge ~= RageUI.BadgeStyle.None and LeftBadge ~= nil then
+                            local BadgeData = LeftBadge(Selected)
+
+                            RenderSprite(BadgeData.BadgeDictionary or "commonmenu", BadgeData.BadgeTexture or "", CurrentMenu.X, CurrentMenu.Y + SettingsButton.LeftBadge.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButton.LeftBadge.Width, SettingsButton.LeftBadge.Height, 0, BadgeData.BadgeColour.R or 255, BadgeData.BadgeColour.G or 255, BadgeData.BadgeColour.B or 255, BadgeData.BadgeColour.A or 255)
                         end
                     end
                 else
@@ -163,6 +169,12 @@ function RageUI.List(Label, Items, Index, Description,Style, Enabled, Callback)
                 if Selected and (CurrentMenu.Controls.Select.Active or ((Hovered and CurrentMenu.Controls.Click.Active) and (not LeftArrowHovered and not RightArrowHovered))) then
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
+
+                    if Submenu ~= nil then
+                        if Submenu() then
+                            RageUI.NextMenu = Submenu
+                        end
+                    end
                 end
 
                 if (Enabled) then
