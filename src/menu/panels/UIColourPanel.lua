@@ -16,13 +16,13 @@ local Colour = {
 ---@param Callback function
 ---@return nil
 ---@public
-function RageUI.ColourPanel(Index, Title, Colours, MinimumIndex, CurrentIndex, Callback)
+function RageUI.ColourPanel(Title, Colours, MinimumIndex, CurrentIndex, Callback, Index)
 
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;
 
     if CurrentMenu ~= nil then
-        if CurrentMenu() and (CurrentMenu.Index == Index) then
+        if CurrentMenu() and (Index == nil or (CurrentMenu.Index == Index)) then
 
             ---@type number
             local Maximum = (#Colours > 9) and 9 or #Colours

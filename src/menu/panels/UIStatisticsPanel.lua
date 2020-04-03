@@ -16,12 +16,14 @@ local Statistics = {
 ---StatisticPanel
 ---@param Percent number
 ---@param Text string
+---@param Index number
 ---@return void
 ---@public
-function RageUI.StatisticPanel(Index, Percent, Text)
+function RageUI.StatisticPanel(Percent, Text, Index)
     local CurrentMenu = RageUI.CurrentMenu
     if CurrentMenu ~= nil then
-        if CurrentMenu() and (CurrentMenu.Index == Index) then
+        if CurrentMenu() and (Index == nil or (CurrentMenu.Index == Index)) then
+
             ---@type number
             RenderRectangle(CurrentMenu.X, CurrentMenu.Y + Statistics.Background.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset + (RageUI.StatisticPanelCount * 42), Statistics.Background.Width + CurrentMenu.WidthOffset, Statistics.Background.Height, 0, 0, 0, 170)
             RenderText(Text or "", CurrentMenu.X + Statistics.Text.Left.X + (CurrentMenu.WidthOffset / 2), (RageUI.StatisticPanelCount * 40) + CurrentMenu.Y + Statistics.Text.Left.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, Statistics.Text.Left.Scale, 245, 245, 245, 255, 0)
