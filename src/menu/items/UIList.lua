@@ -24,7 +24,7 @@ local SettingsList = {
 ---@param Callback function
 ---@return nil
 ---@public
-function RageUI.List(Label, Items, Index, Description,Style, Enabled, Callback, Submenu)
+function RageUI.List(Label, Items, Index, Description, Style, Enabled, Callback, Submenu)
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;
 
@@ -75,31 +75,31 @@ function RageUI.List(Label, Items, Index, Description,Style, Enabled, Callback, 
                     if Selected then
                         if Style.RightLabel ~= nil and Style.RightLabel ~= "" then
                             RenderText(Style.RightLabel, CurrentMenu.X + SettingsButton.RightText.X - RightBadgeOffset + CurrentMenu.WidthOffset, CurrentMenu.Y + SettingsButton.RightText.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.RightText.Scale, 0, 0, 0, 255, 2)
-                            RightOffset =MeasureStringWidth(Style.RightLabel,0,0.35)
+                            RightOffset = MeasureStringWidth(Style.RightLabel, 0, 0.35)
                         end
                     else
                         if Style.RightLabel ~= nil and Style.RightLabel ~= "" then
-                            RightOffset =MeasureStringWidth(Style.RightLabel,0,0.35)
+                            RightOffset = MeasureStringWidth(Style.RightLabel, 0, 0.35)
                             RenderText(Style.RightLabel, CurrentMenu.X + SettingsButton.RightText.X - RightBadgeOffset + CurrentMenu.WidthOffset, CurrentMenu.Y + SettingsButton.RightText.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.RightText.Scale, 245, 245, 245, 255, 2)
                         end
                     end
                 end
-                RightOffset = RightBadgeOffset*1.3 + RightOffset 
+                RightOffset = RightBadgeOffset * 1.3 + RightOffset
                 if Enabled == true or Enabled == nil then
                     if Selected then
 
                         RenderText(Label, CurrentMenu.X + SettingsButton.Text.X + LeftBadgeOffset, CurrentMenu.Y + SettingsButton.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.Text.Scale, 0, 0, 0, 255)
 
-                        RenderSprite(SettingsList.LeftArrow.Dictionary, SettingsList.LeftArrow.Texture, CurrentMenu.X + SettingsList.LeftArrow.X - TextOffset- RightOffset + CurrentMenu.WidthOffset, CurrentMenu.Y + SettingsList.LeftArrow.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsList.LeftArrow.Width, SettingsList.LeftArrow.Height, 0, 0, 0, 0, 255)
+                        RenderSprite(SettingsList.LeftArrow.Dictionary, SettingsList.LeftArrow.Texture, CurrentMenu.X + SettingsList.LeftArrow.X - TextOffset - RightOffset + CurrentMenu.WidthOffset, CurrentMenu.Y + SettingsList.LeftArrow.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsList.LeftArrow.Width, SettingsList.LeftArrow.Height, 0, 0, 0, 0, 255)
                         RenderSprite(SettingsList.RightArrow.Dictionary, SettingsList.RightArrow.Texture, CurrentMenu.X + SettingsList.RightArrow.X + CurrentMenu.WidthOffset - RightOffset, CurrentMenu.Y + SettingsList.RightArrow.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsList.RightArrow.Width, SettingsList.RightArrow.Height, 0, 0, 0, 0, 255)
 
-                        RenderText(ListText, CurrentMenu.X + SettingsList.Text.X + CurrentMenu.WidthOffset- RightOffset, CurrentMenu.Y + SettingsList.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsList.Text.Scale, 0, 0, 0, 255, 2)
+                        RenderText(ListText, CurrentMenu.X + SettingsList.Text.X + CurrentMenu.WidthOffset - RightOffset, CurrentMenu.Y + SettingsList.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsList.Text.Scale, 0, 0, 0, 255, 2)
                     else
 
 
                         RenderText(Label, CurrentMenu.X + SettingsButton.Text.X + LeftBadgeOffset, CurrentMenu.Y + SettingsButton.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.Text.Scale, 245, 245, 245, 255)
 
-                        RenderText(ListText, CurrentMenu.X + SettingsList.Text.X + 15 + CurrentMenu.WidthOffset-RightOffset, CurrentMenu.Y + SettingsList.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsList.Text.Scale, 245, 245, 245, 255, 2)
+                        RenderText(ListText, CurrentMenu.X + SettingsList.Text.X + 15 + CurrentMenu.WidthOffset - RightOffset, CurrentMenu.Y + SettingsList.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsList.Text.Scale, 245, 245, 245, 255, 2)
                     end
                 else
                     RenderText(Label, CurrentMenu.X + SettingsButton.Text.X + LeftBadgeOffset, CurrentMenu.Y + SettingsButton.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.Text.Scale, 163, 159, 148, 255)
@@ -170,10 +170,9 @@ function RageUI.List(Label, Items, Index, Description,Style, Enabled, Callback, 
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
 
-                    if Submenu ~= nil then
-                        if Submenu() then
-                            RageUI.NextMenu = Submenu
-                        end
+                    if Submenu ~= nil and type(Submenu) == "table" then
+                        print(Submenu[Index])
+                        RageUI.NextMenu = Submenu[Index]
                     end
                 end
 

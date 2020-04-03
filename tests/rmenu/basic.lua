@@ -57,7 +57,14 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
                 })
             end
             index.dish = Index;
-        end)
+        end, {
+            RMenu:Get('showcase', 'main'),
+            RMenu:Get('showcase', 'submenu'),
+            RMenu:Get('submenu', 'badges'),
+            RMenu:Get('showcase', 'submenu'),
+            RMenu:Get('submenu', 'badges'),
+            RMenu:Get('showcase', 'submenu')
+        })
 
         RageUI.Slider("Quantity", index.quantity, 10, "Select the amount of food you want to eat.", false, { }, true, function(Hovered, Selected, Active, Index)
             if (Selected) then
