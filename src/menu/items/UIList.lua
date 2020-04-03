@@ -171,7 +171,6 @@ function RageUI.List(Label, Items, Index, Description, Style, Enabled, Callback,
                     RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
 
                     if Submenu ~= nil and type(Submenu) == "table" then
-                        print(Submenu[Index])
                         RageUI.NextMenu = Submenu[Index]
                     end
                 end
