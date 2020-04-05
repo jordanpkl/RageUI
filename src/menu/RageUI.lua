@@ -611,6 +611,7 @@ function RageUI.CurrentIsEqualTo(Current, To, Style, DefaultStyle)
     end
 end
 
+
 function RageUI.IsVisible(menu, header, glare, instructional, items, panels)
     if (RageUI.Visible(menu)) then
         if (header == true) then
