@@ -13,6 +13,9 @@ end;
 
 RMenu.Add('showcase', 'submenu', RageUI.CreateSubMenu(RMenu:Get('showcase', 'main'), "RageUI", "~b~RAGEUI SHOWCASE", nil, nil, "root_cause", "shopui_title_dynasty8"))
 RMenu:Get('showcase', 'submenu').EnableMouse = true
+RMenu:Get('showcase', 'submenu').Closed = function()
+    -- TODO Perform action
+end;
 
 RMenu.Add('submenu', 'badges', RageUI.CreateSubMenu(RMenu:Get('showcase', 'main'), "RageUI", "~b~RageUI.BadgeStyle"))
 ---@type table
@@ -112,27 +115,31 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
         end
     end, function()
         ---Panels
-        RageUI.GridPanelHorizontal(1, 0.5, "Ouverts", "Plissés", function(Hovered, Active, X)
+        RageUI.GridPanelHorizontal(0.5, "Ouverts", "Plissés", function(Hovered, Active, X)
             -- TODO Implemented working
-        end)
-        RageUI.GridPanel(2, 0.5, 0.5, "Haut", "Bas", "Intérieur", "Extérieur", function(Hovered, Active, X, Y)
+        end, 1)
+
+        RageUI.GridPanel(0.5, 0.5, "Haut", "Bas", "Intérieur", "Extérieur", function(Hovered, Active, X, Y)
             -- TODO Implemented working
-        end)
-        RageUI.GridPanelVertical(4, 0.5, "Ouverts", "Plissés", function(Hovered, Active, Y)
+        end, 2)
+
+        RageUI.GridPanelVertical(0.5, "Ouverts", "Plissés", function(Hovered, Active, Y)
             -- TODO Implemented working
-        end)
-        RageUI.ColourPanel(5, "Couleur principale", RageUI.PanelColour.HairCut, 1, 5, function(Hovered, Active, MinimumIndex, CurrentIndex)
+        end, 4)
+
+        RageUI.ColourPanel("Couleur principale", RageUI.PanelColour.HairCut, 1, 5, function(Hovered, Active, MinimumIndex, CurrentIndex)
             -- TODO Implemented working
-        end)
-        RageUI.PercentagePanel(7, index.panel.percentage, "Percentage", nil, nil, function(Hovered, Active, Percent)
+        end, 5)
+
+        RageUI.PercentagePanel(index.panel.percentage, "Percentage", nil, nil, function(Hovered, Active, Percent)
             if (Active) then
 
             end
             index.panel.percentage = Percent
-        end)
+        end, 7)
 
-        RageUI.StatisticPanel(7, 0.9, "Weapon MK2")
-        RageUI.StatisticPanel(7, 0.6, "Weapon")
+        RageUI.StatisticPanel(0.9, "Weapon MK2", 7)
+        RageUI.StatisticPanel(0.6, "Weapon", 7)
     end)
 
     RageUI.IsVisible(RMenu:Get('submenu', 'badges'), true, true, true, function()

@@ -14,13 +14,14 @@ local Percentage = {
 ---@param MinText string
 ---@param MaxText string
 ---@param Callback function
+---@param Index number
 ---@return nil
 ---@public
-function RageUI.PercentagePanel(Index, Percent, HeaderText, MinText, MaxText, Callback)
+function RageUI.PercentagePanel(Percent, HeaderText, MinText, MaxText, Callback, Index)
     local CurrentMenu = RageUI.CurrentMenu
 
     if CurrentMenu ~= nil then
-        if CurrentMenu() and (CurrentMenu.Index == Index) then
+        if CurrentMenu() and (Index == nil or (CurrentMenu.Index == Index)) then
 
             ---@type boolean
             local Hovered = RageUI.IsMouseInBounds(CurrentMenu.X + Percentage.Bar.X + CurrentMenu.SafeZoneSize.X, CurrentMenu.Y + Percentage.Bar.Y + CurrentMenu.SafeZoneSize.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset - 4, Percentage.Bar.Width + CurrentMenu.WidthOffset, Percentage.Bar.Height + 8)
