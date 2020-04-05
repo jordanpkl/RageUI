@@ -1,7 +1,13 @@
 # No one is allowed to sell resources with rageui. I will take the necessary sanctions if that is the case. Thank you for respecting my work.
 
-# Discord : https://discord.gg/Jjb2c8Q (No support)
+# Discord : https://discord.gg/Jjb2c8Q
 
+# Thank you to all the sponsors of this project! Without you this one would not be what it is today. 
+- https://github.com/NotKalyptus
+- https://github.com/clementinise
+- https://github.com/DesertFade
+- https://github.com/rubbertoe98
+- https://github.com/Skodrix
 ___
 ![OpenIssue](https://img.shields.io/github/issues/iTexZoz/RageUI.svg?style=flat)
 ![LastReleases](https://img.shields.io/github/release/iTexZoz/RageUI.svg?label=Last%20releases&style=flat)
