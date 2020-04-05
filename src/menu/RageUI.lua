@@ -603,6 +603,14 @@ function RageUI.ItemsSafeZone(CurrentMenu)
     end
 end
 
+function RageUI.CurrentIsEqualTo(Current, To, Style, DefaultStyle)
+    if (Current == To) then
+        return Style;
+    else
+        return DefaultStyle or {};
+    end
+end
+
 function RageUI.IsVisible(menu, header, glare, instructional, items, panels)
     if (RageUI.Visible(menu)) then
         if (header == true) then
