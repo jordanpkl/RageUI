@@ -34,8 +34,10 @@ local index = {
     quantity = 0;
     panel = {
         percentage = 0.5
-    }
+    },
+    colored = { [1] = 1, [2] = 1 }
 }
+
 
 ---@type string
 local description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
@@ -104,7 +106,7 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
 
     end)
 
-    RageUI.IsVisible(RMenu:Get('showcase', 'submenu'), false, false, false, function()
+    RageUI.IsVisible(RMenu:Get('showcase', 'submenu'), false, false, true, function()
         --- Items
         for i = 1, 100 do
             RageUI.Button(string.format("Items - %s", i), description, {}, true, function(Hovered, Active, Selected)
@@ -127,8 +129,12 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
             -- TODO Implemented working
         end, 4)
 
-        RageUI.ColourPanel("Couleur principale", RageUI.PanelColour.HairCut, 1, 5, function(Hovered, Active, MinimumIndex, CurrentIndex)
+        RageUI.ColourPanel("Couleur principale", RageUI.PanelColour.HairCut, index.colored[1], index.colored[2] + 1, function(Hovered, Active, MinimumIndex, CurrentIndex)
             -- TODO Implemented working
+            if (Active) then
+                index.colored[2] = CurrentIndex - 1
+                index.colored[1] = MinimumIndex
+            end
         end, 5)
 
         RageUI.PercentagePanel(index.panel.percentage, "Percentage", nil, nil, function(Hovered, Active, Percent)
@@ -145,7 +151,7 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
     RageUI.IsVisible(RMenu:Get('submenu', 'badges'), true, true, true, function()
         --- Items
         for BadgeName, Badge in pairs(RageUI.BadgeStyle) do
-            RageUI.Button(string.format("RageUI.BadgeStyle.%s", BadgeName), nil, {RightBadge = Badge, LeftBadge = Badge}, true, function(Hovered, Active, Selected)
+            RageUI.Button(string.format("RageUI.BadgeStyle.%s", BadgeName), nil, { RightBadge = Badge, LeftBadge = Badge }, true, function(Hovered, Active, Selected)
             end)
         end
     end, function()
