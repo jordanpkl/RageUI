@@ -6,7 +6,6 @@
 
 print("")
 print("^1Author : Dylan Malandain (iTexZoz)^0")
-print("^4Contributor : Parow, Frazzle.^0")
 print("")
 print("^2[Download] : https://github.com/iTexZoz/RageUI/releases^0")
 print("^2[Feature Suggestions] : https://github.com/iTexZoz/RageUI/issues/2^0")
