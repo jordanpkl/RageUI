@@ -31,7 +31,8 @@ This project would never have been possible without the trust [Frazzle] placed i
 ### Thank you very much to all the contributors who allowed me to move forward on this project. :snail:
 
 - [Development] [Frazzle](https://github.com/FrazzIe) 
-- [Development] [Dylan Malandain (iTexZoz)](https://github.com/iTexZoz)
+- [Development] [Dylan Malandain (iTexZoz)](https://github.com/iTexZoz
+- [Development] [SpikeScarlatti](https://github.com/SpikeScarlatti) 
 - [Development] [Parow](https://github.com/Parow)
 - [Development] [TDLC](https://github.com/TDLCTV)
 - [Additional banner] [root-cause](https://github.com/root-cause/MenuBannerPack)
