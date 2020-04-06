@@ -9,6 +9,7 @@
 - https://github.com/rubbertoe98
 - https://github.com/Skodrix
 - https://github.com/Brlichtou
+- https://github.com/KxxDaa
 ___
 ![OpenIssue](https://img.shields.io/github/issues/iTexZoz/RageUI.svg?style=flat)
 ![LastReleases](https://img.shields.io/github/release/iTexZoz/RageUI.svg?label=Last%20releases&style=flat)
