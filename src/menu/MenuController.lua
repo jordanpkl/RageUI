@@ -25,7 +25,17 @@ function RageUI.GetSafeZoneBounds()
 
     return { X = math.round(SafeSize * ((W / H) * 5.4)), Y = math.round(SafeSize * 5.4) }
 end
-
+---Refresh
+---@return nil
+---@public
+function RageUI.Refresh()
+    Citizen.CreateThread(function()
+        Wait(0)
+        RageUI.CurrentMenu.Pagination.Minimum = 1
+        RageUI.CurrentMenu.Pagination.Maximum = 10
+        RageUI.CurrentMenu.Index  = 1
+    end)
+end
 ---GoUp
 ---@param Options number
 ---@return nil
