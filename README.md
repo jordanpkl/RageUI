@@ -4,6 +4,7 @@
 
 # Thank you to all the sponsors of this project! Without you this one would not be what it is today. 
 - https://github.com/NotKalyptus
+- https://github.com/Parow
 - https://github.com/clementinise
 - https://github.com/DesertFade
 - https://github.com/rubbertoe98
