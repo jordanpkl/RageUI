@@ -536,6 +536,7 @@ function RageUI.Render(instructionalButton)
                     RageUI.Visible(RageUI.CurrentMenu, false)
                     RageUI.Visible(RageUI.NextMenu, true)
                     RageUI.CurrentMenu.Controls.Select.Active = false
+                    RageUI.NextMenu = nil
                 end
             end
         end
