@@ -363,7 +363,19 @@ end
 
 function RageUI.CloseAll()
     menuOpen = false
-    RageUI.CurrentMenu = nil
+    if RageUI.CurrentMenu ~= nil then
+        local parent = RageUI.CurrentMenu.Parent
+        while parent ~= nil do
+            parent.Index = 1
+            parent.Pagination.Minimum = 1
+            parent.Pagination.Maximum = 10
+            parent = parent.Parent
+        end
+        RageUI.CurrentMenu.Index = 1
+        RageUI.CurrentMenu.Pagination.Minimum = 1
+        RageUI.CurrentMenu.Pagination.Maximum = 10
+        RageUI.CurrentMenu.Open = false
+    end
     RageUI.Options = 0
     RageUI.ItemOffset = 0
 end
@@ -450,6 +462,7 @@ function RageUI.Subtitle()
                 if RageUI.CurrentMenu.Index > RageUI.CurrentMenu.Options or RageUI.CurrentMenu.Index < 0 then
                     RageUI.CurrentMenu.Index = 1
                 end
+                RageUI.RefreshPagination()
                 if RageUI.CurrentMenu.PageCounter == nil then
                     RenderText(RageUI.CurrentMenu.PageCounterColour .. RageUI.CurrentMenu.Index .. " / " .. RageUI.CurrentMenu.Options, RageUI.CurrentMenu.X + RageUI.Settings.Items.Subtitle.PreText.X + RageUI.CurrentMenu.WidthOffset, RageUI.CurrentMenu.Y + RageUI.Settings.Items.Subtitle.PreText.Y + RageUI.ItemOffset, 0, RageUI.Settings.Items.Subtitle.PreText.Scale, 245, 245, 245, 255, 2)
                 else
@@ -611,6 +624,18 @@ function RageUI.CurrentIsEqualTo(Current, To, Style, DefaultStyle)
     end
 end
 
+function RageUI.RefreshPagination()
+    if (RageUI.CurrentMenu ~= nil) then
+        if (RageUI.CurrentMenu.Index > 10) then
+            local offset = RageUI.CurrentMenu.Index - 10
+            RageUI.CurrentMenu.Pagination.Minimum = 1 + offset
+            RageUI.CurrentMenu.Pagination.Maximum = 10 + offset
+        else
+            RageUI.CurrentMenu.Pagination.Minimum = 1
+            RageUI.CurrentMenu.Pagination.Maximum = 10
+        end
+    end
+end
 
 function RageUI.IsVisible(menu, header, glare, instructional, items, panels)
     if (RageUI.Visible(menu)) then
