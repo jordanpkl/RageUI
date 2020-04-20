@@ -375,6 +375,7 @@ function RageUI.CloseAll()
         RageUI.CurrentMenu.Pagination.Minimum = 1
         RageUI.CurrentMenu.Pagination.Maximum = 10
         RageUI.CurrentMenu.Open = false
+        RageUI.CurrentMenu = nil
     end
     RageUI.Options = 0
     RageUI.ItemOffset = 0
