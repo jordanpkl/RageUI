@@ -106,7 +106,6 @@ function RageUI.Button(Label, Description, Style, Enabled, Callback, Submenu)
                     RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
                     if Submenu ~= nil then
                         if Submenu() then
-                            RageUI.Refresh()
                             RageUI.NextMenu = Submenu
                         end
                     end
