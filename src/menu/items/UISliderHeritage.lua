@@ -27,7 +27,7 @@ end
 ---@param ItemIndex number
 ---@param Description string
 ---@param Callback function
-function RageUI.UISliderHeritage(Label, ItemIndex, Description, Callback)
+function RageUI.UISliderHeritage(Label, ItemIndex, Description, Callback, Value)
 
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;
@@ -42,6 +42,7 @@ function RageUI.UISliderHeritage(Label, ItemIndex, Description, Callback)
             if CurrentMenu.Pagination.Minimum <= Option and CurrentMenu.Pagination.Maximum >= Option then
 
                 ---@type number
+                local value = Value or 0.1
                 local Selected = CurrentMenu.Index == Option
 
                 ---@type boolean
@@ -87,14 +88,14 @@ function RageUI.UISliderHeritage(Label, ItemIndex, Description, Callback)
                 RageUI.ItemsDescription(CurrentMenu, Description, Selected);
 
                 if Selected and (CurrentMenu.Controls.SliderLeft.Active or (CurrentMenu.Controls.Click.Active and LeftArrowHovered)) and not (CurrentMenu.Controls.SliderRight.Active or (CurrentMenu.Controls.Click.Active and RightArrowHovered)) then
-                    ItemIndex = ItemIndex - 0.1
+                    ItemIndex = ItemIndex - value
                     if ItemIndex < 0.1 then
                         ItemIndex = 0.0
                     else
                         RageUI.PlaySound(Audio[Audio.Use].Slider.audioName, Audio[Audio.Use].Slider.audioRef, true)
                     end
                 elseif Selected and (CurrentMenu.Controls.SliderRight.Active or (CurrentMenu.Controls.Click.Active and RightArrowHovered)) and not (CurrentMenu.Controls.SliderLeft.Active or (CurrentMenu.Controls.Click.Active and LeftArrowHovered)) then
-                    ItemIndex = ItemIndex + 0.1
+                    ItemIndex = ItemIndex + value
                     if ItemIndex > #Items then
                         ItemIndex = 10
                     else
