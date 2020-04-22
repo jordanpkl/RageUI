@@ -38,7 +38,6 @@ local index = {
     colored = { [1] = 1, [2] = 1 }
 }
 
-
 ---@type string
 local description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
 
@@ -62,6 +61,8 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
                 })
             end
             index.dish = Index;
+        end, function(Index, CurrentItems)
+            print(Index, CurrentItems)
         end, {
             RMenu:Get('showcase', 'main'),
             RMenu:Get('showcase', 'submenu'),

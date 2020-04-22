@@ -24,7 +24,7 @@ local SettingsList = {
 ---@param Callback function
 ---@return nil
 ---@public
-function RageUI.List(Label, Items, Index, Description, Style, Enabled, Callback, Submenu)
+function RageUI.List(Label, Items, Index, Description, Style, Enabled, Callback, onListChange, Submenu)
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;
 
@@ -130,12 +130,18 @@ function RageUI.List(Label, Items, Index, Description, Style, Enabled, Callback,
                     if Index < 1 then
                         Index = #Items
                     end
+                    if (onListChange ~= nil) then
+                        onListChange(Index, Items[Index]);
+                    end
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].LeftRight.audioName, Audio[Audio.Use].LeftRight.audioRef)
                 elseif Selected and (CurrentMenu.Controls.Right.Active or (CurrentMenu.Controls.Click.Active and RightArrowHovered)) and not (CurrentMenu.Controls.Left.Active or (CurrentMenu.Controls.Click.Active and LeftArrowHovered)) then
                     Index = Index + 1
                     if Index > #Items then
                         Index = 1
+                    end
+                    if (onListChange ~= nil) then
+                        onListChange(Index, Items[Index]);
                     end
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].LeftRight.audioName, Audio[Audio.Use].LeftRight.audioRef)
