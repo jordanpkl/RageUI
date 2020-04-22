@@ -38,6 +38,11 @@ local index = {
     colored = { [1] = 1, [2] = 1 }
 }
 
+local HeritageShape = {
+    h = 0.5,
+    i = 5
+}
+
 ---@type string
 local description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
 
@@ -101,6 +106,15 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
 
         RageUI.Button("RageUI.BadgeStyle", description, { RightLabel = "→→→" }, true, function()
         end, RMenu:Get('submenu', 'badges'))
+                
+        RageUI.UISliderHeritage("Ressemblance", HeritageShape.i, "Déterminez de quel parent vous tenez le plus.", function(Hovered, Selected, Active, Heritage, Index)
+            if (Selected) then
+                if (HeritageShape.h ~= Heritage) then
+                    HeritageShape.h = Heritage
+                    HeritageShape.i = Index
+                end
+            end
+        end, 0.01) -- Default 0.1 / Can be nil
 
     end, function()
         ---Panels
