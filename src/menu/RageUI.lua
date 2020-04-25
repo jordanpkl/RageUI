@@ -379,6 +379,7 @@ function RageUI.CloseAll()
     end
     RageUI.Options = 0
     RageUI.ItemOffset = 0
+	ResetScriptGfxAlign()
 end
 
 ---Banner
