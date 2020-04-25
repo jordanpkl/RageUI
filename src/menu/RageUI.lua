@@ -406,14 +406,12 @@ function RageUI.Banner(Enabled, Glare)
                     if Glare then
 
                         local ScaleformMovie = RequestScaleformMovie("MP_MENU_GLARE")
-                        Citizen.CreateThread(function()
-                            if not HasScaleformMovieLoaded(ScaleformMovie) then
-                                ScaleformMovie = RequestScaleformMovie("MP_MENU_GLARE")
-                                while not HasScaleformMovieLoaded(ScaleformMovie) do
-                                    Citizen.Wait(0)
-                                end
+                        if not HasScaleformMovieLoaded(ScaleformMovie) then
+                            ScaleformMovie = RequestScaleformMovie("MP_MENU_GLARE")
+                            while not HasScaleformMovieLoaded(ScaleformMovie) do
+                                Citizen.Wait(0)
                             end
-                        end)
+                        end
 
                         ---@type number
                         local Glarewidth = RageUI.Settings.Items.Title.Background.Width + RageUI.CurrentMenu.WidthOffset
