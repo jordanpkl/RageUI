@@ -219,54 +219,24 @@ function RageUI.CenterButton(Label, Description, Style, Enabled, Callback, Subme
     end
 end
 
-
-function RageUI.EmptyButton(Label, Description, Style, Enabled, Callback, Submenu)
-    ---@type table
-    local CurrentMenu = RageUI.CurrentMenu;
+function RageUI.Separator(Label)
+    local CurrentMenu = RageUI.CurrentMenu
     if CurrentMenu ~= nil then
         if CurrentMenu() then
-            ---@type number
             local Option = RageUI.Options + 1
             if CurrentMenu.Pagination.Minimum <= Option and CurrentMenu.Pagination.Maximum >= Option then
-                ---@type boolean
-                local Selected = CurrentMenu.Index == Option
-                RageUI.ItemsSafeZone(CurrentMenu)
-
-                local LeftBadgeOffset = ((Style.LeftBadge == RageUI.BadgeStyle.None or Style.LeftBadge == nil) and 0 or 27)
-                local RightBadgeOffset = ((Style.RightBadge == RageUI.BadgeStyle.None or Style.RightBadge == nil) and 0 or 32)
-
-                local Hovered = false;
-                if Enabled == true or Enabled == nil then
-                    if Selected then
-                        if Style.RightLabel ~= nil and Style.RightLabel ~= "" then
-                            RenderText(Style.RightLabel, CurrentMenu.X + SettingsButton.RightText.X - RightBadgeOffset + CurrentMenu.WidthOffset, CurrentMenu.Y + SettingsButton.RightText.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.RightText.Scale, 0, 0, 0, 255, 2)
-                        end
-                        RenderText(Label, CurrentMenu.X + SettingsButton.Text.X + LeftBadgeOffset, CurrentMenu.Y + SettingsButton.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.Text.Scale, 0, 0, 0, 255)
-                    else
-                        if Style.RightLabel ~= nil and Style.RightLabel ~= "" then
-                            RenderText(Style.RightLabel, CurrentMenu.X + SettingsButton.RightText.X - RightBadgeOffset + CurrentMenu.WidthOffset, CurrentMenu.Y + SettingsButton.RightText.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.RightText.Scale, 245, 245, 245, 255, 2)
-                        end
-
-                        RenderText(Label, CurrentMenu.X + SettingsButton.Text.X + LeftBadgeOffset, CurrentMenu.Y + SettingsButton.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.Text.Scale, 245, 245, 245, 255)
-                    end
-                else
-                    RenderText(Label, CurrentMenu.X + SettingsButton.Text.X + LeftBadgeOffset, CurrentMenu.Y + SettingsButton.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.Text.Scale, 163, 159, 148, 255)
+                if (Label ~= nil) then
+                    RenderText(Label, CurrentMenu.X + SettingsButton.Text.X + 250.0, CurrentMenu.Y + SettingsButton.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.Text.Scale, 245, 245, 245, 255,1)
                 end
-
                 RageUI.ItemOffset = RageUI.ItemOffset + SettingsButton.Rectangle.Height
-                RageUI.ItemsDescription(CurrentMenu, Description, Selected);
-
-                if (Enabled) then
-                    Callback(Hovered, Selected, ((CurrentMenu.Controls.Select.Active or (Hovered and CurrentMenu.Controls.Click.Active)) and Selected))
-                end
-
-                if Selected and (CurrentMenu.Controls.Select.Active or (Hovered and CurrentMenu.Controls.Click.Active)) then
-                    local Audio = RageUI.Settings.Audio
-                    RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
-                    if Submenu ~= nil then
-                        if Submenu() then
-                            RageUI.NextMenu = Submenu
+                if (CurrentMenu.Index == Option) then
+                    if (RageUI.LastControl) then
+                        CurrentMenu.Index = Option - 1
+                        if (CurrentMenu.Index < 1) then
+                            CurrentMenu.Index = RageUI.CurrentMenu.Options
                         end
+                    else
+                        CurrentMenu.Index = Option + 1
                     end
                 end
             end
@@ -274,5 +244,3 @@ function RageUI.EmptyButton(Label, Description, Style, Enabled, Callback, Submen
         end
     end
 end
-
-

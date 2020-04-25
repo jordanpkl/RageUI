@@ -98,6 +98,8 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
             end
         end)
 
+        RageUI.Separator("(Center text)")
+
         RageUI.Button("Another Menu", description, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
             if (Selected) then
 
@@ -107,7 +109,7 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
         RageUI.Button("RageUI.BadgeStyle", description, { RightLabel = "→→→" }, true, function()
         end, RMenu:Get('submenu', 'badges'))
                 
-        RageUI.UISliderHeritage("Ressemblance", HeritageShape.i, "Déterminez de quel parent vous tenez le plus.", function(Hovered, Selected, Active, Heritage, Index)
+        RageUI.UISliderHeritage("Resemblance", HeritageShape.i, "Determine which parent you care most about.", function(Hovered, Selected, Active, Heritage, Index)
             if (Selected) then
                 if (HeritageShape.h ~= Heritage) then
                     HeritageShape.h = Heritage

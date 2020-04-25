@@ -343,17 +343,15 @@ function RageUI.Visible(Menu, Value)
                     end
                     Menu:UpdateInstructionalButtons(Value);
                     RageUI.CurrentMenu = Menu
-                    RageUI.Options = 0
-                    RageUI.ItemOffset = 0
-                    Menu.Open = Value
                     menuOpen = true
                 else
-                    Menu.Open = Value
                     menuOpen = false
                     RageUI.CurrentMenu = nil
-                    RageUI.Options = 0
-                    RageUI.ItemOffset = 0
                 end
+                Menu.Open = Value
+                RageUI.Options = 0
+                RageUI.ItemOffset = 0
+                RageUI.LastControl = false
             else
                 return Menu.Open
             end
@@ -406,14 +404,12 @@ function RageUI.Banner(Enabled, Glare)
                     if Glare then
 
                         local ScaleformMovie = RequestScaleformMovie("MP_MENU_GLARE")
-                        Citizen.CreateThread(function()
-                            if not HasScaleformMovieLoaded(ScaleformMovie) then
-                                ScaleformMovie = RequestScaleformMovie("MP_MENU_GLARE")
-                                while not HasScaleformMovieLoaded(ScaleformMovie) do
-                                    Citizen.Wait(0)
-                                end
+                        if not HasScaleformMovieLoaded(ScaleformMovie) then
+                            ScaleformMovie = RequestScaleformMovie("MP_MENU_GLARE")
+                            while not HasScaleformMovieLoaded(ScaleformMovie) do
+                                Citizen.Wait(0)
                             end
-                        end)
+                        end
 
                         ---@type number
                         local Glarewidth = RageUI.Settings.Items.Title.Background.Width + RageUI.CurrentMenu.WidthOffset
@@ -552,6 +548,7 @@ function RageUI.Render(instructionalButton)
                     RageUI.Visible(RageUI.NextMenu, true)
                     RageUI.CurrentMenu.Controls.Select.Active = false
                     RageUI.NextMenu = nil
+                    RageUI.LastControl = false
                 end
             end
         end
