@@ -19,13 +19,9 @@ end;
 
 RMenu.Add('submenu', 'badges', RageUI.CreateSubMenu(RMenu:Get('showcase', 'main'), "RageUI", "~b~RageUI.BadgeStyle"))
 ---@type table
-local foods = {
-    "Banana",
-    "Apple",
-    "Pizza",
-    "Quartilicious",
-    "Steak",
-    0xF00D,
+local rageui_style = {
+    "RageUI",
+    "NativeUI",
 }
 
 local index = {
@@ -57,30 +53,27 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
                 })
             end
             index.ketchup = Checked;
+        end, function()
+            print('Checked')
+        end, function()
+            print('Unchecked')
         end)
 
-        RageUI.List("Food", foods, index.dish, "Select the type of food you want to eat.", {}, true, function(Hovered, Active, Selected, Index)
-            if (Active) then
-                RageUI.Text({
-                    message = string.format("Preparing ~b~%s~w~...", foods[index.dish])
-                })
-            end
+        RageUI.List("Style", rageui_style, index.dish, "Select the type UI Size.", {}, true, function(Hovered, Active, Selected, Index)
             index.dish = Index;
         end, function(Index, CurrentItems)
             print(Index, CurrentItems)
+            RMenu:Get('showcase', 'main'):SetStyleSize(CurrentItems)
+            RageUI.SetStyleAudio(CurrentItems)
         end, {
-            RMenu:Get('showcase', 'main'),
             RMenu:Get('showcase', 'submenu'),
             RMenu:Get('submenu', 'badges'),
-            RMenu:Get('showcase', 'submenu'),
-            RMenu:Get('submenu', 'badges'),
-            RMenu:Get('showcase', 'submenu')
         })
 
         RageUI.Slider("Quantity", index.quantity, 10, "Select the amount of food you want to eat.", false, { }, true, function(Hovered, Selected, Active, Index)
             if (Selected) then
                 RageUI.Text({
-                    message = string.format("Preparing ~r~%s ~b~%s(s)~w~...", index.quantity, foods[index.dish])
+                    message = string.format("Preparing ~r~%s ~b~%s(s)~w~...", index.quantity, "TEXT")
                 })
             end
             index.quantity = Index;
@@ -88,9 +81,9 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
 
         RageUI.Button("Cook !", "Cook the dish with the appropriate ingredients and ketchup.", { RightBadge = RageUI.BadgeStyle.Tick }, true, function(Hovered, Active, Selected)
             if (Selected) then
-                local string = string.format("You have ordered ~r~%s ~b~%s(s)~w~ ~r~with~w~ ketchup.", index.quantity, foods[index.dish])
+                local string = string.format("You have ordered ~r~%s ~b~%s(s)~w~ ~r~with~w~ ketchup.", index.quantity, "foods[index.dish]")
                 if not (index.ketchup) then
-                    string = string.format("You have ordered ~r~%s ~b~%s(s)~w~ ~r~without~w~ ketchup.", index.quantity, foods[index.dish])
+                    string = string.format("You have ordered ~r~%s ~b~%s(s)~w~ ~r~without~w~ ketchup.", index.quantity, "foods[index.dish]")
                 end
                 RageUI.Text({
                     message = string;
@@ -108,7 +101,7 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
 
         RageUI.Button("RageUI.BadgeStyle", description, { RightLabel = "→→→" }, true, function()
         end, RMenu:Get('submenu', 'badges'))
-                
+
         RageUI.UISliderHeritage("Resemblance", HeritageShape.i, "Determine which parent you care most about.", function(Hovered, Selected, Active, Heritage, Index)
             if (Selected) then
                 if (HeritageShape.h ~= Heritage) then

@@ -30,7 +30,7 @@ function RageUI.CreateMenu(Title, Subtitle, X, Y, TextureDictionary, TextureName
     Menu.X = X or 0
     Menu.Y = Y or 0
     Menu.Parent = nil
-    Menu.WidthOffset = 100
+    Menu.WidthOffset = RageUI.UI.Style[RageUI.UI.Current].Width
     Menu.Open = false
     Menu.Controls = RageUI.Settings.Controls
     Menu.Index = 1
@@ -152,8 +152,16 @@ function RageUI.Menus:SetTitle(Title)
     self.Title = Title
 end
 
+---SetStyleSize
+---@param StyleName string
+---@return void
+---@public
+function RageUI.Menus:SetStyleSize(StyleName)
+    self.WidthOffset = RageUI.UI.Style[StyleName or "RageUI"].Width
+end
+
 ---RefreshIndex
----@return nil
+---@return void
 ---@public
 function RageUI.Menus:RefreshIndex()
     self.Index = 1
