@@ -43,8 +43,7 @@ function RageUI.Button(Label, Description, Style, Enabled, Callback, Submenu)
                     end
                 end
 
-                ---@type boolean
-                if CurrentMenu.EnableMouse == true then
+                if (CurrentMenu.EnableMouse == true) and (CurrentMenu.CursorStyle == 0) or (CurrentMenu.CursorStyle == 1) then
                     Hovered = RageUI.ItemsMouseBounds(CurrentMenu, Selected, Option, SettingsButton);
                 end
 

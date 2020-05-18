@@ -6,7 +6,7 @@
 
 RMenu.Add('showcase', 'main', RageUI.CreateMenu("RageUI", "Undefined for using SetSubtitle"))
 RMenu:Get('showcase', 'main'):SetSubtitle("~b~RAGEUI SHOWCASE")
-RMenu:Get('showcase', 'main').EnableMouse = false
+RMenu:Get('showcase', 'main').EnableMouse = true
 RMenu:Get('showcase', 'main').Closed = function()
     -- TODO Perform action
 end;
@@ -24,9 +24,26 @@ local rageui_style = {
     "NativeUI",
 }
 
+local rageui_cursor = {
+    { Name = "None", Value = 0 },
+    { Name = "Normal", Value = 1 },
+    { Name = "TransparentNormal", Value = 2 },
+    { Name = "PreGrab", Value = 3 },
+    { Name = "Grab", Value = 4 },
+    { Name = "MiddleFinger", Value = 5 },
+    { Name = "LeftArrow", Value = 6 },
+    { Name = "RightArrow", Value = 7 },
+    { Name = "UpArrow", Value = 8 },
+    { Name = "DownArrow", Value = 9 },
+    { Name = "HorizontalExpand", Value = 10 },
+    { Name = "Add", Value = 11 },
+    { Name = "Remove", Value = 12 },
+}
+
 local index = {
     ketchup = false;
     dish = 1;
+    cursor = 1,
     quantity = 0;
     panel = {
         percentage = 0.5
@@ -69,6 +86,13 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
             RMenu:Get('showcase', 'submenu'),
             RMenu:Get('submenu', 'badges'),
         })
+
+        RageUI.List("Cursor", rageui_cursor, index.cursor, "Select the type cursor style.", {}, true, function(Hovered, Active, Selected, Index)
+            index.cursor = Index;
+        end, function(Index, CurrentItems)
+            print(Index, CurrentItems)
+            RMenu:Get('showcase', 'main'):SetCursorStyle(rageui_cursor[Index].Value)
+        end)
 
         RageUI.Slider("Quantity", index.quantity, 10, "Select the amount of food you want to eat.", false, { }, true, function(Hovered, Selected, Active, Index)
             if (Selected) then
@@ -167,3 +191,4 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
     end, function()
     end)
 end)
+

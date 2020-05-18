@@ -413,8 +413,8 @@ end
 function RageUI.Navigation()
     if RageUI.CurrentMenu ~= nil then
         if RageUI.CurrentMenu() then
-            if RageUI.CurrentMenu.EnableMouse then
-                ShowCursorThisFrame()
+            if RageUI.CurrentMenu.EnableMouse   then
+                SetMouseCursorActiveThisFrame()
             end
             if RageUI.Options > RageUI.CurrentMenu.Pagination.Total then
 
@@ -438,7 +438,7 @@ function RageUI.Navigation()
                 UpHovered = RageUI.IsMouseInBounds(RageUI.CurrentMenu.X + RageUI.CurrentMenu.SafeZoneSize.X, RageUI.CurrentMenu.Y + RageUI.CurrentMenu.SafeZoneSize.Y + RageUI.CurrentMenu.SubtitleHeight + RageUI.ItemOffset, RageUI.Settings.Items.Navigation.Rectangle.Width + RageUI.CurrentMenu.WidthOffset, RageUI.Settings.Items.Navigation.Rectangle.Height)
                 DownHovered = RageUI.IsMouseInBounds(RageUI.CurrentMenu.X + RageUI.CurrentMenu.SafeZoneSize.X, RageUI.CurrentMenu.Y + RageUI.Settings.Items.Navigation.Rectangle.Height + RageUI.CurrentMenu.SafeZoneSize.Y + RageUI.CurrentMenu.SubtitleHeight + RageUI.ItemOffset, RageUI.Settings.Items.Navigation.Rectangle.Width + RageUI.CurrentMenu.WidthOffset, RageUI.Settings.Items.Navigation.Rectangle.Height)
 
-                if RageUI.CurrentMenu.EnableMouse then
+                if RageUI.CurrentMenu.EnableMouse   then
 
 
                     if RageUI.CurrentMenu.Controls.Click.Active then

@@ -345,6 +345,7 @@ function RageUI.Visible(Menu, Value)
                         RageUI.CurrentMenu.Open = not Value
                     end
                     Menu:UpdateInstructionalButtons(Value);
+                    Menu:UpdateCursorStyle();
                     RageUI.CurrentMenu = Menu
                     menuOpen = true
                 else
@@ -537,11 +538,14 @@ function RageUI.Render(instructionalButton)
                     if RageUI.CurrentMenu.Parent ~= nil then
                         if RageUI.CurrentMenu.Parent() then
                             RageUI.NextMenu = RageUI.CurrentMenu.Parent
+                            RageUI.CurrentMenu:UpdateCursorStyle()
                         else
+                            print('xxx')
                             RageUI.NextMenu = nil
                             RageUI.Visible(RageUI.CurrentMenu, false)
                         end
                     else
+                        print('zz')
                         RageUI.NextMenu = nil
                         RageUI.Visible(RageUI.CurrentMenu, false)
                     end

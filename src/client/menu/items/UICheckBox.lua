@@ -95,7 +95,7 @@ function RageUI.Checkbox(Label, Description, Checked, Style, Callback, onChecked
                 local Hovered = false;
 
                 ---@type boolean
-                if CurrentMenu.EnableMouse == true then
+                if CurrentMenu.EnableMouse == true and (CurrentMenu.CursorStyle == 0) or (CurrentMenu.CursorStyle == 1) then
                     Hovered = RageUI.ItemsMouseBounds(CurrentMenu, Selected, Option, SettingsButton);
                 end
                 if Selected then

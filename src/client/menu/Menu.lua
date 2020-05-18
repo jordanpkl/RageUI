@@ -43,6 +43,7 @@ function RageUI.CreateMenu(Title, Subtitle, X, Y, TextureDictionary, TextureName
     Menu.Options = 0
     Menu.Closable = true
     Menu.InstructionalScaleform = RequestScaleformMovie("INSTRUCTIONAL_BUTTONS")
+    Menu.CursorStyle = 1
 
     if string.starts(Menu.Subtitle, "~") then
         Menu.PageCounterColour = string.sub(Menu.Subtitle, 1, 3)
@@ -112,6 +113,7 @@ function RageUI.CreateSubMenu(ParentMenu, Title, Subtitle, X, Y, TextureDictiona
             Menu.Options = 0
             Menu.Closable = true
             Menu.InstructionalScaleform = RequestScaleformMovie("INSTRUCTIONAL_BUTTONS")
+            Menu.CursorStyle = 1
 
             if string.starts(Menu.Subtitle, "~") then
                 Menu.PageCounterColour = string.sub(Menu.Subtitle, 1, 3)
@@ -158,6 +160,30 @@ end
 ---@public
 function RageUI.Menus:SetStyleSize(StyleName)
     self.WidthOffset = RageUI.UI.Style[StyleName or "RageUI"].Width
+end
+
+---SetStyleSize
+---@param Int string
+---@return void
+---@public
+function RageUI.Menus:SetCursorStyle(Int)
+    self.CursorStyle = Int or 1 or 0
+    SetMouseCursorSprite(Int)
+end
+
+---ResetCursorStyle
+---@return void
+---@public
+function RageUI.Menus:ResetCursorStyle()
+    self.CursorStyle = 1
+    SetMouseCursorSprite(1)
+end
+
+---UpdateCursorStyle
+---@return void
+---@public
+function RageUI.Menus:UpdateCursorStyle()
+    SetMouseCursorSprite(self.CursorStyle)
 end
 
 ---RefreshIndex
