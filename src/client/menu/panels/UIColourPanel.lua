@@ -51,7 +51,7 @@ function RageUI.ColourPanel(Title, Colours, MinimumIndex, CurrentIndex, Callback
 
             RenderText((Title and Title or "") .. " (" .. CurrentIndex .. " of " .. #Colours .. ")", CurrentMenu.X + RageUI.Settings.Panels.Grid.Text.Top.X + (CurrentMenu.WidthOffset / 2), CurrentMenu.Y + RageUI.Settings.Panels.Grid.Text.Top.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, RageUI.Settings.Panels.Grid.Text.Top.Scale, 245, 245, 245, 255, 1)
 
-
+            --[[
             local Audio = RageUI.Settings.Audio
             if (CurrentMenu.Index == Index) and (CurrentMenu.Controls.Left.Active) and not (CurrentMenu.Controls.Right.Active) then
                 CurrentIndex = CurrentIndex - 1
@@ -77,6 +77,7 @@ function RageUI.ColourPanel(Title, Colours, MinimumIndex, CurrentIndex, Callback
                 Selected = true
                 RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
             end
+            ]]
 
 
             if Hovered or LeftArrowHovered or RightArrowHovered then
