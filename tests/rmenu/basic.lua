@@ -4,6 +4,8 @@
 --- DateTime: 20/12/2019 19:07
 ---
 
+print("^1 RageUI - testing file is started. ^0")
+
 RMenu.Add('showcase', 'main', RageUI.CreateMenu("RageUI", "Undefined for using SetSubtitle"))
 RMenu:Get('showcase', 'main'):SetSubtitle("~b~RAGEUI SHOWCASE")
 RMenu:Get('showcase', 'main').EnableMouse = true
