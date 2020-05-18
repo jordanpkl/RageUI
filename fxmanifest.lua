@@ -22,7 +22,6 @@ client_scripts {
 
     "src/client/menu/panels/*.lua",
 
-    "src/client/menu/panels/*.lua",
     "src/client/menu/windows/*.lua",
 
 }
