@@ -695,3 +695,7 @@ end
 function RageUI.SetStyleAudio(StyleAudio)
     RageUI.Settings.Audio.Use = StyleAudio or "RageUI"
 end
+
+function RageUI.GetStyleAudio()
+    return RageUI.Settings.Audio.Use or "RageUI"
+end
