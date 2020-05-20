@@ -162,6 +162,19 @@ function RageUI.Menus:SetStyleSize(StyleName)
     self.WidthOffset = RageUI.UI.Style[StyleName or "RageUI"].Width
 end
 
+---GetStyleSize
+---@return any
+---@public
+function RageUI.Menus:GetStyleSize()
+    if(self.WidthOffset == 100)then
+        return "RageUI"
+    elseif(self.WidthOffset == 0)then
+        return "NativeUI";
+    else
+        return self.WidthOffset;
+    end
+end
+
 ---SetStyleSize
 ---@param Int string
 ---@return void
