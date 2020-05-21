@@ -13,8 +13,6 @@ local Statistics = {
     }
 }
 
-local MeasureStringWidth = MeasureStringWidth
-
 ---StatisticPanel
 ---@param Percent number
 ---@param Text string
