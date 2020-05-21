@@ -155,12 +155,20 @@ function RageUI.Menus:SetTitle(Title)
 end
 
 ---SetStyleSize
----@param StyleName string
----@return void
+---@param Value int
+---@return nil
 ---@public
-function RageUI.Menus:SetStyleSize(StyleName)
-    self.WidthOffset = RageUI.UI.Style[StyleName or "RageUI"].Width
+function RageUI.Menus:SetStyleSize(Value)
+    --self.WidthOffset = RageUI.UI.Style[Value or "RageUI"].Width
+    local witdh
+    if Value >= 0 and Value <= 100 then
+        witdh = Value
+    else
+        witdh = 100
+    end
+    self.WidthOffset = witdh
 end
+
 
 ---GetStyleSize
 ---@return any
