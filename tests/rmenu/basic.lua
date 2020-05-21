@@ -78,11 +78,10 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
             print('Unchecked')
         end)
 
-        RageUI.List("Style", rageui_style, index.dish, "Select the type UI Size.", {}, true, function(Hovered, Active, Selected, Index)
+        RageUI.List("Style", rageui_style, index.dish, "Select the type UI Size and the audio library you want to use \n You also can use NUMPAD+ and NUMPAD- to change menu size", {}, true, function(Hovered, Active, Selected, Index)
             index.dish = Index;
         end, function(Index, CurrentItems)
-            print(Index, CurrentItems)
-            RMenu:Get('showcase', 'main'):SetStyleSize(CurrentItems)
+            --print(Index, CurrentItems)
             RageUI.SetStyleAudio(CurrentItems)
         end, {
             RMenu:Get('showcase', 'submenu'),
@@ -139,7 +138,14 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
 
     end, function()
         ---Panels
-
+        RageUI.PercentagePanel(index.panel.percentage, "Menu Size", nil, nil, function(Hovered, Active, Percent)
+            if (Active) then
+                for k, v in pairs(RMenu:GetType('showcase')) do
+                    RMenu:GetType('showcase')[k].Menu:SetStyleSize(Percent * 100)
+                end
+            end
+            index.panel.percentage = Percent
+        end, 2)
     end)
 
     RageUI.IsVisible(RMenu:Get('showcase', 'submenu'), false, false, true, function()
@@ -182,6 +188,9 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
 
         RageUI.StatisticPanel(0.9, "Weapon MK2", 7)
         RageUI.StatisticPanel(0.6, "Weapon", 7)
+        RageUI.StatisticPanelAdvanced("Advanced Panel", 0.6, nil, 0.1, nil, nil, 7)
+
+        RageUI.BoutonPanel("Left text", "Right Text", 8)
     end)
 
     RageUI.IsVisible(RMenu:Get('submenu', 'badges'), true, true, true, function()
@@ -194,3 +203,20 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
     end)
 end)
 
+Citizen.CreateThread(function()
+    while true do
+        Wait(0)
+        for k, v in pairs(RMenu:GetType('showcase')) do
+            if RageUI.Visible(RMenu:GetType('showcase')[k].Menu) then
+                if IsDisabledControlJustPressed(0, 96) then
+                    RMenu:GetType('showcase')[k].Menu:SetStyleSize(RMenu:GetType('showcase')[k].Menu.WidthOffset + 2.5)
+                end
+
+                if IsDisabledControlJustPressed(0, 97) then
+                    RMenu:GetType('showcase')[k].Menu:SetStyleSize(RMenu:GetType('showcase')[k].Menu.WidthOffset - 2.5)
+                    print(RMenu:GetType('showcase')[k].Menu.X)
+                end
+            end
+        end
+    end
+end)
