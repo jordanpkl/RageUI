@@ -104,7 +104,7 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
             index.quantity = Index;
         end)
 
-        RageUI.Button("Cook !", "Cook the dish with the appropriate ingredients and ketchup.", { RightBadge = RageUI.BadgeStyle.Tick }, true, function(Hovered, Active, Selected)
+        RageUI.ButtonWithStyle("Cook !", "Cook the dish with the appropriate ingredients and ketchup.", { RightBadge = RageUI.BadgeStyle.Tick }, true, function(Hovered, Active, Selected)
             if (Selected) then
                 local string = string.format("You have ordered ~r~%s ~b~%s(s)~w~ ~r~with~w~ ketchup.", index.quantity, "foods[index.dish]")
                 if not (index.ketchup) then
@@ -118,13 +118,13 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
 
         RageUI.Separator("(Center text)")
 
-        RageUI.Button("Another Menu", description, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
+        RageUI.ButtonWithStyle("Another Menu", description, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
             if (Selected) then
 
             end
         end, RMenu:Get('showcase', 'submenu'))
 
-        RageUI.Button("RageUI.BadgeStyle", description, { RightLabel = "→→→" }, true, function()
+        RageUI.Button("RageUI.BadgeStyle", description, true, function()
         end, RMenu:Get('submenu', 'badges'))
 
         RageUI.UISliderHeritage("Resemblance", HeritageShape.i, "Determine which parent you care most about.", function(Hovered, Selected, Active, Heritage, Index)
@@ -151,7 +151,7 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
     RageUI.IsVisible(RMenu:Get('showcase', 'submenu'), false, false, true, function()
         --- Items
         for i = 1, 100 do
-            RageUI.Button(string.format("Items - %s", i), description, {}, true, function(Hovered, Active, Selected)
+            RageUI.Button(string.format("Items - %s", i), description, true, function(Hovered, Active, Selected)
                 if (Selected) then
 
                 end
@@ -201,22 +201,4 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
         end
     end, function()
     end)
-end)
-
-Citizen.CreateThread(function()
-    while true do
-        Wait(0)
-        for k, v in pairs(RMenu:GetType('showcase')) do
-            if RageUI.Visible(RMenu:GetType('showcase')[k].Menu) then
-                if IsDisabledControlJustPressed(0, 96) then
-                    RMenu:GetType('showcase')[k].Menu:SetStyleSize(RMenu:GetType('showcase')[k].Menu.WidthOffset + 2.5)
-                end
-
-                if IsDisabledControlJustPressed(0, 97) then
-                    RMenu:GetType('showcase')[k].Menu:SetStyleSize(RMenu:GetType('showcase')[k].Menu.WidthOffset - 2.5)
-                    print(RMenu:GetType('showcase')[k].Menu.X)
-                end
-            end
-        end
-    end
 end)

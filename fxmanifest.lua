@@ -4,10 +4,6 @@ games { 'gta5' };
 name 'RageUI';
 description 'RageUI, and a project specially created to replace the NativeUILua-Reloaded library. This library allows to create menus similar to the one of Grand Theft Auto online.'
 
-server_script {
-    'src/server/update.lua',
-}
-
 client_scripts {
     "src/client/RMenu.lua",
     "src/client/menu/RageUI.lua",
@@ -27,7 +23,7 @@ client_scripts {
 }
 
 client_scripts {
-    --'tests/rmenu/basic.lua',
+     'tests/rmenu/basic.lua',
 }
 
 
