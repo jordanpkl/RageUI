@@ -159,7 +159,6 @@ end
 ---@return nil
 ---@public
 function RageUI.Menus:SetStyleSize(Value)
-    --self.WidthOffset = RageUI.UI.Style[Value or "RageUI"].Width
     local witdh
     if Value >= 0 and Value <= 100 then
         witdh = Value

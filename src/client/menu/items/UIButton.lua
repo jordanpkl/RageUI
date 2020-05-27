@@ -32,7 +32,7 @@ function RageUI.Button(Label, Description, Enabled, Callback, Submenu)
                 RenderSprite(SettingsButton.SelectedSprite.Dictionary, SettingsButton.SelectedSprite.Texture, CurrentMenu.X, CurrentMenu.Y + SettingsButton.SelectedSprite.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButton.SelectedSprite.Width + CurrentMenu.WidthOffset, SettingsButton.SelectedSprite.Height)
             end
 
-            local colorData = Enabled and (Active and {0, 0, 0} or {255, 255, 255}) or {163, 159, 148}
+            local colorData = Enabled and (Active and { 0, 0, 0 } or { 255, 255, 255 }) or { 163, 159, 148 }
             RenderText(Label, CurrentMenu.X + SettingsButton.Text.X, CurrentMenu.Y + SettingsButton.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.Text.Scale, colorData[1], colorData[2], colorData[3], 255)
 
             RageUI.ItemOffset = RageUI.ItemOffset + SettingsButton.Rectangle.Height
@@ -41,7 +41,7 @@ function RageUI.Button(Label, Description, Enabled, Callback, Submenu)
 
             if Enabled then
                 ---@type boolean
-                local Hovered = CurrentMenu.EnableMouse and (CurrentMenu.CursorStyle == 0 or CurrentMenu.CursorStyle == 1) and RageUI.ItemsMouseBounds(CurrentMenu, Active, Option, SettingsButton);
+                local Hovered = CurrentMenu.EnableMouse and (CurrentMenu.CursorStyle == 0 or CurrentMenu.CursorStyle == 1) and RageUI.ItemsMouseBounds(CurrentMenu, Active, Option + 1, SettingsButton);
                 local Selected = (CurrentMenu.Controls.Select.Active or (Hovered and CurrentMenu.Controls.Click.Active)) and Active
 
                 if Callback then
@@ -62,7 +62,6 @@ function RageUI.Button(Label, Description, Enabled, Callback, Submenu)
         RageUI.Options = RageUI.Options + 1
     end
 end
-
 
 ---ButtonWithStyle
 ---@param Label string
@@ -134,7 +133,7 @@ function RageUI.ButtonWithStyle(Label, Description, Style, Enabled, Callback, Su
 
             if Enabled then
                 ---@type boolean
-                local Hovered = CurrentMenu.EnableMouse and (CurrentMenu.CursorStyle == 0 or CurrentMenu.CursorStyle == 1) and RageUI.ItemsMouseBounds(CurrentMenu, Active, Option, SettingsButton);
+                local Hovered = CurrentMenu.EnableMouse and (CurrentMenu.CursorStyle == 0 or CurrentMenu.CursorStyle == 1) and RageUI.ItemsMouseBounds(CurrentMenu, Active, Option + 1, SettingsButton);
                 local Selected = (CurrentMenu.Controls.Select.Active or (Hovered and CurrentMenu.Controls.Click.Active)) and Active
 
                 if Callback then
