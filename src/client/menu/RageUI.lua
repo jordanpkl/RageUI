@@ -529,6 +529,7 @@ function RageUI.Render(instructionalButton)
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].Back.audioName, Audio[Audio.Use].Back.audioRef)
                     if RageUI.CurrentMenu.Closed ~= nil then
+                        collectgarbage()
                         RageUI.CurrentMenu.Closed()
                     end
                     if RageUI.CurrentMenu.Parent ~= nil then

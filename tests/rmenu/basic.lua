@@ -116,7 +116,6 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
             end
         end)
 
-        RageUI.Separator("(Center text)")
 
         RageUI.ButtonWithStyle("Another Menu", description, { RightLabel = "→→→" }, true, function(Hovered, Active, Selected)
             if (Selected) then
@@ -196,9 +195,10 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
     RageUI.IsVisible(RMenu:Get('submenu', 'badges'), true, true, true, function()
         --- Items
         for BadgeName, Badge in pairs(RageUI.BadgeStyle) do
-            RageUI.Button(string.format("RageUI.BadgeStyle.%s", BadgeName), nil, { RightBadge = Badge, LeftBadge = Badge }, true, function(Hovered, Active, Selected)
+            RageUI.ButtonWithStyle(string.format("RageUI.BadgeStyle.%s", BadgeName), nil, { RightBadge = Badge, LeftBadge = Badge }, true, function(Hovered, Active, Selected)
             end)
         end
     end, function()
     end)
 end)
+

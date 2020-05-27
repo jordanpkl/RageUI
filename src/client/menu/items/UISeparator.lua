@@ -29,3 +29,4 @@ function RageUI.Separator(Label)
         end
     end
 end
+
