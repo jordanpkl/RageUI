@@ -55,7 +55,7 @@ function RageUI.GridPanelHorizontal(X, LeftText, RightText, Callback, Index)
                 if IsDisabledControlPressed(0, 24) then
                     Selected = true
 
-                    CircleX = math.round(GetControlNormal(0, 239) * 1920) - CurrentMenu.SafeZoneSize.X - (GridPanelHorizontal.Circle.Width / 2)
+                    CircleX = math.round(GetControlNormal(2, 239) * 1920) - CurrentMenu.SafeZoneSize.X - (GridPanelHorizontal.Circle.Width / 2)
 
                     if CircleX > (CurrentMenu.X + GridPanelHorizontal.Grid.X + (CurrentMenu.WidthOffset / 2) + 20 + GridPanelHorizontal.Grid.Width - 40) then
                         CircleX = CurrentMenu.X + GridPanelHorizontal.Grid.X + (CurrentMenu.WidthOffset / 2) + 20 + GridPanelHorizontal.Grid.Width - 40

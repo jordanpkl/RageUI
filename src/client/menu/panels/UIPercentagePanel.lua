@@ -52,7 +52,7 @@ function RageUI.PercentagePanel(Percent, HeaderText, MinText, MaxText, Callback,
                 if IsDisabledControlPressed(0, 24) then
                     Selected = true
 
-                    Progress = math.round(GetControlNormal(0, 239) * 1920) - CurrentMenu.SafeZoneSize.X - (CurrentMenu.X + Percentage.Bar.X + (CurrentMenu.WidthOffset / 2))
+                    Progress = math.round(GetControlNormal(2, 239) * 1920) - CurrentMenu.SafeZoneSize.X - (CurrentMenu.X + Percentage.Bar.X + (CurrentMenu.WidthOffset / 2))
 
                     if Progress < 0 then
                         Progress = 0

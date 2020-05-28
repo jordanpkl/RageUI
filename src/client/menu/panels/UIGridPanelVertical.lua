@@ -53,7 +53,7 @@ function RageUI.GridPanelVertical(Y, TopText, BottomText, Callback, Index)
                 if IsDisabledControlPressed(0, 24) then
                     Selected = true
 
-                    CircleY = math.round(GetControlNormal(0, 240) * 1080) - CurrentMenu.SafeZoneSize.Y - (RageUI.Settings.Panels.Grid.Circle.Height / 2)
+                    CircleY = math.round(GetControlNormal(2, 240) * 1080) - CurrentMenu.SafeZoneSize.Y - (RageUI.Settings.Panels.Grid.Circle.Height / 2)
 
                     if CircleY > (CurrentMenu.Y + RageUI.Settings.Panels.Grid.Grid.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset + 20 + RageUI.Settings.Panels.Grid.Grid.Height - 40) then
                         CircleY = CurrentMenu.Y + RageUI.Settings.Panels.Grid.Grid.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset + 20 + RageUI.Settings.Panels.Grid.Grid.Height - 40
