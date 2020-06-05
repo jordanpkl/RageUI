@@ -342,6 +342,7 @@ function RageUI.Visible(Menu, Value)
             if type(Value) == "boolean" then
                 if Value then
                     if RageUI.CurrentMenu ~= nil then
+			RageUI.CurrentMenu.Closed()
                         RageUI.CurrentMenu.Open = not Value
                     end
                     Menu:UpdateInstructionalButtons(Value);
