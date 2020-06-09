@@ -67,7 +67,7 @@ function RageUI.GridPanel(X, Y, TopText, BottomText, LeftText, RightText, Callba
 
                     if CircleX > (CurrentMenu.X + Grid.Grid.X + (CurrentMenu.WidthOffset / 2) + 20 + Grid.Grid.Width - 40) then
                         CircleX = CurrentMenu.X + Grid.Grid.X + (CurrentMenu.WidthOffset / 2) + 20 + Grid.Grid.Width - 40
-                    elseif CircleX < (CurrentMenu.X + Grid.Grid.X + 20 - (Grid.Circle.Width / 2)) then
+                    elseif CircleX < (CurrentMenu.XrAG + Grid.Grid.X + 20 - (Grid.Circle.Width / 2)) then
                         CircleX = CurrentMenu.X + Grid.Grid.X + 20 - (Grid.Circle.Width / 2)
                     end
 
