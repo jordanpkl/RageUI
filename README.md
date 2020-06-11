@@ -34,8 +34,8 @@ This project would never have been possible without the trust [Frazzle] placed i
 - [Development] [Frazzle](https://github.com/FrazzIe) 
 - [Development] [Dylan Malandain (iTexZoz)](https://github.com/iTexZoz
 - [Development] [SpikeScarlatti](https://github.com/SpikeScarlatti) 
-- [Development] [Parow](https://github.com/Parow)
 - [Development] [TDLC](https://github.com/TDLCTV)
+- [Contributor] [Mehdi](https://github.com/MehdiUI)
 - [Additional banner] [root-cause](https://github.com/root-cause/MenuBannerPack)
 - [Media Previews] [eR0ot](https://github.com/eR0oT)
 
