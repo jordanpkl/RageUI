@@ -44,14 +44,19 @@ function RageUI.Button(Label, Description, Enabled, Callback, Submenu)
                 local Hovered = CurrentMenu.EnableMouse and (CurrentMenu.CursorStyle == 0 or CurrentMenu.CursorStyle == 1) and RageUI.ItemsMouseBounds(CurrentMenu, Active, Option + 1, SettingsButton);
                 local Selected = (CurrentMenu.Controls.Select.Active or (Hovered and CurrentMenu.Controls.Click.Active)) and Active
 
-                if Callback then
-                    Callback(Hovered, Active, Selected)
+                if (Callback.onHovered ~= nil) then
+                    Callback.onHovered();
+                end
+                if (Callback.onActive ~= nil) then
+                    Callback.onActive();
                 end
 
                 if Selected then
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
-
+                    if (Callback.onSelected ~= nil) then
+                        Callback.onSelected();
+                    end
                     if Submenu and Submenu() then
                         RageUI.NextMenu = Submenu
                     end
@@ -136,14 +141,19 @@ function RageUI.ButtonWithStyle(Label, Description, Style, Enabled, Callback, Su
                 local Hovered = CurrentMenu.EnableMouse and (CurrentMenu.CursorStyle == 0 or CurrentMenu.CursorStyle == 1) and RageUI.ItemsMouseBounds(CurrentMenu, Active, Option + 1, SettingsButton);
                 local Selected = (CurrentMenu.Controls.Select.Active or (Hovered and CurrentMenu.Controls.Click.Active)) and Active
 
-                if Callback then
-                    Callback(Hovered, Active, Selected)
+                if (Callback.onHovered ~= nil) then
+                    Callback.onHovered();
+                end
+                if (Callback.onActive ~= nil) then
+                    Callback.onActive();
                 end
 
                 if Selected then
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
-
+                    if (Callback.onSelected ~= nil) then
+                        Callback.onSelected();
+                    end
                     if Submenu and Submenu() then
                         RageUI.NextMenu = Submenu
                     end

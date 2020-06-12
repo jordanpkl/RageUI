@@ -18,33 +18,64 @@ local description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, se
 
 local checkbox = false;
 
-RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
+Citizen.CreateThread(function()
+    while (true) do
+        Citizen.Wait(1.0)
 
-    RageUI.IsVisible(RMenu:Get('showcase', 'main'), true, true, true, function()
-        --- Items
-        RageUI.Checkbox("Add ketchup ?", description, checkbox, { Style = RageUI.CheckboxStyle.Tick }, {
-            onHovered = function()
+        if IsControlJustPressed(1, 51) then
+            RageUI.Visible(RMenu:Get('showcase', 'main'), not RageUI.Visible(RMenu:Get('showcase', 'main')))
+        end
 
-            end,
-            onSelected = function(isActive)
+        RageUI.IsVisible(RMenu:Get('showcase', 'main'), true, true, true, function()
+            --- Items
+            RageUI.Checkbox("Add ketchup ?", description, checkbox, { Style = RageUI.CheckboxStyle.Tick }, {
+                onHovered = function()
 
-            end,
-            onActive = function()
+                end,
+                onSelected = function(isActive)
 
-            end,
-            onChecked = function()
-                checkbox = true;
-            end,
-            onUnChecked = function()
-                checkbox = false;
-            end
-        })
+                end,
+                onActive = function()
+
+                end,
+                onChecked = function()
+                    checkbox = true;
+                end,
+                onUnChecked = function()
+                    checkbox = false;
+                end
+            })
+
+            RageUI.Button('Basic Items', description, true, {
+                onHovered = function()
+
+                end,
+                onSelected = function()
+
+                end,
+                onActive = function()
+
+                end,
+            })
+
+            RageUI.ButtonWithStyle('Basic Items', description, { RightLabel = "With Style" }, true, {
+                onHovered = function()
+
+                end,
+                onSelected = function()
+
+                end,
+                onActive = function()
+
+                end,
+            })
 
 
-    end, function()
-        --- Panel
+        end, function()
+            --- Panel
+        end)
 
-    end)
 
+    end
 end)
 

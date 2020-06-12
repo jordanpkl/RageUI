@@ -33,7 +33,6 @@ RageUI.CheckboxStyle = {
 ---@param BoxSelect number
 ---@return nil
 local function StyleCheckBox(Selected, Checked, Box, BoxSelect, OffSet)
-
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;
     if OffSet == nil then
@@ -54,16 +53,6 @@ local function StyleCheckBox(Selected, Checked, Box, BoxSelect, OffSet)
     end
 end
 
----CheckBoxLockBadgeColor
----@param Selected boolean
----@return table
-local function CheckBoxLockBadgeColor(Selected)
-    if Selected then
-        return 0, 0, 0, 255
-    else
-        return 163, 159, 148, 255
-    end
-end
 
 ---Checkbox
 ---@param Label string
@@ -112,20 +101,16 @@ function RageUI.Checkbox(Label, Description, Checked, Style, Actions)
                         else
                             RenderText(Label, CurrentMenu.X + SettingsButton.Text.X + LeftBadgeOffset, CurrentMenu.Y + SettingsButton.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.Text.Scale, 245, 245, 245, 255)
                         end
-
                         if type(Style) == 'table' then
                             if Style.LeftBadge ~= nil then
                                 if Style.LeftBadge ~= RageUI.BadgeStyle.None then
                                     local BadgeData = Style.LeftBadge(Selected)
-
                                     RenderSprite(BadgeData.BadgeDictionary or "commonmenu", BadgeData.BadgeTexture or "", CurrentMenu.X, CurrentMenu.Y + SettingsButton.LeftBadge.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButton.LeftBadge.Width, SettingsButton.LeftBadge.Height, 0, BadgeData.BadgeColour and BadgeData.BadgeColour.R or 255, BadgeData.BadgeColour and BadgeData.BadgeColour.G or 255, BadgeData.BadgeColour and BadgeData.BadgeColour.B or 255, BadgeData.BadgeColour and BadgeData.BadgeColour.A or 255)
                                 end
                             end
-
                             if Style.RightBadge ~= nil then
                                 if Style.RightBadge ~= RageUI.BadgeStyle.None then
                                     local BadgeData = Style.RightBadge(Selected)
-
                                     RenderSprite(BadgeData.BadgeDictionary or "commonmenu", BadgeData.BadgeTexture or "", CurrentMenu.X + SettingsButton.RightBadge.X + CurrentMenu.WidthOffset, CurrentMenu.Y + SettingsButton.RightBadge.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButton.RightBadge.Width, SettingsButton.RightBadge.Height, 0, BadgeData.BadgeColour and BadgeData.BadgeColour.R or 255, BadgeData.BadgeColour and BadgeData.BadgeColour.G or 255, BadgeData.BadgeColour and BadgeData.BadgeColour.B or 255, BadgeData.BadgeColour and BadgeData.BadgeColour.A or 255)
                                 end
                             end
@@ -133,9 +118,7 @@ function RageUI.Checkbox(Label, Description, Checked, Style, Actions)
                     else
                         ---@type table
                         local LeftBadge = RageUI.BadgeStyle.Lock
-
                         ---@type number
-
                         local LeftBadgeOffset = ((LeftBadge == RageUI.BadgeStyle.None or LeftBadge == nil) and 0 or 27)
 
                         if Selected then
@@ -151,7 +134,7 @@ function RageUI.Checkbox(Label, Description, Checked, Style, Actions)
                         end
                     end
 
-                    if Enabled == true or Enabled == nil then
+                    if Style.Enabled == true or Style.Enabled == nil then
                         if Selected then
                             if Style.RightLabel ~= nil and Style.RightLabel ~= "" then
 
@@ -185,20 +168,9 @@ function RageUI.Checkbox(Label, Description, Checked, Style, Actions)
                         RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
                         Checked = not Checked
                         if (Checked) then
-                            Actions['onChecked']();
+                            Actions.onChecked();
                         else
-                            Actions['onUnChecked']();
-                        end
-                    end
-
-                    if Selected and (CurrentMenu.Controls.Select.Active or (Hovered and CurrentMenu.Controls.Click.Active)) and (Style.Enabled == false) then
-                        local Audio = RageUI.Settings.Audio
-                        RageUI.PlaySound(Audio[Audio.Use].Error.audioName, Audio[Audio.Use].Error.audioRef)
-                        Checked = false
-                        if (Checked) then
-                            Actions['onChecked']();
-                        else
-                            Actions['onUnChecked']();
+                            Actions.onUnChecked();
                         end
                     end
 
@@ -211,10 +183,10 @@ function RageUI.Checkbox(Label, Description, Checked, Style, Actions)
                 RageUI.ItemsDescription(CurrentMenu, Description, Selected)
 
                 if (((CurrentMenu.Controls.Select.Active or (Hovered and CurrentMenu.Controls.Click.Active)) and Selected)) then
-                    Actions['onSelected'](Checked);
+                    Actions.onSelected(Checked);
                 end
                 if (Selected) then
-                    Actions['onActive']();
+                    Actions.onActive();
                 end
 
             end
