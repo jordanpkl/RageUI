@@ -72,7 +72,7 @@ end
 ---@param Callback function
 ---@return nil
 ---@public
-function RageUI.Checkbox(Label, Description, Checked, Style, Callback, onChecked, onUnchecked)
+function RageUI.Checkbox(Label, Description, Checked, Style, Actions)
 
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;
@@ -97,6 +97,9 @@ function RageUI.Checkbox(Label, Description, Checked, Style, Callback, onChecked
                 ---@type boolean
                 if CurrentMenu.EnableMouse == true and (CurrentMenu.CursorStyle == 0) or (CurrentMenu.CursorStyle == 1) then
                     Hovered = RageUI.ItemsMouseBounds(CurrentMenu, Selected, Option, SettingsButton);
+                    if (Hovered) then
+                        Actions['onHovered']();
+                    end
                 end
                 if Selected then
                     RenderSprite(SettingsButton.SelectedSprite.Dictionary, SettingsButton.SelectedSprite.Texture, CurrentMenu.X, CurrentMenu.Y + SettingsButton.SelectedSprite.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButton.SelectedSprite.Width + CurrentMenu.WidthOffset, SettingsButton.SelectedSprite.Height)
@@ -182,13 +185,9 @@ function RageUI.Checkbox(Label, Description, Checked, Style, Callback, onChecked
                         RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
                         Checked = not Checked
                         if (Checked) then
-                            if (onChecked ~= nil) then
-                                onChecked();
-                            end
+                            Actions['onChecked']();
                         else
-                            if (onUnchecked ~= nil) then
-                                onUnchecked()
-                            end
+                            Actions['onUnChecked']();
                         end
                     end
 
@@ -197,13 +196,9 @@ function RageUI.Checkbox(Label, Description, Checked, Style, Callback, onChecked
                         RageUI.PlaySound(Audio[Audio.Use].Error.audioName, Audio[Audio.Use].Error.audioRef)
                         Checked = false
                         if (Checked) then
-                            if (onChecked ~= nil) then
-                                onChecked();
-                            end
+                            Actions['onChecked']();
                         else
-                            if (onUnchecked ~= nil) then
-                                onUnchecked()
-                            end
+                            Actions['onUnChecked']();
                         end
                     end
 
@@ -215,7 +210,13 @@ function RageUI.Checkbox(Label, Description, Checked, Style, Callback, onChecked
 
                 RageUI.ItemsDescription(CurrentMenu, Description, Selected)
 
-                Callback(Hovered, Selected, ((CurrentMenu.Controls.Select.Active or (Hovered and CurrentMenu.Controls.Click.Active)) and Selected), Checked)
+                if (((CurrentMenu.Controls.Select.Active or (Hovered and CurrentMenu.Controls.Click.Active)) and Selected)) then
+                    Actions['onSelected'](Checked);
+                end
+                if (Selected) then
+                    Actions['onActive']();
+                end
+
             end
             RageUI.Options = RageUI.Options + 1
         end
