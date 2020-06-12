@@ -100,6 +100,18 @@ Citizen.CreateThread(function()
                 end
             })
 
+            RageUI.Slider("Slider Label", progressValue, progressMax, "Slider description", false, {}, true, {
+                onListChange = function(Index)
+                    progressValue = Index
+                end,
+                onSelected = function(Index)
+
+                end,
+                onHovered = function()
+
+                end
+            })
+
 
         end, function()
             --- Panel

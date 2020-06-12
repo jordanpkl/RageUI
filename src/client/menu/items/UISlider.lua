@@ -17,7 +17,6 @@ local SettingsSlider = {
     RightArrow = { Dictionary = "commonmenutu", Texture = "arrowright", X = 400, Y = 11.5, Width = 15, Height = 15 },
 }
 
-
 ---Slider
 ---@param Label string
 ---@param ProgressStart number
@@ -25,8 +24,8 @@ local SettingsSlider = {
 ---@param Description string
 ---@param Divider boolean
 ---@param Enabled boolean
----@param Callback function
-function RageUI.Slider(Label, ProgressStart, ProgressMax, Description, Divider, Style, Enabled, Callback)
+---@param Actions function
+function RageUI.Slider(Label, ProgressStart, ProgressMax, Description, Divider, Style, Enabled, Actions)
 
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;
@@ -148,23 +147,32 @@ function RageUI.Slider(Label, ProgressStart, ProgressMax, Description, Divider, 
                     if ProgressStart < 1 then
                         ProgressStart = #Items
                     end
-
+                    if (Actions.onListChange ~= nil) then
+                        Actions.onListChange(ProgressStart);
+                    end
                     RageUI.PlaySound(Audio[Audio.Use].LeftRight.audioName, Audio[Audio.Use].LeftRight.audioRef)
                 elseif Selected and (CurrentMenu.Controls.Right.Active or (CurrentMenu.Controls.Click.Active and RightArrowHovered)) and not (CurrentMenu.Controls.Left.Active or (CurrentMenu.Controls.Click.Active and LeftArrowHovered)) then
                     ProgressStart = ProgressStart + 1
                     if ProgressStart > #Items then
                         ProgressStart = 1
                     end
-
+                    if (Actions.onListChange ~= nil) then
+                        Actions.onListChange(ProgressStart);
+                    end
                     RageUI.PlaySound(Audio[Audio.Use].LeftRight.audioName, Audio[Audio.Use].LeftRight.audioRef)
                 end
 
                 if Selected and (CurrentMenu.Controls.Select.Active or ((Hovered and CurrentMenu.Controls.Click.Active) and (not LeftArrowHovered and not RightArrowHovered))) then
+                    if (Actions.onSelected ~= nil) then
+                        Actions.onSelected(ProgressStart);
+                    end
                     RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
                 end
 
-                if (Enabled) then
-                    Callback(Hovered, Selected, ((CurrentMenu.Controls.Select.Active or ((Hovered and CurrentMenu.Controls.Click.Active) and (not LeftArrowHovered and not RightArrowHovered))) and Selected), ProgressStart)
+                if (Hovered) then
+                    if (Actions.onHovered ~= nil) then
+                        Actions.onHovered();
+                    end
                 end
             end
 
