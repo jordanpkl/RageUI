@@ -18,6 +18,9 @@ local description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, se
 
 local checkbox = false;
 
+local availableActions = { "Action 1", "Action 2" }
+local actionIndex = 1
+
 Citizen.CreateThread(function()
     while (true) do
         Citizen.Wait(1.0)
@@ -68,6 +71,18 @@ Citizen.CreateThread(function()
                 onActive = function()
 
                 end,
+            })
+
+            RageUI.List("Title", availableActions, actionIndex, description, {}, true, {
+                onListChange = function(Index, Items)
+                    actionIndex = Index
+                end,
+                onSelected = function(Index, Items)
+
+                end,
+                onHovered = function(Index, Items)
+
+                end
             })
 
 
