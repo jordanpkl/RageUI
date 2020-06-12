@@ -24,7 +24,7 @@ local SettingsProgress = {
 ---@param Callback function
 ---@return nil
 ---@public
-function RageUI.Progress(Label, ProgressStart, ProgressMax, Description, Counter, Enabled, Callback)
+function RageUI.Progress(Label, ProgressStart, ProgressMax, Description, Counter, Enabled, Actions)
 
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;
@@ -101,14 +101,18 @@ function RageUI.Progress(Label, ProgressStart, ProgressMax, Description, Counter
                     if ProgressStart < 0 then
                         ProgressStart = #Items
                     end
-
+                    if (Actions.onListChange ~= nil) then
+                        Actions.onListChange(ProgressStart);
+                    end
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].LeftRight.audioName, Audio[Audio.Use].LeftRight.audioRef)
                 elseif Selected and CurrentMenu.Controls.Right.Active and not CurrentMenu.Controls.Left.Active then
                     ProgressStart = ProgressStart + 1
-
                     if ProgressStart > #Items then
                         ProgressStart = 0
+                    end
+                    if (Actions.onListChange ~= nil) then
+                        Actions.onListChange(ProgressStart);
                     end
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].LeftRight.audioName, Audio[Audio.Use].LeftRight.audioRef)
@@ -117,6 +121,9 @@ function RageUI.Progress(Label, ProgressStart, ProgressMax, Description, Counter
                 if Selected and (CurrentMenu.Controls.Select.Active or ((Hovered and CurrentMenu.Controls.Click.Active) and not ProgressHovered)) then
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
+                    if (Actions.onSelected ~= nil) then
+                        Actions.onSelected(ProgressStart);
+                    end
                 elseif Selected and (Hovered and CurrentMenu.Controls.Click.Active and ProgressHovered) then
 
                     ---@type number
@@ -139,9 +146,12 @@ function RageUI.Progress(Label, ProgressStart, ProgressMax, Description, Counter
 
                 end
 
-                if (Enabled) then
-                    Callback(Hovered, Selected, ((CurrentMenu.Controls.Select.Active or ((Hovered and CurrentMenu.Controls.Click.Active) and not ProgressHovered)) and Selected), ProgressStart)
+                if (Hovered) then
+                    if (Actions.onHovered ~= nil) then
+                        Actions.onHovered();
+                    end
                 end
+
             end
             RageUI.Options = RageUI.Options + 1
 

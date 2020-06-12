@@ -21,6 +21,9 @@ local checkbox = false;
 local availableActions = { "Action 1", "Action 2" }
 local actionIndex = 1
 
+local progressValue = 1
+local progressMax = 25
+
 Citizen.CreateThread(function()
     while (true) do
         Citizen.Wait(1.0)
@@ -81,6 +84,18 @@ Citizen.CreateThread(function()
 
                 end,
                 onHovered = function(Index, Items)
+
+                end
+            })
+
+            RageUI.Progress("Progress label", progressValue, progressMax, description, true, true, {
+                onListChange = function(Index)
+                    progressValue = Index
+                end,
+                onSelected = function(Index)
+
+                end,
+                onHovered = function()
 
                 end
             })
