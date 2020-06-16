@@ -29,19 +29,7 @@ The implementation of this open source project was done faster than expected in 
 
 This project would never have been possible without the trust [Frazzle] placed in me, so I wanted to thank him for trusting me to carry out this project. 
 
-### Thank you very much to all the contributors who allowed me to move forward on this project. :snail:
-
-- [Development] [Frazzle](https://github.com/FrazzIe) 
-- [Development] [Dylan Malandain (iTexZoz)](https://github.com/iTexZoz
-- [Development] [SpikeScarlatti](https://github.com/SpikeScarlatti) 
-- [Development] [TDLC](https://github.com/TDLCTV)
-- [Contributor] [Mehdi](https://github.com/MehdiUI)
-- [Additional banner] [root-cause](https://github.com/root-cause/MenuBannerPack)
-- [Media Previews] [eR0ot](https://github.com/eR0oT)
-
 # Read this message before using it. ⚠️
-
-- It is useless to ask the question if this library is VRP or ESX compatible, if you ask yourself this question I invite you to turn on your brain to try to understand at least a little what the utility of this library is.
 
 - First of all, it is important to take into account that no support will be provided if you don't know you to use this library with the documentation provided. [See the tab]. 
 
@@ -82,13 +70,3 @@ RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
 end)
 
 ```
-
-# Troubleshooting :bug:
-
-<p align="center">
-    <a href="https://github.com/iTexZoz/RageUI/wiki/Troubleshooting">
-<img width="80%" src="https://i.gyazo.com/7e0c639920061a37fcd6b4604b71e662.png">
-  </a>
-</p>
-
-- CPU calculation problem present when a number of items is large. (3k item 3.0ms) this is an error only present on the menus, it is important to understand that the calculation performed only if the menu is visible. (unlike NativeUILua-Reloaded)
