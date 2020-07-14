@@ -53,7 +53,6 @@ local function StyleCheckBox(Selected, Checked, Box, BoxSelect, OffSet)
     end
 end
 
-
 ---Checkbox
 ---@param Label string
 ---@param Description string

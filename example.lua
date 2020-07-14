@@ -24,6 +24,10 @@ local actionIndex = 1
 local progressValue = 1
 local progressMax = 25
 
+RMenu:Get('showcase', 'main').onIndexChange = function(Index)
+    print(Index)
+end
+
 Citizen.CreateThread(function()
     while (true) do
         Citizen.Wait(1.0)
@@ -33,7 +37,7 @@ Citizen.CreateThread(function()
         end
 
         RageUI.IsVisible(RMenu:Get('showcase', 'main'), true, true, true, function()
-            --- Items
+
             RageUI.Checkbox("Add ketchup ?", description, checkbox, { Style = RageUI.CheckboxStyle.Tick }, {
                 onHovered = function()
 
@@ -64,7 +68,8 @@ Citizen.CreateThread(function()
                 end,
             })
 
-            RageUI.ButtonWithStyle('Basic Items', description, { RightLabel = "With Style" }, true, {
+
+            RageUI.ButtonWithStyle('Basic Items', description, { RightLabel = "Right Label", LeftBadge = RageUI.BadgeStyle.BronzeMedal }, true, {
                 onHovered = function()
 
                 end,
@@ -100,7 +105,7 @@ Citizen.CreateThread(function()
                 end
             })
 
-            RageUI.Slider("Slider Label", progressValue, progressMax, "Slider description", false, {}, true, {
+            RageUI.Slider("Slider Label", progressValue, progressMax, description, false, {}, true, {
                 onListChange = function(Index)
                     progressValue = Index
                 end,

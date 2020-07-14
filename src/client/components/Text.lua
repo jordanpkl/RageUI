@@ -1,4 +1,3 @@
-
 ---MeasureStringWidth
 ---
 --- Reference : Frazzle <3
@@ -117,7 +116,6 @@ function GetLineCount(Text, X, Y, Font, Scale, R, G, B, A, Alignment, DropShadow
     AddText(Text)
     return GetTextScreenLineCount(X, Y)
 end
-
 
 ---RenderText
 ---

@@ -4,10 +4,10 @@
 --- DateTime: 29/10/2019 02:40
 ---
 
----@type table
+---@class RageUI
 RageUI = {}
 
----@type table
+---@class RMenu
 RMenu = setmetatable({}, RMenu)
 
 ---@type table
@@ -17,7 +17,7 @@ local TotalMenus = {}
 ---@param Type string
 ---@param Name string
 ---@param Menu table
----@return _G
+---@return RMenu
 ---@public
 function RMenu.Add(Type, Name, Menu)
     if RMenu[Type] ~= nil then
@@ -30,7 +30,7 @@ function RMenu.Add(Type, Name, Menu)
             Menu = Menu
         }
     end
-    table.insert(TotalMenus, Menu)
+    return table.insert(TotalMenus, Menu)
 end
 
 ---Get
@@ -68,7 +68,6 @@ function RMenu:Settings(Type, Name, Settings, Value)
         return self[Type][Name][Settings]
     end
 end
-
 
 ---Delete
 ---@param Type string
