@@ -28,13 +28,13 @@ RMenu:Get('showcase', 'main').onIndexChange = function(Index)
     print(Index)
 end
 
+Keys.Register('E', 'E', 'Open RageUI Showcase menu default.', function()
+    RageUI.Visible(RMenu:Get('showcase', 'main'), not RageUI.Visible(RMenu:Get('showcase', 'main')))
+end)
+
 Citizen.CreateThread(function()
     while (true) do
         Citizen.Wait(1.0)
-
-        if IsControlJustPressed(1, 51) then
-            RageUI.Visible(RMenu:Get('showcase', 'main'), not RageUI.Visible(RMenu:Get('showcase', 'main')))
-        end
 
         RageUI.IsVisible(RMenu:Get('showcase', 'main'), true, true, true, function()
 
