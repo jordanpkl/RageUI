@@ -1,21 +1,13 @@
-# No one is allowed to sell resources with rageui. I will take the necessary sanctions if that is the case. Thank you for respecting my work.
+### No one is allowed to sell resources with rageui. I will take the necessary sanctions if that is the case. Thank you for respecting my work.
 
-# Discord : https://discord.gg/Jjb2c8Q
+### Discord : https://discord.gg/Jjb2c8Q
 
 # Thank you to all the sponsors of this project! Without you this one would not be what it is today. 
-- https://github.com/NotKalyptus
-- https://github.com/Parow
-- https://github.com/clementinise
-- https://github.com/DesertFade
-- https://github.com/rubbertoe98
-- https://github.com/Skodrix
-- https://github.com/Brlichtou
-- https://github.com/KxxDaa
-___
+
 ![OpenIssue](https://img.shields.io/github/issues/iTexZoz/RageUI.svg?style=flat)
 ![LastReleases](https://img.shields.io/github/release/iTexZoz/RageUI.svg?label=Last%20releases&style=flat)
 <br>
-## ⚠️Warning, downloading and publishing this resource on Github without using the github Fork option is not allowed and may result in a suspension of the repository. I invite you to respect my work and that of my collaborators. :snail:
+## Warning, downloading and publishing this resource on Github without using the github Fork option is not allowed and may result in a suspension of the repository. I invite you to respect my work and that of my collaborators. :snail:
 ## Hello to all of you. 
 
 ### First of all, I wanted to present the RageUI project. 
@@ -29,20 +21,7 @@ The implementation of this open source project was done faster than expected in 
 
 This project would never have been possible without the trust [Frazzle] placed in me, so I wanted to thank him for trusting me to carry out this project. 
 
-# Read this message before using it. ⚠️
-
-- First of all, it is important to take into account that no support will be provided if you don't know you to use this library with the documentation provided. [See the tab]. 
-
-- You can find the frequently asked questions from this dedicated page to answer these questions[See the tab]. 
-
-- it is possible that other people are open an exit answering the question you are asking yourself or talking about a problem you can surely encounter, before opening exit it is important to look for if a duplicate does not exist. 
-
-- there is no need to ask questions about the fivem forum workstation, I will not answer any questions or problems on the forum, in order to centralize the messages and questions asked by users of this library. 
-
-<br>
-
-# Empty menu example
-
+## Empty menu example
 ```lua
 RMenu.Add('showcase', 'main', RageUI.CreateMenu("RageUI", "~b~RAGEUI SHOWCASE"))
 RMenu.Add('showcase', 'submenu', RageUI.CreateSubMenu(RMenu:Get('showcase', 'main'), "RageUI", "~b~RAGEUI SHOWCASE", nil, nil, "root_cause", "shopui_title_dynasty8"))
