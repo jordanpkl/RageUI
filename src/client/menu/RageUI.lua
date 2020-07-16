@@ -384,43 +384,38 @@ function RageUI.CloseAll()
     ResetScriptGfxAlign()
 end
 
-function RageUI.Banner(Enabled, Glare)
-    if type(Enabled) == "boolean" then
-        if Enabled == true then
-            local CurrentMenu = RageUI.CurrentMenu
-            if CurrentMenu ~= nil then
-                if CurrentMenu() then
-                    RageUI.ItemsSafeZone(CurrentMenu)
-                    if CurrentMenu.Sprite then
-                        RenderSprite(CurrentMenu.Sprite.Dictionary, CurrentMenu.Sprite.Texture, CurrentMenu.X, CurrentMenu.Y, RageUI.Settings.Items.Title.Background.Width + CurrentMenu.WidthOffset, RageUI.Settings.Items.Title.Background.Height, nil)
-                    else
-                        RenderRectangle(CurrentMenu.X, CurrentMenu.Y, RageUI.Settings.Items.Title.Background.Width + CurrentMenu.WidthOffset, RageUI.Settings.Items.Title.Background.Height, CurrentMenu.Rectangle.R, CurrentMenu.Rectangle.G, CurrentMenu.Rectangle.B, CurrentMenu.Rectangle.A)
-                    end
-                    if Glare then
-                        local ScaleformMovie = RequestScaleformMovie("MP_MENU_GLARE")
-                        while not HasScaleformMovieLoaded(ScaleformMovie) do
-                            Citizen.Wait(0)
-                        end
-                        ---@type number
-                        local Glarewidth = RageUI.Settings.Items.Title.Background.Width
-                        ---@type number
-                        local Glareheight = RageUI.Settings.Items.Title.Background.Height
-                        ---@type number
-                        local GlareX = CurrentMenu.X / 1860 + (CurrentMenu.SafeZoneSize.X / (64.399 - (CurrentMenu.WidthOffset * 0.065731)))
-                        ---@type number
-                        local GlareY = CurrentMenu.Y / 1080 + CurrentMenu.SafeZoneSize.Y / 33.195020746888
-                        RageUI.SetScaleformParams(ScaleformMovie, {
-                            { name = "SET_DATA_SLOT", param = { GetGameplayCamRelativeHeading() } }
-                        })
-                        DrawScaleformMovie(ScaleformMovie, GlareX, GlareY, Glarewidth / 430, Glareheight / 100, 255, 255, 255, 255, 0)
-                    end
-                    RenderText(CurrentMenu.Title, CurrentMenu.X + RageUI.Settings.Items.Title.Text.X + (CurrentMenu.WidthOffset / 2), CurrentMenu.Y + RageUI.Settings.Items.Title.Text.Y, 1, RageUI.Settings.Items.Title.Text.Scale, 255, 255, 255, 255, 1)
-                    RageUI.ItemOffset = RageUI.ItemOffset + RageUI.Settings.Items.Title.Background.Height
-                end
+function RageUI.Banner()
+    local CurrentMenu = RageUI.CurrentMenu
+    if CurrentMenu ~= nil then
+        if CurrentMenu() and (CurrentMenu.Display.Header) then
+            RageUI.ItemsSafeZone(CurrentMenu)
+            if CurrentMenu.Sprite then
+                RenderSprite(CurrentMenu.Sprite.Dictionary, CurrentMenu.Sprite.Texture, CurrentMenu.X, CurrentMenu.Y, RageUI.Settings.Items.Title.Background.Width + CurrentMenu.WidthOffset, RageUI.Settings.Items.Title.Background.Height, nil)
+            else
+                RenderRectangle(CurrentMenu.X, CurrentMenu.Y, RageUI.Settings.Items.Title.Background.Width + CurrentMenu.WidthOffset, RageUI.Settings.Items.Title.Background.Height, CurrentMenu.Rectangle.R, CurrentMenu.Rectangle.G, CurrentMenu.Rectangle.B, CurrentMenu.Rectangle.A)
             end
+            if (CurrentMenu.Display.Glare) then
+                local ScaleformMovie = RequestScaleformMovie("MP_MENU_GLARE")
+                while not HasScaleformMovieLoaded(ScaleformMovie) do
+                    Citizen.Wait(0)
+                end
+                ---@type number
+                local Glarewidth = RageUI.Settings.Items.Title.Background.Width
+                ---@type number
+                local Glareheight = RageUI.Settings.Items.Title.Background.Height
+                ---@type number
+                local GlareX = CurrentMenu.X / 1860 + (CurrentMenu.SafeZoneSize.X / (64.399 - (CurrentMenu.WidthOffset * 0.065731)))
+                ---@type number
+                local GlareY = CurrentMenu.Y / 1080 + CurrentMenu.SafeZoneSize.Y / 33.195020746888
+                RageUI.SetScaleformParams(ScaleformMovie, {
+                    { name = "SET_DATA_SLOT", param = { GetGameplayCamRelativeHeading() } }
+                })
+                DrawScaleformMovie(ScaleformMovie, GlareX, GlareY, Glarewidth / 430, Glareheight / 100, 255, 255, 255, 255, 0)
+            end
+
+            RenderText(CurrentMenu.Title, CurrentMenu.X + RageUI.Settings.Items.Title.Text.X + (CurrentMenu.WidthOffset / 2), CurrentMenu.Y + RageUI.Settings.Items.Title.Text.Y, 1, RageUI.Settings.Items.Title.Text.Scale, 255, 255, 255, 255, 1)
+            RageUI.ItemOffset = RageUI.ItemOffset + RageUI.Settings.Items.Title.Background.Height
         end
-    else
-        error("Enabled is not boolean")
     end
 end
 
@@ -430,7 +425,7 @@ end
 function RageUI.Subtitle()
     local CurrentMenu = RageUI.CurrentMenu
     if CurrentMenu ~= nil then
-        if CurrentMenu() then
+        if CurrentMenu() and (CurrentMenu.Display.Subtitle) then
             RageUI.ItemsSafeZone(CurrentMenu)
             if CurrentMenu.Subtitle ~= "" then
                 RenderRectangle(CurrentMenu.X, CurrentMenu.Y + RageUI.ItemOffset, RageUI.Settings.Items.Subtitle.Background.Width + CurrentMenu.WidthOffset, RageUI.Settings.Items.Subtitle.Background.Height + CurrentMenu.SubtitleHeight, 0, 0, 0, 255)
@@ -465,7 +460,7 @@ end
 function RageUI.Background()
     local CurrentMenu = RageUI.CurrentMenu;
     if CurrentMenu ~= nil then
-        if CurrentMenu() then
+        if CurrentMenu() and (CurrentMenu.Display.Background) then
             RageUI.ItemsSafeZone(CurrentMenu)
             SetScriptGfxDrawOrder(0)
             RenderSprite(RageUI.Settings.Items.Background.Dictionary, RageUI.Settings.Items.Background.Texture, CurrentMenu.X, CurrentMenu.Y + RageUI.Settings.Items.Background.Y + CurrentMenu.SubtitleHeight, RageUI.Settings.Items.Background.Width + CurrentMenu.WidthOffset, RageUI.ItemOffset, 0, 0, 0, 0, 255)
@@ -492,17 +487,16 @@ function RageUI.Description()
 end
 
 ---Render
----@param instructionalButton boolean
 ---@return nil
 ---@public
-function RageUI.Render(instructionalButton)
+function RageUI.Render()
     local CurrentMenu = RageUI.CurrentMenu;
     if CurrentMenu ~= nil then
         if CurrentMenu() then
             if CurrentMenu.Safezone then
                 ResetScriptGfxAlign()
             end
-            if (instructionalButton) then
+            if (CurrentMenu.Display.InstructionalButton) then
                 DrawScaleformMovieFullscreen(CurrentMenu.InstructionalScaleform, 255, 255, 255, 255, 0)
             end
             CurrentMenu.Options = RageUI.Options
@@ -611,22 +605,20 @@ function RageUI.CurrentIsEqualTo(Current, To, Style, DefaultStyle)
     return Current == To and Style or DefaultStyle or {};
 end
 
-function RageUI.IsVisible(menu, header, glare, instructional, items, panels)
-    if (RageUI.Visible(menu)) then
-        if (header == true) then
-            RageUI.Banner(true, glare or false)
-        end
+function RageUI.IsVisible(Menu, Items, Panels)
+    if (RageUI.Visible(Menu)) then
+        RageUI.Banner()
         RageUI.Subtitle()
-        if (items ~= nil) then
-            items()
+        if (Items ~= nil) then
+            Items()
         end
         RageUI.Background();
         RageUI.Navigation();
         RageUI.Description();
-        if (panels ~= nil) then
-            panels()
+        if (Panels ~= nil) then
+            Panels()
         end
-        RageUI.Render(instructional or false)
+        RageUI.Render()
     end
 end
 

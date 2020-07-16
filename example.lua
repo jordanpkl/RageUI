@@ -7,119 +7,45 @@
 print("^1 RageUI - testing file is started. ^0")
 
 RMenu.Add('showcase', 'main', RageUI.CreateMenu("RageUI", "Undefined for using SetSubtitle"))
-RMenu:Get('showcase', 'main'):SetSubtitle("~b~RAGEUI SHOWCASE")
-RMenu:Get('showcase', 'main').EnableMouse = true
-RMenu:Get('showcase', 'main').Closed = function()
-    -- TODO Perform action
+local showcase = RMenu:Get('showcase', 'main');
+showcase:SetSubtitle("~b~RAGEUI SHOWCASE")
+
+showcase:DisplayHeader(true);
+showcase:DisplayGlare(true);
+showcase:DisplaySubtitle(true);
+showcase:DisplayNavigation(true);
+showcase:DisplayInstructionalButton(true);
+
+showcase.EnableMouse = true
+
+showcase.Closed = function()
 end;
 
----@type string
-local description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
-
-local checkbox = false;
-
-local availableActions = { "Action 1", "Action 2" }
-local actionIndex = 1
-
-local progressValue = 1
-local progressMax = 25
-
-RMenu:Get('showcase', 'main').onIndexChange = function(Index)
+showcase.onIndexChange = function(Index)
     print(Index)
 end
 
 Keys.Register('E', 'E', 'Open RageUI Showcase menu default.', function()
-    RageUI.Visible(RMenu:Get('showcase', 'main'), not RageUI.Visible(RMenu:Get('showcase', 'main')))
+    RageUI.Visible(showcase, not RageUI.Visible(showcase))
 end)
 
 Citizen.CreateThread(function()
     while (true) do
         Citizen.Wait(1.0)
 
-        RageUI.IsVisible(RMenu:Get('showcase', 'main'), true, true, true, function()
-
-            RageUI.Checkbox("Add ketchup ?", description, checkbox, { Style = RageUI.CheckboxStyle.Tick }, {
-                onHovered = function()
-
-                end,
-                onSelected = function(isActive)
-
-                end,
-                onActive = function()
-
-                end,
-                onChecked = function()
-                    checkbox = true;
-                end,
-                onUnChecked = function()
-                    checkbox = false;
-                end
-            })
-
-            RageUI.Button('Basic Items', description, true, {
-                onHovered = function()
-
-                end,
-                onSelected = function()
-
-                end,
-                onActive = function()
-
-                end,
-            })
-
-
-            RageUI.ButtonWithStyle('Basic Items', description, { RightLabel = "Right Label", LeftBadge = RageUI.BadgeStyle.BronzeMedal }, true, {
-                onHovered = function()
-
-                end,
-                onSelected = function()
-
-                end,
-                onActive = function()
-
-                end,
-            })
-
-            RageUI.List("Title", availableActions, actionIndex, description, {}, true, {
-                onListChange = function(Index, Items)
-                    actionIndex = Index
-                end,
-                onSelected = function(Index, Items)
-
-                end,
-                onHovered = function(Index, Items)
-
-                end
-            })
-
-            RageUI.Progress("Progress label", progressValue, progressMax, description, true, true, {
-                onListChange = function(Index)
-                    progressValue = Index
-                end,
-                onSelected = function(Index)
-
-                end,
-                onHovered = function()
-
-                end
-            })
-
-            RageUI.Slider("Slider Label", progressValue, progressMax, description, false, {}, true, {
-                onListChange = function(Index)
-                    progressValue = Index
-                end,
-                onSelected = function(Index)
-
-                end,
-                onHovered = function()
-
-                end
-            })
-
-
+        RageUI.IsVisible(showcase, function()
+            for i = 1, 100 do
+                RageUI.Button('Basic Items', nil, true, {
+                    onHovered = function()
+                    end,
+                    onSelected = function()
+                    end,
+                    onActive = function()
+                    end,
+                });
+            end
         end, function()
-            --- Panel
+
         end)
 
 

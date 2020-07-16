@@ -15,13 +15,23 @@
 ---@param G number
 ---@param B number
 ---@param A number
----@return table
+---@return RageUIMenus
 ---@public
 function RageUI.CreateMenu(Title, Subtitle, X, Y, TextureDictionary, TextureName, R, G, B, A)
 
     ---@type table
     local Menu = {}
+    Menu.Display = {};
+
     Menu.InstructionalButtons = {}
+
+    Menu.Display.Header = true;
+    Menu.Display.Glare = true;
+    Menu.Display.Subtitle = true;
+    Menu.Display.Background = true;
+    Menu.Display.Navigation = true;
+    Menu.Display.InstructionalButton = true;
+
     Menu.Title = Title or ""
     Menu.Subtitle = Subtitle or ""
     Menu.SubtitleHeight = -37
@@ -85,7 +95,7 @@ end
 ---@param G number
 ---@param B number
 ---@param A number
----@return table
+---@return RageUIMenus
 ---@public
 function RageUI.CreateSubMenu(ParentMenu, Title, Subtitle, X, Y, TextureDictionary, TextureName, R, G, B, A)
     if ParentMenu ~= nil then
@@ -93,7 +103,17 @@ function RageUI.CreateSubMenu(ParentMenu, Title, Subtitle, X, Y, TextureDictiona
 
             ---@type table
             local Menu = {}
+            Menu.Display = {};
+
             Menu.InstructionalButtons = {}
+
+            Menu.Display.Header = true;
+            Menu.Display.Glare = true;
+            Menu.Display.Subtitle = true;
+            Menu.Display.Background = true;
+            Menu.Display.Navigation = true;
+            Menu.Display.InstructionalButton = true;
+
             Menu.Title = Title or ParentMenu.Title
             Menu.Subtitle = Subtitle or ParentMenu.Subtitle
             Menu.SubtitleHeight = -37
@@ -146,6 +166,31 @@ function RageUI.CreateSubMenu(ParentMenu, Title, Subtitle, X, Y, TextureDictiona
     end
 end
 
+function RageUI.Menus:DisplayHeader(boolean)
+    self.Display.Header = boolean;
+    return self.Display.Header;
+end
+
+function RageUI.Menus:DisplayGlare(boolean)
+    self.Display.Glare = boolean;
+    return self.Display.Glare;
+end
+
+function RageUI.Menus:DisplaySubtitle(boolean)
+    self.Display.Subtitle = boolean;
+    return self.Display.Subtitle;
+end
+
+function RageUI.Menus:DisplayNavigation(boolean)
+    self.Display.Navigation = boolean;
+    return self.Display.Navigation;
+end
+
+function RageUI.Menus:DisplayInstructionalButton(boolean)
+    self.Display.InstructionalButton = boolean;
+    return self.Display.InstructionalButton;
+end
+
 ---SetTitle
 ---@param Title string
 ---@return nil
@@ -154,10 +199,6 @@ function RageUI.Menus:SetTitle(Title)
     self.Title = Title
 end
 
----SetStyleSize
----@param Value int
----@return nil
----@public
 function RageUI.Menus:SetStyleSize(Value)
     local witdh
     if Value >= 0 and Value <= 100 then
