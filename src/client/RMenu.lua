@@ -85,3 +85,10 @@ function RMenu:DeleteType(Type)
     self[Type] = nil
     collectgarbage()
 end
+
+---GetMenus
+---@return table
+---@public
+function RMenu:GetMenus()
+    return TotalMenus
+end
