@@ -16,12 +16,21 @@ showcase:DisplaySubtitle(true);
 showcase:DisplayNavigation(true);
 showcase:DisplayInstructionalButton(true);
 
-showcase.EnableMouse = true
-
 showcase.Closed = function()
+    print('Closed Showcase Menu')
 end;
 
 showcase.onIndexChange = function(Index)
+    print(Index)
+end
+
+RMenu.Add('showcase', 'submenu', RageUI.CreateSubMenu(showcase, "SubMenu", "RAGEUI"))
+local submenu = RMenu:Get('showcase', 'submenu');
+submenu.Closed = function()
+    print('Closed Showcase Menu')
+end;
+
+submenu.onIndexChange = function(Index)
     print(Index)
 end
 
@@ -36,6 +45,21 @@ Citizen.CreateThread(function()
         RageUI.IsVisible(showcase, function()
             for i = 1, 100 do
                 RageUI.Button('Basic Items', nil, true, {
+                    onHovered = function()
+                    end,
+                    onSelected = function()
+                    end,
+                    onActive = function()
+                    end,
+                }, submenu);
+            end
+        end, function()
+
+        end)
+
+        RageUI.IsVisible(submenu, function()
+            for i = 1, 100 do
+                RageUI.Button('Sub Menu', nil, true, {
                     onHovered = function()
                     end,
                     onSelected = function()

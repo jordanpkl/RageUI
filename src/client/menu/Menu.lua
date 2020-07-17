@@ -33,7 +33,7 @@ function RageUI.CreateMenu(Title, Subtitle, X, Y, TextureDictionary, TextureName
     Menu.Display.InstructionalButton = true;
 
     Menu.Title = Title or ""
-    Menu.Subtitle = Subtitle or ""
+    Menu.Subtitle = Subtitle or nil
     Menu.SubtitleHeight = -37
     Menu.Description = nil
     Menu.DescriptionHeight = RageUI.Settings.Items.Description.Background.Height
@@ -100,63 +100,15 @@ end
 function RageUI.CreateSubMenu(ParentMenu, Title, Subtitle, X, Y, TextureDictionary, TextureName, R, G, B, A)
     if ParentMenu ~= nil then
         if ParentMenu() then
-
-            ---@type table
-            local Menu = {}
-            Menu.Display = {};
-
-            Menu.InstructionalButtons = {}
-
-            Menu.Display.Header = true;
-            Menu.Display.Glare = true;
-            Menu.Display.Subtitle = true;
-            Menu.Display.Background = true;
-            Menu.Display.Navigation = true;
-            Menu.Display.InstructionalButton = true;
-
-            Menu.Title = Title or ParentMenu.Title
-            Menu.Subtitle = Subtitle or ParentMenu.Subtitle
-            Menu.SubtitleHeight = -37
-            Menu.Description = nil
-            Menu.DescriptionHeight = RageUI.Settings.Items.Description.Background.Height
-            Menu.X = X or ParentMenu.X
-            Menu.Y = Y or ParentMenu.Y
+            local Menu = RageUI.CreateMenu(Title or ParentMenu.Title, Subtitle or ParentMenu.Subtitle, X or ParentMenu.X, Y or ParentMenu.Y)
             Menu.Parent = ParentMenu
             Menu.WidthOffset = ParentMenu.WidthOffset
-            Menu.Open = false
-            Menu.Controls = RageUI.Settings.Controls
-            Menu.Index = 1
-            Menu.Pagination = { Minimum = 1, Maximum = 10, Total = 10 }
             Menu.Safezone = ParentMenu.Safezone
-            Menu.SafeZoneSize = nil
-            Menu.EnableMouse = false
-            Menu.Options = 0
-            Menu.Closable = true
-            Menu.InstructionalScaleform = RequestScaleformMovie("INSTRUCTIONAL_BUTTONS")
-            Menu.CursorStyle = 1
-
-            if string.starts(Menu.Subtitle, "~") then
-                Menu.PageCounterColour = string.sub(Menu.Subtitle, 1, 3)
-            else
-                Menu.PageCounterColour = ""
-            end
-
-            if Menu.Subtitle ~= "" then
-                local SubtitleLineCount = GetLineCount(Menu.Subtitle, Menu.X + RageUI.Settings.Items.Subtitle.Text.X, Menu.Y + RageUI.Settings.Items.Subtitle.Text.Y, 0, RageUI.Settings.Items.Subtitle.Text.Scale, 245, 245, 245, 255, nil, false, false, RageUI.Settings.Items.Subtitle.Background.Width + Menu.WidthOffset)
-
-                if SubtitleLineCount > 1 then
-                    Menu.SubtitleHeight = 18 * SubtitleLineCount
-                else
-                    Menu.SubtitleHeight = 0
-                end
-            end
-
             if ParentMenu.Sprite then
                 Menu.Sprite = { Dictionary = TextureDictionary or ParentMenu.Sprite.Dictionary, Texture = TextureName or ParentMenu.Sprite.Texture, Color = { R = R or ParentMenu.Sprite.Color.R, G = G or ParentMenu.Sprite.Color.G, B = B or ParentMenu.Sprite.Color.B, A = A or ParentMenu.Sprite.Color.A } }
             else
                 Menu.Rectangle = ParentMenu.Rectangle
             end
-
             return setmetatable(Menu, RageUI.Menus)
         else
             return nil
