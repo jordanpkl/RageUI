@@ -20,17 +20,15 @@ local TotalMenus = {}
 ---@return RMenu
 ---@public
 function RMenu.Add(Type, Name, Menu)
-    if RMenu[Type] ~= nil then
-        RMenu[Type][Name] = {
-            Menu = Menu
-        }
-    else
+    if RMenu[Type] == nil then
         RMenu[Type] = {}
-        RMenu[Type][Name] = {
-            Menu = Menu
-        }
     end
-    return table.insert(TotalMenus, Menu)
+
+    RMenu[Type][Name] = {
+        Menu = Menu
+    }
+
+    table.insert(TotalMenus, Menu)
 end
 
 ---Get
