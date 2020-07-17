@@ -8,7 +8,7 @@ print("^1 RageUI - testing file is started. ^0")
 
 RMenu.Add('showcase', 'main', RageUI.CreateMenu("RageUI", "Undefined for using SetSubtitle"))
 local showcase = RMenu:Get('showcase', 'main');
-showcase:SetSubtitle("~b~RAGEUI SHOWCASE")
+showcase:SetSubtitle("RageUI Showcase")
 
 showcase:DisplayHeader(true);
 showcase:DisplayGlare(true);
