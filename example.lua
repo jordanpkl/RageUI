@@ -7,44 +7,33 @@
 print("^1 RageUI - testing file is started. ^0")
 
 RMenu.Add('showcase', 'main', RageUI.CreateMenu("RageUI", "Undefined for using SetSubtitle"))
-local showcase = RMenu:Get('showcase', 'main');
-showcase:SetSubtitle("RageUI Showcase")
-
-showcase:DisplayHeader(true);
-showcase:DisplayGlare(true);
-showcase:DisplaySubtitle(true);
-showcase:DisplayNavigation(true);
-showcase:DisplayInstructionalButton(true);
-
-showcase.Closed = function()
+RMenu:Get('showcase', 'main'):SetSubtitle("RageUI Showcase")
+RMenu:Get('showcase', 'main'):DisplayGlare(false);
+RMenu:Get('showcase', 'main').Closed = function()
     print('Closed Showcase Menu')
 end;
-
-showcase.onIndexChange = function(Index)
+RMenu:Get('showcase', 'main').onIndexChange = function(Index)
     print(Index)
 end
 
-RMenu.Add('showcase', 'submenu', RageUI.CreateSubMenu(showcase, "SubMenu", "RAGEUI"))
-local submenu = RMenu:Get('showcase', 'submenu');
-submenu.Closed = function()
+RMenu.Add('showcase', 'submenu', RageUI.CreateSubMenu(RMenu:Get('showcase', 'main'), "SubMenu", "RAGEUI"))
+RMenu:Get('showcase', 'submenu').Closed = function()
     print('Closed Showcase Menu')
 end;
 
-submenu.onIndexChange = function(Index)
+RMenu:Get('showcase', 'submenu').onIndexChange = function(Index)
     print(Index)
 end
 
 Keys.Register('E', 'E', 'Open RageUI Showcase menu default.', function()
-    RageUI.Visible(showcase, not RageUI.Visible(showcase))
+    RageUI.Visible(RMenu:Get('showcase', 'main'), not RageUI.Visible(RMenu:Get('showcase', 'main')))
 end)
-
-
 
 Citizen.CreateThread(function()
     while (true) do
         Citizen.Wait(1.0)
 
-        RageUI.IsVisible(showcase, function()
+        RageUI.IsVisible(RMenu:Get('showcase', 'main'), function()
             for i = 1, 100 do
 
                 RageUI.Button('Basic Items', nil, true, {
@@ -72,7 +61,7 @@ Citizen.CreateThread(function()
     while (true) do
         Citizen.Wait(1.0)
 
-        RageUI.IsVisible(submenu, function()
+        RageUI.IsVisible(RMenu:Get('showcase', 'submenu'), function()
             for i = 1, 100 do
                 RageUI.Button('Sub Menu', nil, true, {
                     onHovered = function()

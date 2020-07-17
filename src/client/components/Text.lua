@@ -74,22 +74,17 @@ end
 ---@return function
 ---@public
 function GetLineCount(Text, X, Y, Font, Scale, R, G, B, A, Alignment, DropShadow, Outline, WordWrap)
-
     ---@type table
     local Text, X, Y = tostring(Text), (tonumber(X) or 0) / 1920, (tonumber(Y) or 0) / 1080
-
     SetTextFont(Font or 0)
     SetTextScale(1.0, Scale or 0)
     SetTextColour(tonumber(R) or 255, tonumber(G) or 255, tonumber(B) or 255, tonumber(A) or 255)
-
     if DropShadow then
         SetTextDropShadow()
     end
-
     if Outline then
         SetTextOutline()
     end
-
     if Alignment ~= nil then
         if Alignment == 1 or Alignment == "Center" or Alignment == "Centre" then
             SetTextCentre(true)
@@ -97,7 +92,6 @@ function GetLineCount(Text, X, Y, Font, Scale, R, G, B, A, Alignment, DropShadow
             SetTextRightJustify(true)
         end
     end
-
     if tonumber(WordWrap) and tonumber(WordWrap) ~= 0 then
         if Alignment == 1 or Alignment == "Center" or Alignment == "Centre" then
             SetTextWrap(X - ((WordWrap / 1920) / 2), X + ((WordWrap / 1920) / 2))
@@ -137,22 +131,17 @@ end
 ---@return nil
 ---@public
 function RenderText(Text, X, Y, Font, Scale, R, G, B, A, Alignment, DropShadow, Outline, WordWrap)
-
     ---@type table
     local Text, X, Y = tostring(Text), (tonumber(X) or 0) / 1920, (tonumber(Y) or 0) / 1080
-
     SetTextFont(Font or 0)
     SetTextScale(1.0, Scale or 0)
     SetTextColour(tonumber(R) or 255, tonumber(G) or 255, tonumber(B) or 255, tonumber(A) or 255)
-
     if DropShadow then
         SetTextDropShadow()
     end
-
     if Outline then
         SetTextOutline()
     end
-
     if Alignment ~= nil then
         if Alignment == 1 or Alignment == "Center" or Alignment == "Centre" then
             SetTextCentre(true)
@@ -160,7 +149,6 @@ function RenderText(Text, X, Y, Font, Scale, R, G, B, A, Alignment, DropShadow, 
             SetTextRightJustify(true)
         end
     end
-
     if tonumber(WordWrap) and tonumber(WordWrap) ~= 0 then
         if Alignment == 1 or Alignment == "Center" or Alignment == "Centre" then
             SetTextWrap(X - ((WordWrap / 1920) / 2), X + ((WordWrap / 1920) / 2))
@@ -174,7 +162,6 @@ function RenderText(Text, X, Y, Font, Scale, R, G, B, A, Alignment, DropShadow, 
             SetTextWrap(0, X)
         end
     end
-
     BeginTextCommandDisplayText("CELL_EMAIL_BCON")
     AddText(Text)
     EndTextCommandDisplayText(X, Y)

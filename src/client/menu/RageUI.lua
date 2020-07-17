@@ -205,7 +205,7 @@ RageUI.Settings = {
     },
     Audio = {
         Id = nil,
-        Use = "RageUI",
+        Use = "NativeUI",
         RageUI = {
             UpDown = {
                 audioName = "HUD_FREEMODE_SOUNDSET",

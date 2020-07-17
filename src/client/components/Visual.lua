@@ -1,9 +1,3 @@
----- event from server to show notification
-RegisterNetEvent("RageUI:Popup")
-AddEventHandler("RageUI:Popup", function(array)
-    RageUI.Popup(array)
-end)
-
 ---Popup
 ---@param array table
 ---@public
