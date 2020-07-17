@@ -29,7 +29,7 @@ local SettingsSlider = {
 ---@param Description string
 ---@param Enabled boolean
 ---@param Callback function
-function RageUI.SliderProgress(Label, ProgressStart, ProgressMax, Description, Style, Enabled, Callback)
+function RageUI.SliderProgress(Label, ProgressStart, ProgressMax, Description, Style, Enabled, Actions)
 
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;
@@ -134,8 +134,6 @@ function RageUI.SliderProgress(Label, ProgressStart, ProgressMax, Description, S
                     error("UICheckBox Style is not a `table`")
                 end
 
-                -- (((SettingsSlider.Slider.Width) / (#Items - 1)) * (ProgressStart - 1))
-
                 if (type(Style.ProgressBackgroundColor) == "table") then
                     RenderRectangle(CurrentMenu.X + SettingsSlider.Background.X + CurrentMenu.WidthOffset - RightOffset, CurrentMenu.Y + SettingsSlider.Background.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsSlider.Background.Width, SettingsSlider.Background.Height, Style.ProgressBackgroundColor.R, Style.ProgressBackgroundColor.G, Style.ProgressBackgroundColor.B, Style.ProgressBackgroundColor.A)
                 else
@@ -157,23 +155,38 @@ function RageUI.SliderProgress(Label, ProgressStart, ProgressMax, Description, S
                     if ProgressStart < 1 then
                         ProgressStart = #Items
                     end
-
+                    if (Actions.onListChange ~= nil) then
+                        Citizen.CreateThread(function()
+                            Actions.onListChange(ProgressStart);
+                        end)
+                    end
                     RageUI.PlaySound(Audio[Audio.Use].LeftRight.audioName, Audio[Audio.Use].LeftRight.audioRef)
                 elseif Selected and (CurrentMenu.Controls.Right.Active or (CurrentMenu.Controls.Click.Active and RightArrowHovered)) and not (CurrentMenu.Controls.Left.Active or (CurrentMenu.Controls.Click.Active and LeftArrowHovered)) then
                     ProgressStart = ProgressStart + 1
                     if ProgressStart > #Items then
                         ProgressStart = 1
                     end
-
+                    if (Actions.onListChange ~= nil) then
+                        Citizen.CreateThread(function()
+                            Actions.onListChange(ProgressStart);
+                        end)
+                    end
                     RageUI.PlaySound(Audio[Audio.Use].LeftRight.audioName, Audio[Audio.Use].LeftRight.audioRef)
                 end
 
                 if Selected and (CurrentMenu.Controls.Select.Active or ((Hovered and CurrentMenu.Controls.Click.Active) and (not LeftArrowHovered and not RightArrowHovered))) then
+                    if (Actions.onSelected ~= nil) then
+                        Citizen.CreateThread(function()
+                            Actions.onSelected(ProgressStart);
+                        end)
+                    end
                     RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
                 end
 
-                if (Enabled) then
-                    Callback(Hovered, Selected, ((CurrentMenu.Controls.Select.Active or ((Hovered and CurrentMenu.Controls.Click.Active) and (not LeftArrowHovered and not RightArrowHovered))) and Selected), ProgressStart)
+                if (Hovered) then
+                    if (Actions.onHovered ~= nil) then
+                        Actions.onHovered();
+                    end
                 end
             end
 

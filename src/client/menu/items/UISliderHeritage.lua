@@ -19,15 +19,7 @@ for i = 1, 10 do
     table.insert(Items, i)
 end
 
----UISliderHeritage
----
----
----
----@param Label string
----@param ItemIndex number
----@param Description string
----@param Callback function
-function RageUI.UISliderHeritage(Label, ItemIndex, Description, Callback, Value)
+function RageUI.UISliderHeritage(Label, ItemIndex, Description, Actions, Value)
 
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;
@@ -91,6 +83,11 @@ function RageUI.UISliderHeritage(Label, ItemIndex, Description, Callback, Value)
                     ItemIndex = ItemIndex - value
                     if ItemIndex < 0.1 then
                         ItemIndex = 0.0
+                        if (Actions.onListChange ~= nil) then
+                            Citizen.CreateThread(function()
+                                Actions.onListChange(ItemIndex / 10, ItemIndex);
+                            end)
+                        end
                     else
                         RageUI.PlaySound(Audio[Audio.Use].Slider.audioName, Audio[Audio.Use].Slider.audioRef, true)
                     end
@@ -98,16 +95,30 @@ function RageUI.UISliderHeritage(Label, ItemIndex, Description, Callback, Value)
                     ItemIndex = ItemIndex + value
                     if ItemIndex > #Items then
                         ItemIndex = 10
+                        if (Actions.onListChange ~= nil) then
+                            Citizen.CreateThread(function()
+                                Actions.onListChange(ItemIndex / 10, ItemIndex);
+                            end)
+                        end
                     else
                         RageUI.PlaySound(Audio[Audio.Use].Slider.audioName, Audio[Audio.Use].Slider.audioRef, true)
                     end
                 end
 
                 if Selected and (CurrentMenu.Controls.Select.Active or ((Hovered and CurrentMenu.Controls.Click.Active) and (not LeftArrowHovered and not RightArrowHovered))) then
+                    if (Actions.onSelected ~= nil) then
+                        Citizen.CreateThread(function()
+                            Actions.onSelected(ItemIndex / 10, ItemIndex);
+                        end)
+                    end
                     RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef, false)
                 end
 
-                Callback(Hovered, Selected, ((CurrentMenu.Controls.Select.Active or ((Hovered and CurrentMenu.Controls.Click.Active) and (not LeftArrowHovered and not RightArrowHovered))) and Selected), ItemIndex / 10, ItemIndex)
+                if (Hovered) then
+                    if (Actions.onHovered ~= nil) then
+                        Actions.onHovered();
+                    end
+                end
             end
 
             RageUI.Options = RageUI.Options + 1
