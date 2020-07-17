@@ -38,33 +38,51 @@ Keys.Register('E', 'E', 'Open RageUI Showcase menu default.', function()
     RageUI.Visible(showcase, not RageUI.Visible(showcase))
 end)
 
+
+
 Citizen.CreateThread(function()
     while (true) do
         Citizen.Wait(1.0)
 
         RageUI.IsVisible(showcase, function()
             for i = 1, 100 do
+
                 RageUI.Button('Basic Items', nil, true, {
                     onHovered = function()
+
                     end,
                     onSelected = function()
+
                     end,
                     onActive = function()
+
                     end,
-                }, submenu);
+                });
+
             end
         end, function()
 
         end)
 
+
+    end
+end)
+
+Citizen.CreateThread(function()
+    while (true) do
+        Citizen.Wait(1.0)
+
         RageUI.IsVisible(submenu, function()
             for i = 1, 100 do
                 RageUI.Button('Sub Menu', nil, true, {
                     onHovered = function()
+
                     end,
                     onSelected = function()
+
                     end,
                     onActive = function()
+
                     end,
                 });
             end
@@ -75,4 +93,3 @@ Citizen.CreateThread(function()
 
     end
 end)
-

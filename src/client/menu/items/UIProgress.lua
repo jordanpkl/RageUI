@@ -102,7 +102,9 @@ function RageUI.Progress(Label, ProgressStart, ProgressMax, Description, Counter
                         ProgressStart = #Items
                     end
                     if (Actions.onListChange ~= nil) then
-                        Actions.onListChange(ProgressStart);
+                        Citizen.CreateThread(function()
+                            Actions.onListChange(ProgressStart);
+                        end)
                     end
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].LeftRight.audioName, Audio[Audio.Use].LeftRight.audioRef)
@@ -112,7 +114,9 @@ function RageUI.Progress(Label, ProgressStart, ProgressMax, Description, Counter
                         ProgressStart = 0
                     end
                     if (Actions.onListChange ~= nil) then
-                        Actions.onListChange(ProgressStart);
+                        Citizen.CreateThread(function()
+                            Actions.onListChange(ProgressStart);
+                        end)
                     end
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].LeftRight.audioName, Audio[Audio.Use].LeftRight.audioRef)
@@ -122,7 +126,9 @@ function RageUI.Progress(Label, ProgressStart, ProgressMax, Description, Counter
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
                     if (Actions.onSelected ~= nil) then
-                        Actions.onSelected(ProgressStart);
+                        Citizen.CreateThread(function()
+                            Actions.onSelected(ProgressStart);
+                        end)
                     end
                 elseif Selected and (Hovered and CurrentMenu.Controls.Click.Active and ProgressHovered) then
 

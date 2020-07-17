@@ -225,7 +225,6 @@ function RageUI.Menus:SetSubtitle(Subtitle)
     else
         self.PageCounterColour = ""
     end
-
     if self.Subtitle ~= "" then
         local SubtitleLineCount = GetLineCount(self.Subtitle, self.X + RageUI.Settings.Items.Subtitle.Text.X, self.Y + RageUI.Settings.Items.Subtitle.Text.Y, 0, RageUI.Settings.Items.Subtitle.Text.Scale, 245, 245, 245, 255, nil, false, false, RageUI.Settings.Items.Subtitle.Background.Width + self.WidthOffset)
 

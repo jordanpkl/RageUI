@@ -141,7 +141,9 @@ function RageUI.List(Label, Items, Index, Description, Style, Enabled, Actions, 
                         Index = 1
                     end
                     if (Actions.onListChange ~= nil) then
-                        Actions.onListChange(Index, Items[Index]);
+                        Citizen.CreateThread(function()
+                            Actions.onListChange(Index, Items[Index]);
+                        end)
                     end
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].LeftRight.audioName, Audio[Audio.Use].LeftRight.audioRef)
@@ -150,7 +152,9 @@ function RageUI.List(Label, Items, Index, Description, Style, Enabled, Actions, 
                 if Selected and (CurrentMenu.Controls.Select.Active or ((Hovered and CurrentMenu.Controls.Click.Active) and (not LeftArrowHovered and not RightArrowHovered))) then
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
-                    Actions.onSelected(Index, Items[Index]);
+                    Citizen.CreateThread(function()
+                        Actions.onSelected(Index, Items[Index]);
+                    end)
                     if Submenu ~= nil and type(Submenu) == "table" then
                         RageUI.NextMenu = Submenu[Index]
                     end

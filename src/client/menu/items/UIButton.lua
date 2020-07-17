@@ -55,7 +55,9 @@ function RageUI.Button(Label, Description, Enabled, Callback, Submenu)
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
                     if (Callback.onSelected ~= nil) then
-                        Callback.onSelected();
+                        Citizen.CreateThread(function()
+                            Callback.onSelected();
+                        end)
                     end
                     if Submenu and Submenu() then
                         RageUI.NextMenu = Submenu

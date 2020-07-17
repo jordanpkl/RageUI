@@ -167,9 +167,13 @@ function RageUI.Checkbox(Label, Description, Checked, Style, Actions)
                         RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
                         Checked = not Checked
                         if (Checked) then
-                            Actions.onChecked();
+                            Citizen.CreateThread(function()
+                                Actions.onChecked();
+                            end)
                         else
-                            Actions.onUnChecked();
+                            Citizen.CreateThread(function()
+                                Actions.onUnChecked();
+                            end)
                         end
                     end
 
@@ -182,7 +186,9 @@ function RageUI.Checkbox(Label, Description, Checked, Style, Actions)
                 RageUI.ItemsDescription(CurrentMenu, Description, Selected)
 
                 if (((CurrentMenu.Controls.Select.Active or (Hovered and CurrentMenu.Controls.Click.Active)) and Selected)) then
-                    Actions.onSelected(Checked);
+                    Citizen.CreateThread(function()
+                        Actions.onSelected(Checked);
+                    end)
                 end
                 if (Selected) then
                     Actions.onActive();

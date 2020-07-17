@@ -148,7 +148,9 @@ function RageUI.Slider(Label, ProgressStart, ProgressMax, Description, Divider, 
                         ProgressStart = #Items
                     end
                     if (Actions.onListChange ~= nil) then
-                        Actions.onListChange(ProgressStart);
+                        Citizen.CreateThread(function()
+                            Actions.onListChange(ProgressStart);
+                        end)
                     end
                     RageUI.PlaySound(Audio[Audio.Use].LeftRight.audioName, Audio[Audio.Use].LeftRight.audioRef)
                 elseif Selected and (CurrentMenu.Controls.Right.Active or (CurrentMenu.Controls.Click.Active and RightArrowHovered)) and not (CurrentMenu.Controls.Left.Active or (CurrentMenu.Controls.Click.Active and LeftArrowHovered)) then
@@ -157,14 +159,18 @@ function RageUI.Slider(Label, ProgressStart, ProgressMax, Description, Divider, 
                         ProgressStart = 1
                     end
                     if (Actions.onListChange ~= nil) then
-                        Actions.onListChange(ProgressStart);
+                        Citizen.CreateThread(function()
+                            Actions.onListChange(ProgressStart);
+                        end)
                     end
                     RageUI.PlaySound(Audio[Audio.Use].LeftRight.audioName, Audio[Audio.Use].LeftRight.audioRef)
                 end
 
                 if Selected and (CurrentMenu.Controls.Select.Active or ((Hovered and CurrentMenu.Controls.Click.Active) and (not LeftArrowHovered and not RightArrowHovered))) then
                     if (Actions.onSelected ~= nil) then
-                        Actions.onSelected(ProgressStart);
+                        Citizen.CreateThread(function()
+                            Actions.onSelected(ProgressStart);
+                        end)
                     end
                     RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
                 end
