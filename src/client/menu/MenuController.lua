@@ -1,13 +1,19 @@
----@type table
+---
+--- @author Dylan MALANDAIN
+--- @version 2.0.0
+--- @since 2020
+---
+--- RageUI Is Advanced UI Libs in LUA for make beautiful interface like RockStar GAME.
+---
+---
+--- Commercial Info.
+--- Any use for commercial purposes is strictly prohibited and will be punished.
+---
+--- @see RageUI
+---
+
 RageUI.LastControl = false
 
----IsMouseInBounds
----@param X number
----@param Y number
----@param Width number
----@param Height number
----@return number
----@public
 function RageUI.IsMouseInBounds(X, Y, Width, Height)
     local MX, MY = math.round(GetControlNormal(2, 239) * 1920) / 1920, math.round(GetControlNormal(2, 240) * 1080) / 1080
     X, Y = X / 1920, Y / 1080
@@ -15,9 +21,6 @@ function RageUI.IsMouseInBounds(X, Y, Width, Height)
     return (MX >= X and MX <= X + Width) and (MY > Y and MY < Y + Height)
 end
 
----GetSafeZoneBounds
----@return table
----@public
 function RageUI.GetSafeZoneBounds()
     local SafeSize = GetSafeZoneSize()
     SafeSize = math.round(SafeSize, 2)

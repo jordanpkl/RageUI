@@ -1,3 +1,18 @@
+---
+--- @author Dylan MALANDAIN
+--- @version 2.0.0
+--- @since 2020
+---
+--- RageUI Is Advanced UI Libs in LUA for make beautiful interface like RockStar GAME.
+---
+---
+--- Commercial Info.
+--- Any use for commercial purposes is strictly prohibited and will be punished.
+---
+--- @see RageUI
+---
+
+
 local GridPanelVertical = {
     Background = { Dictionary = "commonmenu", Texture = "gradient_bgd", Y = 4, Width = 431, Height = 275 },
     Grid = { Dictionary = "RageUI", Texture = "vertical_grid", X = 115.5, Y = 47.5, Width = 200, Height = 200 },

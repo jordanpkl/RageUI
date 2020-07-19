@@ -1,3 +1,18 @@
+---
+--- @author Dylan MALANDAIN
+--- @version 2.0.0
+--- @since 2020
+---
+--- RageUI Is Advanced UI Libs in LUA for make beautiful interface like RockStar GAME.
+---
+---
+--- Commercial Info.
+--- Any use for commercial purposes is strictly prohibited and will be punished.
+---
+--- @see RageUI
+---
+
+
 local Statistics = {
     Background = { Dictionary = "commonmenu", Texture = "gradient_bgd", Y = 4, Width = 431, Height = 42 },
     Text = {
