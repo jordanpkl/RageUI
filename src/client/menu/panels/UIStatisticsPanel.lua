@@ -33,25 +33,7 @@ function RageUI.Panel.StatisticPanel(Percent, Text, Index)
     local CurrentMenu = RageUI.CurrentMenu
     if CurrentMenu ~= nil then
         if CurrentMenu() and (Index == nil or (CurrentMenu.Index == Index)) then
-
-            ---@type number
             local BarWidth = Statistics.Bar.Width + CurrentMenu.WidthOffset * Statistics.Bar.OffsetRatio
-
-            --[[ METHOD FOR CHECK IF THE STRING IS NOT TO LONG (and correct if it is) BUT USE WAY TOO MUCH CPU
-                local textSize, textChar = MeasureStringWidth(Text, 0, Statistics.Text.Left.Scale), GetCharacterCount(Text)
-                local maxTextSize = RageUI.Settings.Items.Title.Background.Width + CurrentMenu.WidthOffset - (CurrentMenu.X + 8.0 + BarWidth + Statistics.Bar.Right)
-                if textSize > maxTextSize then
-                    for i = textChar, 1, -1 do
-                        local tempText = string.sub(Text, 0, i) .. "..."
-                        local tempTextSize = string.len(tempText)
-                        if MeasureStringWidth(tempText, 0, Statistics.Text.Left.Scale) < maxTextSize then
-                            Text = tempText
-                            break
-                        end
-                    end
-                end
-            ]]
-
             RenderRectangle(CurrentMenu.X, CurrentMenu.Y + Statistics.Background.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset + (RageUI.StatisticPanelCount * 42), Statistics.Background.Width + CurrentMenu.WidthOffset, Statistics.Background.Height, 0, 0, 0, 170)
             RenderText(Text or "", CurrentMenu.X + 8.0, (RageUI.StatisticPanelCount * 40) + CurrentMenu.Y + Statistics.Text.Left.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, Statistics.Text.Left.Scale, 245, 245, 245, 255, 0)
             RenderRectangle(CurrentMenu.X + RageUI.Settings.Items.Title.Background.Width - BarWidth - Statistics.Bar.Right + CurrentMenu.WidthOffset, (RageUI.StatisticPanelCount * 40) + CurrentMenu.Y + Statistics.Bar.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, BarWidth, Statistics.Bar.Height, 87, 87, 87, 255)
@@ -64,45 +46,19 @@ function RageUI.Panel.StatisticPanel(Percent, Text, Index)
     end
 end
 
----StatisticPanelAdvanced
----@param Percent number
----@param RGBA1 Table {R,G,B,A}
----@param Percent2 number
----@param RGBA2 Table {R,G,B,A}
----@param RGBA3 Table {R,G,B,A}
----@param Text string
----@param Index number
----@return void
----@public
-function RageUI.StatisticPanelAdvanced(Text, Percent, RGBA1, Percent2, RGBA2, RGBA3, Index)
+---@type Panel
+function RageUI.Panel.StatisticPanelAdvanced(Text, Percent, RGBA1, Percent2, RGBA2, RGBA3, Index)
     local CurrentMenu = RageUI.CurrentMenu
     if CurrentMenu ~= nil then
         if CurrentMenu() and (Index == nil or (CurrentMenu.Index == Index)) then
-
-
             RGBA1 = RGBA1 or { 255, 255, 255, 255 }
             local BarWidth = Statistics.Bar.Width + CurrentMenu.WidthOffset * Statistics.Bar.OffsetRatio
-
-            --[[ METHOD FOR CHECK IF THE STRING IS NOT TO LONG (and correct if it is) BUT USE WAY TOO MUCH CPU
-                local textSize, textChar = MeasureStringWidth(Text, 0, Statistics.Text.Left.Scale), GetCharacterCount(Text)
-                local maxTextSize = RageUI.Settings.Items.Title.Background.Width + CurrentMenu.WidthOffset - (CurrentMenu.X + 8.0 + BarWidth + Statistics.Bar.Right)
-                if textSize > maxTextSize then
-                    for i = textChar, 1, -1 do
-                        local tempText = string.sub(Text, 0, i) .. "..."
-                        local tempTextSize = string.len(tempText)
-                        if MeasureStringWidth(tempText, 0, Statistics.Text.Left.Scale) < maxTextSize then
-                            Text = tempText
-                            break
-                        end
-                    end
-                end
-            ]]
-
             ---@type number
             RenderRectangle(CurrentMenu.X, CurrentMenu.Y + Statistics.Background.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset + (RageUI.StatisticPanelCount * 42), Statistics.Background.Width + CurrentMenu.WidthOffset, Statistics.Background.Height, 0, 0, 0, 170)
             RenderText(Text or "", CurrentMenu.X + 8.0, (RageUI.StatisticPanelCount * 40) + CurrentMenu.Y + Statistics.Text.Left.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, Statistics.Text.Left.Scale, 245, 245, 245, 255, 0)
             RenderRectangle(CurrentMenu.X + RageUI.Settings.Items.Title.Background.Width - BarWidth - Statistics.Bar.Right + CurrentMenu.WidthOffset, (RageUI.StatisticPanelCount * 40) + CurrentMenu.Y + Statistics.Bar.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, BarWidth, Statistics.Bar.Height, 87, 87, 87, 255)
             RenderRectangle(CurrentMenu.X + RageUI.Settings.Items.Title.Background.Width - BarWidth - Statistics.Bar.Right + CurrentMenu.WidthOffset, (RageUI.StatisticPanelCount * 40) + CurrentMenu.Y + Statistics.Bar.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, Percent * BarWidth, Statistics.Bar.Height, RGBA1[1], RGBA1[2], RGBA1[3], RGBA1[4])
+
             RGBA2 = RGBA2 or { 0, 153, 204, 255 }
             RGBA3 = RGBA3 or { 185, 0, 0, 255 }
 
