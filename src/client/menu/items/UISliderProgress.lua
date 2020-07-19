@@ -25,7 +25,8 @@ local SettingsSlider = {
 ---@type table Index of all List Items
 local Index = { }
 
-function RageUI.SliderProgress(Label, Items, StartedAtIndex, Description, Style, Enabled, Actions)
+---@type Item
+function RageUI.Item.SliderProgress(Label, Items, StartedAtIndex, Description, Style, Enabled, Actions)
 
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;

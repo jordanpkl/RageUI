@@ -21,7 +21,8 @@ local SettingsSlider = {
 local Index = { }
 
 
-function RageUI.Slider(Label, Items, StartedAtIndex, Description, Divider, Style, Enabled, Actions)
+---@type Item
+function RageUI.Item.Slider(Label, Items, StartedAtIndex, Description, Divider, Style, Enabled, Actions)
 
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;

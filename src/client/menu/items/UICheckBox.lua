@@ -53,14 +53,8 @@ local function StyleCheckBox(Selected, Checked, Box, BoxSelect, OffSet)
     end
 end
 
----Checkbox
----@param Label string
----@param Description string
----@param Checked boolean
----@param Callback function
----@return nil
----@public
-function RageUI.Checkbox(Label, Description, Checked, Style, Actions)
+---@type Item
+function RageUI.Item.Checkbox(Label, Description, Checked, Style, Actions)
 
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;

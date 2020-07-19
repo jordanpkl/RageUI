@@ -17,7 +17,8 @@ local SettingsProgress = {
 ---@type table Index of all List Items
 local Index = { }
 
-function RageUI.Progress(Label, Items, StartedAtIndex, Description, Counter, Enabled, Actions)
+---@type Item
+function RageUI.Item.Progress(Label, Items, StartedAtIndex, Description, Counter, Enabled, Actions)
 
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;

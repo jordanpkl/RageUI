@@ -19,7 +19,8 @@ for i = 1, 10 do
     table.insert(Items, i)
 end
 
-function RageUI.UISliderHeritage(Label, ItemIndex, Description, Actions, Value)
+---@type Item
+function RageUI.Item.UISliderHeritage(Label, ItemIndex, Description, Actions, Value)
 
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;
