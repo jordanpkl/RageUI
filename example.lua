@@ -25,6 +25,8 @@ RMenu:Get('showcase', 'main').onIndexChange = function(Index)
 end
 
 RMenu.Add('showcase', 'submenu', RageUI.CreateSubMenu(RMenu:Get('showcase', 'main'), "SubMenu", "RAGEUI"))
+RMenu:Get('showcase', 'submenu').EnableMouse = true
+
 RMenu:Get('showcase', 'submenu').Closed = function()
     print('Closed Showcase Menu')
 end;
@@ -43,7 +45,7 @@ Citizen.CreateThread(function()
 
         RageUI.IsVisible(RMenu:Get('showcase', 'main'), function()
             for i = 1, 100 do
-                RageUI.Item.Button('Basic Items', nil, {  }, true,   {
+                RageUI.Item.Button('Basic Items', nil, {  }, true, {
                     onHovered = function()
 
                     end,
@@ -53,16 +55,14 @@ Citizen.CreateThread(function()
                     onActive = function()
 
                     end,
-                })
+                }, RMenu:Get('showcase', 'submenu'))
 
             end
-        end, function()
-            RageUI.ButtonPanel('LeftText', 'RightText', 1)
         end)
 
         RageUI.IsVisible(RMenu:Get('showcase', 'submenu'), function()
 
-            for i = 1, 10 do
+            for i = 1, 20 do
                 RageUI.Item.List("List Items", { "Yes", "No", "Maybe ?", "Money" }, 1, nil, {}, true, {
                     onListChange = function(Index, Items)
 
@@ -77,6 +77,15 @@ Citizen.CreateThread(function()
             end
 
         end, function()
+
+            RageUI.Panel.GridPanel(0.5, 0.2, 'TopText', 'BottomText', 'LeftText', 'RightText', {
+                onPositionChange = function(X, Y)
+                    print(X, Y)
+                end,
+                onSelected = function(X, Y)
+
+                end
+            }, 1)
 
         end)
 

@@ -23,7 +23,7 @@ local SettingsButton = {
 }
 
 ---@type Item
-function RageUI.Item.Button(Label, Description, Style, Enabled, Callback, Submenu)
+function RageUI.Item.Button(Label, Description, Style, Enabled, Action, Submenu)
     local CurrentMenu = RageUI.CurrentMenu
     if CurrentMenu ~= nil and CurrentMenu() then
         ---@type number
@@ -75,17 +75,19 @@ function RageUI.Item.Button(Label, Description, Style, Enabled, Callback, Submen
             if Enabled then
                 local Hovered = CurrentMenu.EnableMouse and (CurrentMenu.CursorStyle == 0 or CurrentMenu.CursorStyle == 1) and RageUI.ItemsMouseBounds(CurrentMenu, Active, Option + 1, SettingsButton);
                 local Selected = (CurrentMenu.Controls.Select.Active or (Hovered and CurrentMenu.Controls.Click.Active)) and Active
-                if (Callback.onHovered ~= nil) then
-                    Callback.onHovered();
+                if (Action.onHovered ~= nil) then
+                    Action.onHovered();
                 end
-                if (Callback.onActive ~= nil) then
-                    Callback.onActive();
+                if (Action.onActive ~= nil) then
+                    Action.onActive();
                 end
                 if Selected then
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
-                    if (Callback.onSelected ~= nil) then
-                        Callback.onSelected();
+                    if (Action.onSelected ~= nil) then
+                        Citizen.CreateThread(function()
+                            Action.onSelected();
+                        end)
                     end
                     if Submenu and Submenu() then
                         RageUI.NextMenu = Submenu

@@ -25,11 +25,20 @@ local Grid = {
     },
 }
 
+---@type table GridPosition of all GridPanel
+local GridPosition = { }
+
 ---@type Panel
-function RageUI.Panel.GridPanel(X, Y, TopText, BottomText, LeftText, RightText, Callback, Index)
+function RageUI.Panel.GridPanel(StartedX, StartedY, TopText, BottomText, LeftText, RightText, Action, Index)
     local CurrentMenu = RageUI.CurrentMenu
     if CurrentMenu ~= nil then
         if CurrentMenu() and (Index == nil or (CurrentMenu.Index == Index)) then
+
+            if (GridPosition[Index] == nil) then
+                GridPosition[Index] = { X = StartedX, Y = StartedY };
+            end
+
+            local X, Y = GridPosition[Index].X, GridPosition[Index].Y
 
             ---@type boolean
             local Hovered = RageUI.IsMouseInBounds(CurrentMenu.X + Grid.Grid.X + CurrentMenu.SafeZoneSize.X + 20, CurrentMenu.Y + Grid.Grid.Y + CurrentMenu.SafeZoneSize.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset + 20, Grid.Grid.Width + CurrentMenu.WidthOffset - 40, Grid.Grid.Height - 40)
@@ -85,6 +94,9 @@ function RageUI.Panel.GridPanel(X, Y, TopText, BottomText, LeftText, RightText, 
                     X = math.round((CircleX - (CurrentMenu.X + Grid.Grid.X + (CurrentMenu.WidthOffset / 2) + 20) + (Grid.Circle.Width / 2)) / (Grid.Grid.Width - 40), 2)
                     Y = math.round((CircleY - (CurrentMenu.Y + Grid.Grid.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset + 20) + (Grid.Circle.Height / 2)) / (Grid.Grid.Height - 40), 2)
 
+                    GridPosition[Index].X = X;
+                    GridPosition[Index].Y = Y;
+
                     if X > 1.0 then
                         X = 1.0
                     end
@@ -97,8 +109,13 @@ function RageUI.Panel.GridPanel(X, Y, TopText, BottomText, LeftText, RightText, 
             if Hovered and Selected then
                 local Audio = RageUI.Settings.Audio
                 RageUI.PlaySound(Audio[Audio.Use].Slider.audioName, Audio[Audio.Use].Slider.audioRef, true)
+                if (Action.onSelected ~= nil) then
+                    Citizen.CreateThread(function()
+                        Action.onSelected(X, Y);
+                    end)
+                end
             end
-            Callback(Hovered, Selected, X, Y)
+            Action.onPositionChange(X, Y)
         end
     end
 end
