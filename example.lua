@@ -49,7 +49,7 @@ Citizen.CreateThread(function()
 
             end
         end, function()
-            RageUI.BoutonPanel('LeftText', 'RightText', 1)
+            RageUI.ButtonPanel('LeftText', 'RightText', 1)
         end)
 
         RageUI.IsVisible(RMenu:Get('showcase', 'submenu'), function()
