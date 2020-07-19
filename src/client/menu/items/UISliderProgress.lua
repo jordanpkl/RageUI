@@ -22,14 +22,10 @@ local SettingsSlider = {
     RightArrow = { Dictionary = "commonmenutu", Texture = "arrowright", X = 400, Y = 11.5, Width = 15, Height = 15 },
 }
 
----Slider
----@param Label string
----@param ProgressStart number
----@param ProgressMax number
----@param Description string
----@param Enabled boolean
----@param Callback function
-function RageUI.SliderProgress(Label, ProgressStart, ProgressMax, Description, Style, Enabled, Actions)
+---@type table Index of all List Items
+local Index = { }
+
+function RageUI.SliderProgress(Label, Items, StartedAtIndex, Description, Style, Enabled, Actions)
 
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;
@@ -38,12 +34,12 @@ function RageUI.SliderProgress(Label, ProgressStart, ProgressMax, Description, S
     if CurrentMenu ~= nil then
         if CurrentMenu() then
 
-            local Items = {}
-            for i = 1, ProgressMax do
-                table.insert(Items, i)
-            end
             ---@type number
             local Option = RageUI.Options + 1
+
+            if (Index[Option] == nil) then
+                Index[Option] = { Current = StartedAtIndex }
+            end
 
             if CurrentMenu.Pagination.Minimum <= Option and CurrentMenu.Pagination.Maximum >= Option then
 
@@ -141,7 +137,7 @@ function RageUI.SliderProgress(Label, ProgressStart, ProgressMax, Description, S
                 end
 
                 if (type(Style.ProgressColor) == "table") then
-                    RenderRectangle(CurrentMenu.X + SettingsSlider.Slider.X + CurrentMenu.WidthOffset - RightOffset, CurrentMenu.Y + SettingsSlider.Slider.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, (((SettingsSlider.Slider.Width) / (#Items - 1)) * (ProgressStart - 1)), SettingsSlider.Slider.Height, Style.ProgressColor.R, Style.ProgressColor.G, Style.ProgressColor.B, Style.ProgressColor.A)
+                    RenderRectangle(CurrentMenu.X + SettingsSlider.Slider.X + CurrentMenu.WidthOffset - RightOffset, CurrentMenu.Y + SettingsSlider.Slider.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, (((SettingsSlider.Slider.Width) / (#Items - 1)) * (Index[Option].Current - 1)), SettingsSlider.Slider.Height, Style.ProgressColor.R, Style.ProgressColor.G, Style.ProgressColor.B, Style.ProgressColor.A)
                 else
                     error("Style ProgressColor is not a table or undefined")
                 end
@@ -151,24 +147,24 @@ function RageUI.SliderProgress(Label, ProgressStart, ProgressMax, Description, S
                 RageUI.ItemsDescription(CurrentMenu, Description, Selected);
 
                 if Selected and (CurrentMenu.Controls.Left.Active or (CurrentMenu.Controls.Click.Active and LeftArrowHovered)) and not (CurrentMenu.Controls.Right.Active or (CurrentMenu.Controls.Click.Active and RightArrowHovered)) then
-                    ProgressStart = ProgressStart - 1
-                    if ProgressStart < 1 then
-                        ProgressStart = #Items
+                    Index[Option].Current = Index[Option].Current - 1
+                    if Index[Option].Current < 1 then
+                        Index[Option].Current = #Items
                     end
                     if (Actions.onListChange ~= nil) then
                         Citizen.CreateThread(function()
-                            Actions.onListChange(ProgressStart);
+                            Actions.onListChange(Index[Option].Current);
                         end)
                     end
                     RageUI.PlaySound(Audio[Audio.Use].LeftRight.audioName, Audio[Audio.Use].LeftRight.audioRef)
                 elseif Selected and (CurrentMenu.Controls.Right.Active or (CurrentMenu.Controls.Click.Active and RightArrowHovered)) and not (CurrentMenu.Controls.Left.Active or (CurrentMenu.Controls.Click.Active and LeftArrowHovered)) then
-                    ProgressStart = ProgressStart + 1
-                    if ProgressStart > #Items then
-                        ProgressStart = 1
+                    Index[Option].Current = Index[Option].Current + 1
+                    if Index[Option].Current > #Items then
+                        Index[Option].Current = 1
                     end
                     if (Actions.onListChange ~= nil) then
                         Citizen.CreateThread(function()
-                            Actions.onListChange(ProgressStart);
+                            Actions.onListChange(Index[Option].Current);
                         end)
                     end
                     RageUI.PlaySound(Audio[Audio.Use].LeftRight.audioName, Audio[Audio.Use].LeftRight.audioRef)
@@ -177,7 +173,7 @@ function RageUI.SliderProgress(Label, ProgressStart, ProgressMax, Description, S
                 if Selected and (CurrentMenu.Controls.Select.Active or ((Hovered and CurrentMenu.Controls.Click.Active) and (not LeftArrowHovered and not RightArrowHovered))) then
                     if (Actions.onSelected ~= nil) then
                         Citizen.CreateThread(function()
-                            Actions.onSelected(ProgressStart);
+                            Actions.onSelected(Index[Option].Current);
                         end)
                     end
                     RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)

@@ -14,17 +14,10 @@ local SettingsProgress = {
     Height = 60
 }
 
----Progress
----@param Label string
----@param ProgressStart number
----@param ProgressMax number
----@param Description string
----@param Counter number
----@param Enabled boolean
----@param Callback function
----@return nil
----@public
-function RageUI.Progress(Label, ProgressStart, ProgressMax, Description, Counter, Enabled, Actions)
+---@type table Index of all List Items
+local Index = { }
+
+function RageUI.Progress(Label, Items, StartedAtIndex, Description, Counter, Enabled, Actions)
 
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;
@@ -32,13 +25,14 @@ function RageUI.Progress(Label, ProgressStart, ProgressMax, Description, Counter
     if CurrentMenu ~= nil then
         if CurrentMenu() then
 
-            local Items = {}
-            for i = 1, ProgressMax do
-                table.insert(Items, i)
-            end
 
             ---@type number
             local Option = RageUI.Options + 1
+
+
+            if (Index[Option] == nil) then
+                Index[Option] = { Current = StartedAtIndex }
+            end
 
             if CurrentMenu.Pagination.Minimum <= Option and CurrentMenu.Pagination.Maximum >= Option then
 
@@ -57,7 +51,7 @@ function RageUI.Progress(Label, ProgressStart, ProgressMax, Description, Counter
                     Hovered = RageUI.ItemsMouseBounds(CurrentMenu, Selected, Option, SettingsButton);
                 end
 
-                local ProgressText = (Counter and ProgressStart .. "/" .. #Items or (type(Items[ProgressStart]) == "table") and tostring(Items[ProgressStart].Name) or tostring(Items[ProgressStart]))
+                local ProgressText = (Counter and Index[Option].Current .. "/" .. #Items or (type(Items[Index[Option].Current]) == "table") and tostring(Items[Index[Option].Current].Name) or tostring(Items[Index[Option].Current]))
 
                 if Selected then
                     RenderSprite(SettingsButton.SelectedSprite.Dictionary, SettingsButton.SelectedSprite.Texture, CurrentMenu.X, CurrentMenu.Y + SettingsButton.SelectedSprite.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButton.SelectedSprite.Width + CurrentMenu.WidthOffset, SettingsProgress.Height)
@@ -71,14 +65,14 @@ function RageUI.Progress(Label, ProgressStart, ProgressMax, Description, Counter
                         RenderText(Label, CurrentMenu.X + SettingsButton.Text.X, CurrentMenu.Y + SettingsButton.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.Text.Scale, 0, 0, 0, 255)
 
                         RenderRectangle(CurrentMenu.X + SettingsProgress.Background.X, CurrentMenu.Y + SettingsProgress.Background.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsProgress.Background.Width + CurrentMenu.WidthOffset, SettingsProgress.Background.Height, 0, 0, 0, 255)
-                        RenderRectangle(CurrentMenu.X + SettingsProgress.Bar.X, CurrentMenu.Y + SettingsProgress.Bar.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, ((ProgressStart / #Items) * (SettingsProgress.Bar.Width + CurrentMenu.WidthOffset)), SettingsProgress.Bar.Height, 240, 240, 240, 255)
+                        RenderRectangle(CurrentMenu.X + SettingsProgress.Bar.X, CurrentMenu.Y + SettingsProgress.Bar.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, ((Index[Option].Current / #Items) * (SettingsProgress.Bar.Width + CurrentMenu.WidthOffset)), SettingsProgress.Bar.Height, 240, 240, 240, 255)
                     else
                         RenderText(ProgressText, CurrentMenu.X + SettingsButton.RightText.X + CurrentMenu.WidthOffset, CurrentMenu.Y + SettingsButton.RightText.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.RightText.Scale, 245, 245, 245, 255, 2)
 
                         RenderText(Label, CurrentMenu.X + SettingsButton.Text.X, CurrentMenu.Y + SettingsButton.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.Text.Scale, 245, 245, 245, 255)
 
                         RenderRectangle(CurrentMenu.X + SettingsProgress.Background.X, CurrentMenu.Y + SettingsProgress.Background.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsProgress.Background.Width + CurrentMenu.WidthOffset, SettingsProgress.Background.Height, 240, 240, 240, 255)
-                        RenderRectangle(CurrentMenu.X + SettingsProgress.Bar.X, CurrentMenu.Y + SettingsProgress.Bar.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, ((ProgressStart / #Items) * (SettingsProgress.Bar.Width + CurrentMenu.WidthOffset)), SettingsProgress.Bar.Height, 0, 0, 0, 255)
+                        RenderRectangle(CurrentMenu.X + SettingsProgress.Bar.X, CurrentMenu.Y + SettingsProgress.Bar.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, ((Index[Option].Current / #Items) * (SettingsProgress.Bar.Width + CurrentMenu.WidthOffset)), SettingsProgress.Bar.Height, 0, 0, 0, 255)
                     end
                 else
                     RenderText(ProgressText, CurrentMenu.X + SettingsButton.RightText.X + CurrentMenu.WidthOffset, CurrentMenu.Y + SettingsButton.RightText.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.RightText.Scale, 163, 159, 148, 255, 2)
@@ -96,26 +90,26 @@ function RageUI.Progress(Label, ProgressStart, ProgressMax, Description, Counter
                 RageUI.ItemsDescription(CurrentMenu, Description, Selected);
 
                 if Selected and CurrentMenu.Controls.Left.Active and not CurrentMenu.Controls.Right.Active then
-                    ProgressStart = ProgressStart - 1
+                    Index[Option].Current = Index[Option].Current - 1
 
-                    if ProgressStart < 0 then
-                        ProgressStart = #Items
+                    if Index[Option].Current < 0 then
+                        Index[Option].Current = #Items
                     end
                     if (Actions.onListChange ~= nil) then
                         Citizen.CreateThread(function()
-                            Actions.onListChange(ProgressStart);
+                            Actions.onListChange(Index[Option].Current);
                         end)
                     end
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].LeftRight.audioName, Audio[Audio.Use].LeftRight.audioRef)
                 elseif Selected and CurrentMenu.Controls.Right.Active and not CurrentMenu.Controls.Left.Active then
-                    ProgressStart = ProgressStart + 1
-                    if ProgressStart > #Items then
-                        ProgressStart = 0
+                    Index[Option].Current = Index[Option].Current + 1
+                    if Index[Option].Current > #Items then
+                        Index[Option].Current = 0
                     end
                     if (Actions.onListChange ~= nil) then
                         Citizen.CreateThread(function()
-                            Actions.onListChange(ProgressStart);
+                            Actions.onListChange(Index[Option].Current);
                         end)
                     end
                     local Audio = RageUI.Settings.Audio
@@ -127,7 +121,7 @@ function RageUI.Progress(Label, ProgressStart, ProgressMax, Description, Counter
                     RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
                     if (Actions.onSelected ~= nil) then
                         Citizen.CreateThread(function()
-                            Actions.onSelected(ProgressStart);
+                            Actions.onSelected(Index[Option].Current);
                         end)
                     end
                 elseif Selected and (Hovered and CurrentMenu.Controls.Click.Active and ProgressHovered) then
@@ -144,10 +138,10 @@ function RageUI.Progress(Label, ProgressStart, ProgressMax, Description, Counter
                         Progress = 0
                     end
 
-                    ProgressStart = math.round(#Items * (Progress / Barsize))
+                    Index[Option].Current = math.round(#Items * (Progress / Barsize))
 
-                    if ProgressStart > #Items or ProgressStart < 0 then
-                        ProgressStart = 0
+                    if Index[Option].Current > #Items or Index[Option].Current < 0 then
+                        Index[Option].Current = 0
                     end
 
                 end
