@@ -241,15 +241,16 @@ end
 ---@return nil
 ---@public
 function RageUI.Controls()
-    if RageUI.CurrentMenu ~= nil then
-        if RageUI.CurrentMenu() then
-            if RageUI.CurrentMenu.Open then
+    local CurrentMenu = RageUI.CurrentMenu
+    if CurrentMenu ~= nil then
+        if CurrentMenu() then
+            if CurrentMenu.Open then
 
-                local Controls = RageUI.CurrentMenu.Controls;
+                local Controls = CurrentMenu.Controls;
                 ---@type number
-                local Options = RageUI.CurrentMenu.Options
-                RageUI.Options = RageUI.CurrentMenu.Options
-                if RageUI.CurrentMenu.EnableMouse then
+                local Options = CurrentMenu.Options
+                RageUI.Options = CurrentMenu.Options
+                if CurrentMenu.EnableMouse then
                     DisableAllControlActions(2)
                 end
 

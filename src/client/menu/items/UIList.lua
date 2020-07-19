@@ -15,16 +15,10 @@ local SettingsList = {
     Text = { X = 403, Y = 3, Scale = 0.35 },
 }
 
----List
----@param Label string
----@param Items table
----@param Index number
----@param Description string
----@param Enabled boolean
----@param Callback function
----@return nil
----@public
-function RageUI.List(Label, Items, Index, Description, Style, Enabled, Actions, Submenu)
+---@type table Index of all List Items
+local Index = { }
+
+function RageUI.List(Label, Items, StartedAtIndex, Description, Style, Enabled, Actions, Submenu)
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;
 
@@ -33,6 +27,10 @@ function RageUI.List(Label, Items, Index, Description, Style, Enabled, Actions, 
 
             ---@type number
             local Option = RageUI.Options + 1
+
+            if (Index[Option] == nil) then
+                Index[Option] = { Current = StartedAtIndex }
+            end
 
             if CurrentMenu.Pagination.Minimum <= Option and CurrentMenu.Pagination.Maximum >= Option then
 
@@ -52,7 +50,7 @@ function RageUI.List(Label, Items, Index, Description, Style, Enabled, Actions, 
                 if CurrentMenu.EnableMouse == true and (CurrentMenu.CursorStyle == 0) or (CurrentMenu.CursorStyle == 1) then
                     Hovered = RageUI.ItemsMouseBounds(CurrentMenu, Selected, Option, SettingsButton);
                 end
-                local ListText = (type(Items[Index]) == "table") and string.format("← %s →", Items[Index].Name) or string.format("← %s →", Items[Index]) or "NIL"
+                local ListText = (type(Items[Index[Option].Current]) == "table") and string.format("← %s →", Items[Index[Option].Current].Name) or string.format("← %s →", Items[Index[Option].Current]) or "NIL"
 
                 if Selected then
                     RenderSprite(SettingsButton.SelectedSprite.Dictionary, SettingsButton.SelectedSprite.Texture, CurrentMenu.X, CurrentMenu.Y + SettingsButton.SelectedSprite.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButton.SelectedSprite.Width + CurrentMenu.WidthOffset, SettingsButton.SelectedSprite.Height)
@@ -126,9 +124,9 @@ function RageUI.List(Label, Items, Index, Description, Style, Enabled, Actions, 
                 RageUI.ItemsDescription(CurrentMenu, Description, Selected);
 
                 if Selected and (CurrentMenu.Controls.Left.Active or (CurrentMenu.Controls.Click.Active and LeftArrowHovered)) and not (CurrentMenu.Controls.Right.Active or (CurrentMenu.Controls.Click.Active and RightArrowHovered)) then
-                    Index = Index - 1
-                    if Index < 1 then
-                        Index = #Items
+                    Index[Option].Current = Index[Option].Current - 1
+                    if Index[Option].Current < 1 then
+                        Index[Option].Current = #Items
                     end
                     if (Actions.onListChange ~= nil) then
                         Actions.onListChange(Index, Items[Index]);
@@ -136,13 +134,13 @@ function RageUI.List(Label, Items, Index, Description, Style, Enabled, Actions, 
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].LeftRight.audioName, Audio[Audio.Use].LeftRight.audioRef)
                 elseif Selected and (CurrentMenu.Controls.Right.Active or (CurrentMenu.Controls.Click.Active and RightArrowHovered)) and not (CurrentMenu.Controls.Left.Active or (CurrentMenu.Controls.Click.Active and LeftArrowHovered)) then
-                    Index = Index + 1
-                    if Index > #Items then
-                        Index = 1
+                    Index[Option].Current = Index[Option].Current + 1
+                    if Index[Option].Current > #Items then
+                        Index[Option].Current = 1
                     end
                     if (Actions.onListChange ~= nil) then
                         Citizen.CreateThread(function()
-                            Actions.onListChange(Index, Items[Index]);
+                            Actions.onListChange(Index[Option].Current, Items[Index[Option].Current]);
                         end)
                     end
                     local Audio = RageUI.Settings.Audio
@@ -153,14 +151,14 @@ function RageUI.List(Label, Items, Index, Description, Style, Enabled, Actions, 
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
                     Citizen.CreateThread(function()
-                        Actions.onSelected(Index, Items[Index]);
+                        Actions.onSelected(Index[Option].Current, Items[Index[Option].Current]);
                     end)
                     if Submenu ~= nil and type(Submenu) == "table" then
-                        RageUI.NextMenu = Submenu[Index]
+                        RageUI.NextMenu = Submenu[Index[Option].Current]
                     end
                 end
                 if (Enabled) then
-                    Actions.onHovered(Index, Items[Index])
+                    Actions.onHovered(Index[Option].Current, Items[Index[Option].Current])
                 end
             end
 

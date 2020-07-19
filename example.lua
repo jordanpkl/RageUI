@@ -29,6 +29,7 @@ Keys.Register('E', 'E', 'Open RageUI Showcase menu default.', function()
     RageUI.Visible(RMenu:Get('showcase', 'main'), not RageUI.Visible(RMenu:Get('showcase', 'main')))
 end)
 
+
 Citizen.CreateThread(function()
     while (true) do
         Citizen.Wait(1.0)
@@ -36,17 +37,18 @@ Citizen.CreateThread(function()
         RageUI.IsVisible(RMenu:Get('showcase', 'main'), function()
             for i = 1, 100 do
 
-                RageUI.Button('Basic Items', nil, true, {
-                    onHovered = function()
+                RageUI.List("List Items", {"Yes", "No", "Maybe ?", "Money"}, 1, nil, {}, true, {
+                    onListChange = function(Index, Items)
 
                     end,
-                    onSelected = function()
+                    onSelected = function(Index, Items)
 
                     end,
-                    onActive = function()
+                    onHovered = function(Index, Items)
 
-                    end,
-                });
+                    end
+                })
+
 
             end
         end, function()
