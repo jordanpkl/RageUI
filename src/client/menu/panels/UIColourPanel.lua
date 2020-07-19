@@ -8,15 +8,8 @@ local Colour = {
     SelectedRectangle = { X = 15, Y = 47, Width = 44.5, Height = 8 },
 }
 
----ColourPanel
----@param Title string
----@param Colours thread
----@param MinimumIndex number
----@param CurrentIndex number
----@param Callback function
----@return nil
----@public
-function RageUI.ColourPanel(Title, Colours, MinimumIndex, CurrentIndex, Callback, Index)
+---@type Panel
+function RageUI.Panel.ColourPanel(Title, Colours, MinimumIndex, CurrentIndex, Callback, Index)
 
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;

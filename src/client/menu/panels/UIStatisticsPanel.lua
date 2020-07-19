@@ -13,13 +13,8 @@ local Statistics = {
     }
 }
 
----StatisticPanel
----@param Percent number
----@param Text string
----@param Index number
----@return void
----@public
-function RageUI.StatisticPanel(Percent, Text, Index)
+---@type Panel
+function RageUI.Panel.StatisticPanel(Percent, Text, Index)
     local CurrentMenu = RageUI.CurrentMenu
     if CurrentMenu ~= nil then
         if CurrentMenu() and (Index == nil or (CurrentMenu.Index == Index)) then

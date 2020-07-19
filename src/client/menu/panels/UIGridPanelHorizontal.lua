@@ -8,17 +8,8 @@ local GridPanelHorizontal = {
     },
 }
 
----GridPanelVertical
----@param X number
----@param TopText string
----@param BottomText string
----@param LeftText string
----@param RightText string
----@param Callback table
----@param Index number
----@return table
----@public
-function RageUI.GridPanelHorizontal(X, LeftText, RightText, Callback, Index)
+---@type Panel
+function RageUI.Panel.GridPanelHorizontal(X, LeftText, RightText, Callback, Index)
     local CurrentMenu = RageUI.CurrentMenu
     if CurrentMenu ~= nil then
         if CurrentMenu() and (Index == nil or (CurrentMenu.Index == Index)) then

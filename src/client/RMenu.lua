@@ -10,6 +10,9 @@ RageUI = {}
 ---@class Item
 RageUI.Item = setmetatable({}, RageUI.Item)
 
+---@class Window
+RageUI.Window = setmetatable({}, RageUI.Window)
+
 ---@class Panel
 RageUI.Panel = setmetatable({}, RageUI.Panel)
 

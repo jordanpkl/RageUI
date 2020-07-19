@@ -5,12 +5,8 @@ local Heritage = {
     Dad = { Dictionary = "char_creator_portraits", X = 195, Width = 228, Height = 228 },
 }
 
----HeritageWindow
----@param Mum number
----@param Dad number
----@return nil
----@public
-function RageUI.HeritageWindow(Mum, Dad)
+---@type Window
+function RageUI.Window.HeritageWindow(Mum, Dad)
 
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;

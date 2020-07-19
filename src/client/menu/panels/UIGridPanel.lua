@@ -10,17 +10,8 @@ local Grid = {
     },
 }
 
----GridPanel
----@param X number
----@param Y number
----@param TopText string
----@param BottomText string
----@param LeftText string
----@param RightText string
----@param Callback table
----@return table
----@public
-function RageUI.GridPanel(X, Y, TopText, BottomText, LeftText, RightText, Callback, Index)
+---@type Panel
+function RageUI.Panel.GridPanel(X, Y, TopText, BottomText, LeftText, RightText, Callback, Index)
     local CurrentMenu = RageUI.CurrentMenu
     if CurrentMenu ~= nil then
         if CurrentMenu() and (Index == nil or (CurrentMenu.Index == Index)) then

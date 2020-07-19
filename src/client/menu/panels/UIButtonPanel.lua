@@ -6,11 +6,8 @@ local TextPanels = {
     },
 }
 
----BoutonPanel
----@param LeftText string
----@param RightText string
----@public
-function RageUI.ButtonPanel(LeftText, RightText, Index)
+---@type Panel
+function RageUI.Panel.ButtonPanel(LeftText, RightText, Index)
     local CurrentMenu = RageUI.CurrentMenu
     if CurrentMenu ~= nil then
         local leftTextSize = MeasureStringWidth(LeftText)
