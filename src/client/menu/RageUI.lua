@@ -329,11 +329,24 @@ function RageUI.SetScaleformParams(scaleform, data)
     end
 end
 
----Visible
----@param Menu function
----@param Value boolean
----@return table
----@public
+function RageUI.IsMouseInBounds(X, Y, Width, Height)
+    local MX, MY = math.round(GetControlNormal(2, 239) * 1920) / 1920, math.round(GetControlNormal(2, 240) * 1080) / 1080
+    X, Y = X / 1920, Y / 1080
+    Width, Height = Width / 1920, Height / 1080
+    return (MX >= X and MX <= X + Width) and (MY > Y and MY < Y + Height)
+end
+
+function RageUI.GetSafeZoneBounds()
+    local SafeSize = GetSafeZoneSize()
+    SafeSize = math.round(SafeSize, 2)
+    SafeSize = (SafeSize * 100) - 90
+    SafeSize = 10 - SafeSize
+
+    local W, H = 1920, 1080
+
+    return { X = math.round(SafeSize * ((W / H) * 5.4)), Y = math.round(SafeSize * 5.4) }
+end
+
 function RageUI.Visible(Menu, Value)
     if Menu ~= nil and Menu() then
         if Value == true or Value == false then
