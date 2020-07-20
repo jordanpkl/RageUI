@@ -437,7 +437,7 @@ function RageUI.Subtitle()
                     CurrentMenu.Index = 1
                 end
                 if (CurrentMenu ~= nil) then
-                    if (CurrentMenu.Index > 10) then
+                    if (CurrentMenu.Index > CurrentMenu.Pagination.Total) then
                         local offset = CurrentMenu.Index - CurrentMenu.Pagination.Total
                         CurrentMenu.Pagination.Minimum = 1 + offset
                         CurrentMenu.Pagination.Maximum = CurrentMenu.Pagination.Total + offset
