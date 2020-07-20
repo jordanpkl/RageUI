@@ -23,14 +23,25 @@ local Colour = {
     SelectedRectangle = { X = 15, Y = 47, Width = 44.5, Height = 8 },
 }
 
+---@type table ColourIndex of all ColourPanel
+local ColourIndex = { }
+
 ---@type Panel
-function RageUI.Panel.ColourPanel(Title, Colours, MinimumIndex, CurrentIndex, Callback, Index)
+function RageUI.Panel.ColourPanel(Title, Colours, StartedAtIndex, Action, DisplayAtIndex)
+
 
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;
 
     if CurrentMenu ~= nil then
-        if CurrentMenu() and (Index == nil or (CurrentMenu.Index == Index)) then
+        if CurrentMenu() and (DisplayAtIndex == nil or (CurrentMenu.Index == DisplayAtIndex)) then
+
+            if (ColourIndex[DisplayAtIndex] == nil) then
+                ColourIndex[DisplayAtIndex] = { CurrentIndex = StartedAtIndex, MinimumIndex = StartedAtIndex - 4 };
+            end
+
+            local CurrentIndex = ColourIndex[DisplayAtIndex].CurrentIndex
+            local MinimumIndex = ColourIndex[DisplayAtIndex].MinimumIndex
 
             ---@type number
             local Maximum = (#Colours > 9) and 9 or #Colours
@@ -57,31 +68,36 @@ function RageUI.Panel.ColourPanel(Title, Colours, MinimumIndex, CurrentIndex, Ca
                 RenderRectangle(CurrentMenu.X + Colour.Box.X + (Colour.Box.Width * (Index - 1)) + (CurrentMenu.WidthOffset / 2), CurrentMenu.Y + Colour.Box.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, Colour.Box.Width, Colour.Box.Height, table.unpack(Colours[MinimumIndex + Index - 1]))
             end
 
-            RenderText((Title and Title or "") .. " (" .. CurrentIndex .. " of " .. #Colours .. ")", CurrentMenu.X + RageUI.Settings.Panels.Grid.Text.Top.X + (CurrentMenu.WidthOffset / 2), CurrentMenu.Y + RageUI.Settings.Panels.Grid.Text.Top.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, RageUI.Settings.Panels.Grid.Text.Top.Scale, 245, 245, 245, 255, 1)
+            RenderText((Title and Title or "") .. " (" .. CurrentIndex .. " - " .. #Colours .. ")", CurrentMenu.X + RageUI.Settings.Panels.Grid.Text.Top.X + (CurrentMenu.WidthOffset / 2), CurrentMenu.Y + RageUI.Settings.Panels.Grid.Text.Top.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, RageUI.Settings.Panels.Grid.Text.Top.Scale, 245, 245, 245, 255, 1)
 
             if Hovered or LeftArrowHovered or RightArrowHovered then
                 if RageUI.Settings.Controls.Click.Active then
                     Selected = true
                     if LeftArrowHovered then
-                        CurrentIndex = CurrentIndex - 1
+                        ColourIndex[DisplayAtIndex].CurrentIndex = CurrentIndex - 1
                         if CurrentIndex < 1 then
-                            CurrentIndex = #Colours
-                            MinimumIndex = #Colours - Maximum + 1
+                            ColourIndex[DisplayAtIndex].CurrentIndex = #Colours
+                            ColourIndex[DisplayAtIndex].MinimumIndex = #Colours - Maximum + 1
                         elseif CurrentIndex < MinimumIndex then
-                            MinimumIndex = MinimumIndex - 1
+                            ColourIndex[DisplayAtIndex].MinimumIndex = MinimumIndex - 1
+                        end
+                        if (Action.onColourChange ~= nil) then
+                            Citizen.CreateThread(function()
+                                Action.onColourChange(ColourIndex[DisplayAtIndex].CurrentIndex)
+                            end)
                         end
                     elseif RightArrowHovered then
-                        CurrentIndex = CurrentIndex + 1
+                        ColourIndex[DisplayAtIndex].CurrentIndex = CurrentIndex + 1
                         if CurrentIndex > #Colours then
-                            CurrentIndex = 1
-                            MinimumIndex = 1
+                            ColourIndex[DisplayAtIndex].CurrentIndex = 1
+                            ColourIndex[DisplayAtIndex].MinimumIndex = 1
                         elseif CurrentIndex > MinimumIndex + Maximum - 1 then
-                            MinimumIndex = MinimumIndex + 1
+                            ColourIndex[DisplayAtIndex].MinimumIndex = MinimumIndex + 1
                         end
                     elseif Hovered then
                         for Index = 1, Maximum do
                             if RageUI.IsMouseInBounds(CurrentMenu.X + Colour.Box.X + (Colour.Box.Width * (Index - 1)) + CurrentMenu.SafeZoneSize.X + (CurrentMenu.WidthOffset / 2), CurrentMenu.Y + Colour.Box.Y + CurrentMenu.SafeZoneSize.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, Colour.Box.Width, Colour.Box.Height) then
-                                CurrentIndex = MinimumIndex + Index - 1
+                                ColourIndex[DisplayAtIndex].CurrentIndex = MinimumIndex + Index - 1
                             end
                         end
                     end
@@ -93,9 +109,14 @@ function RageUI.Panel.ColourPanel(Title, Colours, MinimumIndex, CurrentIndex, Ca
             if (Hovered or LeftArrowHovered or RightArrowHovered) and RageUI.Settings.Controls.Click.Active then
                 local Audio = RageUI.Settings.Audio
                 RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
+                if (Action.onSelected ~= nil) then
+                    Citizen.CreateThread(function()
+                        Action.onSelected();
+                    end)
+                end
             end
 
-            Callback((Hovered or LeftArrowHovered or RightArrowHovered), Selected, MinimumIndex, CurrentIndex)
+
         end
     end
 end

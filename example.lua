@@ -78,16 +78,16 @@ Citizen.CreateThread(function()
             end
         end, function()
 
-            RageUI.Panel.Grid(0.5, 0.2, 'TopText', 'BottomText', 'LeftText', 'RightText', {
-                onPositionChange = function(X, Y)
-                    print(X, Y)
+            RageUI.Panel.ColourPanel('Title', RageUI.PanelColour.HairCut, 5, {
+                onColourChange = function(Index)
+
                 end,
-                onSelected = function(X, Y)
-                    print(X, Y)
+                onSelected = function()
+
                 end
             }, 1)
 
-            RageUI.Panel.GridHorizontal(0.1, 'LeftText', 'RightText', {
+            RageUI.Panel.Grid(0.5, 0.2, 'TopText', 'BottomText', 'LeftText', 'RightText', {
                 onPositionChange = function(X, Y)
                     print(X, Y)
                 end,
@@ -96,7 +96,7 @@ Citizen.CreateThread(function()
                 end
             }, 2)
 
-            RageUI.Panel.GridVertical(0.1, 'TopText', 'BottomText', {
+            RageUI.Panel.GridHorizontal(0.1, 'LeftText', 'RightText', {
                 onPositionChange = function(X, Y)
                     print(X, Y)
                 end,
@@ -105,6 +105,15 @@ Citizen.CreateThread(function()
                 end
             }, 3)
 
+            RageUI.Panel.GridVertical(0.1, 'TopText', 'BottomText', {
+                onPositionChange = function(X, Y)
+                    print(X, Y)
+                end,
+                onSelected = function(X, Y)
+                    print(X, Y)
+                end
+            }, 4)
+
             RageUI.Panel.PercentagePanel(1.0, "HeaderText", "MinText", "MaxText", {
                 onPercentageChange = function(Percentage)
                     print(Percentage)
@@ -112,7 +121,7 @@ Citizen.CreateThread(function()
                 onSelected = function(Percentage)
                     print(Percentage)
                 end
-            }, 4)
+            }, 5)
 
         end)
 
