@@ -19,6 +19,8 @@ local ControlActions = {
     'Right',
     'SliderLeft',
     'SliderRight',
+    'Select',
+    'Click',
 }
 
 ---GoUp
@@ -138,7 +140,9 @@ function RageUI.GoActionControl(Controls, Action)
                             Citizen.Wait(124.99)
                         end
                         Controls[Action or 'Left'].Pressed = false
-                        Citizen.Wait(10)
+                        if (Action ~= ControlActions[5]) then
+                            Citizen.Wait(10)
+                        end
                     end)
                     break
                 end
@@ -199,21 +203,15 @@ function RageUI.Controls()
                         if not Controls.Down.Pressed then
                             if IsDisabledControlJustPressed(Controls.Down.Keys[Index][1], Controls.Down.Keys[Index][2]) then
                                 Controls.Down.Pressed = true
-
                                 Citizen.CreateThread(function()
                                     RageUI.GoDown(Options)
-
                                     Citizen.Wait(175)
-
                                     while Controls.Down.Enabled and IsDisabledControlPressed(Controls.Down.Keys[Index][1], Controls.Down.Keys[Index][2]) do
                                         RageUI.GoDown(Options)
-
                                         Citizen.Wait(50)
                                     end
-
                                     Controls.Down.Pressed = false
                                 end)
-
                                 break
                             end
                         end
@@ -224,80 +222,12 @@ function RageUI.Controls()
                     RageUI.GoActionControl(Controls, ControlActions[i])
                 end
 
-                if Controls.Select.Enabled then
-                    for Index = 1, #Controls.Select.Keys do
-                        if not Controls.Select.Pressed then
-                            if IsDisabledControlJustPressed(Controls.Select.Keys[Index][1], Controls.Select.Keys[Index][2]) then
-                                Controls.Select.Pressed = true
-
-                                Citizen.CreateThread(function()
-                                    Controls.Select.Active = true
-
-                                    Citizen.Wait(0.01)
-
-                                    Controls.Select.Active = false
-
-                                    Citizen.Wait(174.99)
-
-                                    while Controls.Select.Enabled and IsDisabledControlPressed(Controls.Select.Keys[Index][1], Controls.Select.Keys[Index][2]) do
-                                        Controls.Select.Active = true
-
-                                        Citizen.Wait(0.01)
-
-                                        Controls.Select.Active = false
-
-                                        Citizen.Wait(124.99)
-                                    end
-
-                                    Controls.Select.Pressed = false
-
-                                end)
-
-                                break
-                            end
-                        end
-                    end
-                end
-
-                if Controls.Click.Enabled then
-                    for Index = 1, #Controls.Click.Keys do
-                        if not Controls.Click.Pressed then
-                            if IsDisabledControlJustPressed(Controls.Click.Keys[Index][1], Controls.Click.Keys[Index][2]) then
-                                Controls.Click.Pressed = true
-
-                                Citizen.CreateThread(function()
-                                    Controls.Click.Active = true
-
-                                    Citizen.Wait(0.01)
-
-                                    Controls.Click.Active = false
-
-                                    Citizen.Wait(174.99)
-
-                                    while Controls.Click.Enabled and IsDisabledControlPressed(Controls.Click.Keys[Index][1], Controls.Click.Keys[Index][2]) do
-                                        Controls.Click.Active = true
-
-                                        Citizen.Wait(0.01)
-
-                                        Controls.Click.Active = false
-
-                                        Citizen.Wait(124.99)
-                                    end
-
-                                    Controls.Click.Pressed = false
-                                end)
-
-                                break
-                            end
-                        end
-                    end
-                end
                 if Controls.Back.Enabled then
                     for Index = 1, #Controls.Back.Keys do
                         if not Controls.Back.Pressed then
                             if IsDisabledControlJustPressed(Controls.Back.Keys[Index][1], Controls.Back.Keys[Index][2]) then
                                 Controls.Back.Pressed = true
-                                Wait(10)
+                                Citizen.Wait(10)
                                 break
                             end
                         end
