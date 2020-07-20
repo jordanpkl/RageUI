@@ -44,7 +44,6 @@ Citizen.CreateThread(function()
     while (true) do
         Citizen.Wait(1.0)
 
-
         RageUI.IsVisible(RMenu:Get('showcase', 'main'), function()
 
             for i = 1, 20 do
@@ -84,27 +83,36 @@ Citizen.CreateThread(function()
                     print(X, Y)
                 end,
                 onSelected = function(X, Y)
-
+                    print(X, Y)
                 end
             }, 1)
 
-            RageUI.Panel.GridHorizontal(0.1,  'LeftText', 'RightText', {
+            RageUI.Panel.GridHorizontal(0.1, 'LeftText', 'RightText', {
                 onPositionChange = function(X, Y)
                     print(X, Y)
                 end,
                 onSelected = function(X, Y)
-
+                    print(X, Y)
                 end
             }, 2)
 
-            RageUI.Panel.GridVertical(0.1,  'TopText', 'BottomText', {
+            RageUI.Panel.GridVertical(0.1, 'TopText', 'BottomText', {
                 onPositionChange = function(X, Y)
                     print(X, Y)
                 end,
                 onSelected = function(X, Y)
-
+                    print(X, Y)
                 end
             }, 3)
+
+            RageUI.Panel.PercentagePanel(1.0, "HeaderText", "MinText", "MaxText", {
+                onPercentageChange = function(Percentage)
+                    print(Percentage)
+                end,
+                onSelected = function(Percentage)
+                    print(Percentage)
+                end
+            }, 4)
 
         end)
 

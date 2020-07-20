@@ -23,12 +23,19 @@ local Percentage = {
     },
 }
 
+---@type table PercentageIndex of all PercentagePanel
+local PercentageIndex = { }
+
 ---@type Panel
-function RageUI.Panel.PercentagePanel(Percent, HeaderText, MinText, MaxText, Callback, Index)
+function RageUI.Panel.PercentagePanel(StartedAtPercent, HeaderText, MinText, MaxText, Action, Index)
     local CurrentMenu = RageUI.CurrentMenu
 
     if CurrentMenu ~= nil then
         if CurrentMenu() and (Index == nil or (CurrentMenu.Index == Index)) then
+
+            if (PercentageIndex[Index] == nil) then
+                PercentageIndex[Index] = { Value = StartedAtPercent };
+            end
 
             ---@type boolean
             local Hovered = RageUI.IsMouseInBounds(CurrentMenu.X + Percentage.Bar.X + CurrentMenu.SafeZoneSize.X, CurrentMenu.Y + Percentage.Bar.Y + CurrentMenu.SafeZoneSize.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset - 4, Percentage.Bar.Width + CurrentMenu.WidthOffset, Percentage.Bar.Height + 8)
@@ -39,13 +46,13 @@ function RageUI.Panel.PercentagePanel(Percent, HeaderText, MinText, MaxText, Cal
             ---@type number
             local Progress = Percentage.Bar.Width
 
-            if Percent < 0.0 then
-                Percent = 0.0
-            elseif Percent > 1.0 then
-                Percent = 1.0
+            if PercentageIndex[Index].Value < 0.0 then
+                PercentageIndex[Index].Value = 0.0
+            elseif PercentageIndex[Index].Value > 1.0 then
+                PercentageIndex[Index].Value = 1.0
             end
 
-            Progress = Progress * Percent
+            Progress = Progress * PercentageIndex[Index].Value
 
             RenderSprite(Percentage.Background.Dictionary, Percentage.Background.Texture, CurrentMenu.X, CurrentMenu.Y + Percentage.Background.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, Percentage.Background.Width + CurrentMenu.WidthOffset, Percentage.Background.Height)
             RenderRectangle(CurrentMenu.X + Percentage.Bar.X + (CurrentMenu.WidthOffset / 2), CurrentMenu.Y + Percentage.Bar.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, Percentage.Bar.Width, Percentage.Bar.Height, 87, 87, 87, 255)
@@ -67,7 +74,11 @@ function RageUI.Panel.PercentagePanel(Percent, HeaderText, MinText, MaxText, Cal
                         Progress = Percentage.Bar.Width
                     end
 
-                    Percent = math.round(Progress / Percentage.Bar.Width, 2)
+                    PercentageIndex[Index].Value = math.round(Progress / Percentage.Bar.Width, 2)
+
+                    if (Action.onPercentageChange ~= nil) then
+                        Action.onPercentageChange(PercentageIndex[Index].Value)
+                    end
                 end
             end
 
@@ -76,9 +87,13 @@ function RageUI.Panel.PercentagePanel(Percent, HeaderText, MinText, MaxText, Cal
             if Hovered and Selected then
                 local Audio = RageUI.Settings.Audio
                 RageUI.PlaySound(Audio[Audio.Use].Slider.audioName, Audio[Audio.Use].Slider.audioRef, true)
+                if (Action.onSelected ~= nil) then
+                    Citizen.CreateThread(function()
+                        Action.onSelected(PercentageIndex[Index].Value);
+                    end)
+                end
             end
 
-            Callback(Hovered, Selected, Percent)
         end
     end
 end
