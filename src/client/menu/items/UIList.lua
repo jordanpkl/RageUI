@@ -30,7 +30,6 @@ local SettingsList = {
 ---@type table Index of all List Items
 local Index = { }
 
-
 ---@type Item
 function RageUI.Item.List(Label, Items, StartedAtIndex, Description, Style, Enabled, Actions, Submenu)
     ---@type table

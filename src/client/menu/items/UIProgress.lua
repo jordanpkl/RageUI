@@ -45,7 +45,6 @@ function RageUI.Item.Progress(Label, Items, StartedAtIndex, Description, Counter
             ---@type number
             local Option = RageUI.Options + 1
 
-
             if (Index[Option] == nil) then
                 Index[Option] = { Current = StartedAtIndex }
             end

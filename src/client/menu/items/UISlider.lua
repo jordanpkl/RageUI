@@ -35,7 +35,6 @@ local SettingsSlider = {
 ---@type table Index of all List Items
 local Index = { }
 
-
 ---@type Item
 function RageUI.Item.Slider(Label, Items, StartedAtIndex, Description, Divider, Style, Enabled, Actions)
 

@@ -21,7 +21,6 @@ local enums = {
     end
 }
 
-
 ---Enum
 ---@param t table
 ---@return Enum
