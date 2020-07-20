@@ -94,6 +94,9 @@ local function UIGridPanel(Type, StartedX, StartedY, TopText, BottomText, LeftTe
                     end
                     X = math.round((CircleX - (CurrentMenu.X + Grid.Grid.X + (CurrentMenu.WidthOffset / 2) + 20) + (Grid.Circle.Width / 2)) / (Grid.Grid.Width - 40), 2)
                     Y = math.round((CircleY - (CurrentMenu.Y + Grid.Grid.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset + 20) + (Grid.Circle.Height / 2)) / (Grid.Grid.Height - 40), 2)
+                    if (X ~= GridPosition[Index].X) and (Y ~= GridPosition[Index].Y) then
+                        Action.onPositionChange(X, Y)
+                    end
                     GridPosition[Index].X = X;
                     GridPosition[Index].Y = Y;
                     if X > 1.0 then
@@ -114,7 +117,7 @@ local function UIGridPanel(Type, StartedX, StartedY, TopText, BottomText, LeftTe
                     end)
                 end
             end
-            Action.onPositionChange(X, Y)
+
         end
     end
 end
