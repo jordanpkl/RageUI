@@ -229,7 +229,9 @@ function RageUI.Menus:SetPosition(X, Y)
 end
 
 function RageUI.Menus:SetTotalItemsPerPage(Value)
-    self.Pagination.Total = tonumber(Value) or self.Pagination.Total
+    self.Pagination.Total = Value;
+    self.Pagination.Maximum = Value;
+
 end
 
 function RageUI.Menus:SetRectangleBanner(R, G, B, A)

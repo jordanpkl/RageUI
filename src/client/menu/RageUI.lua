@@ -380,12 +380,12 @@ function RageUI.CloseAll()
         while parent ~= nil do
             parent.Index = 1
             parent.Pagination.Minimum = 1
-            parent.Pagination.Maximum = 10
+            parent.Pagination.Maximum = parent.Pagination.Total
             parent = parent.Parent
         end
         RageUI.CurrentMenu.Index = 1
         RageUI.CurrentMenu.Pagination.Minimum = 1
-        RageUI.CurrentMenu.Pagination.Maximum = 10
+        RageUI.CurrentMenu.Pagination.Maximum = RageUI.CurrentMenu.Pagination.Total
         RageUI.CurrentMenu.Open = false
         RageUI.CurrentMenu = nil
     end
@@ -438,12 +438,12 @@ function RageUI.Subtitle()
                 end
                 if (CurrentMenu ~= nil) then
                     if (CurrentMenu.Index > 10) then
-                        local offset = CurrentMenu.Index - 10
+                        local offset = CurrentMenu.Index - CurrentMenu.Pagination.Total
                         CurrentMenu.Pagination.Minimum = 1 + offset
-                        CurrentMenu.Pagination.Maximum = 10 + offset
+                        CurrentMenu.Pagination.Maximum = CurrentMenu.Pagination.Total + offset
                     else
                         CurrentMenu.Pagination.Minimum = 1
-                        CurrentMenu.Pagination.Maximum = 10
+                        CurrentMenu.Pagination.Maximum = CurrentMenu.Pagination.Total
                     end
                 end
                 if CurrentMenu.PageCounter == nil then

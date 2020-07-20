@@ -18,6 +18,7 @@ RMenu.Add('showcase', 'main', RageUI.CreateMenu("RageUI", "Undefined for using S
 RMenu:Get('showcase', 'main'):SetSubtitle("RageUI Showcase")
 RMenu:Get('showcase', 'main'):DisplayGlare(false);
 
+
 RMenu:Get('showcase', 'main').Closed = function()
     print('Closed Showcase Menu')
 end;
@@ -63,7 +64,7 @@ Citizen.CreateThread(function()
         end)
 
         RageUI.IsVisible(RMenu:Get('showcase', 'submenu'), function()
-            for i = 1, 20 do
+            for i = 1, 11 do
                 RageUI.Item.List("List Items", { "Yes", "No", "Maybe ?", "Money" }, 1, nil, {}, true, {
                     onListChange = function(Index, Items)
 
