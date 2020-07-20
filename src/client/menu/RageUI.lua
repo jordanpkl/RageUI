@@ -335,29 +335,28 @@ end
 ---@return table
 ---@public
 function RageUI.Visible(Menu, Value)
-    if Menu ~= nil then
-        if Menu() then
-            if type(Value) == "boolean" then
-                if Value then
-                    if RageUI.CurrentMenu ~= nil then
-                        if RageUI.CurrentMenu.Closed ~= nil then
-                            RageUI.CurrentMenu.Closed()
-                        end
-                        RageUI.CurrentMenu.Open = not Value
+    if Menu ~= nil and Menu() then
+        if Value == true or Value == false then
+            if Value then
+                if RageUI.CurrentMenu ~= nil then
+                    if RageUI.CurrentMenu.Closed ~= nil then
+                        RageUI.CurrentMenu.Closed()
                     end
+                    RageUI.CurrentMenu.Open = not Value
                     Menu:UpdateInstructionalButtons(Value);
                     Menu:UpdateCursorStyle();
-                    RageUI.CurrentMenu = Menu
-                else
-                    RageUI.CurrentMenu = nil
+
                 end
-                Menu.Open = Value
-                RageUI.Options = 0
-                RageUI.ItemOffset = 0
-                RageUI.LastControl = false
+                RageUI.CurrentMenu = Menu
             else
-                return Menu.Open
+                RageUI.CurrentMenu = nil
             end
+            Menu.Open = Value
+            RageUI.Options = 0
+            RageUI.ItemOffset = 0
+            RageUI.LastControl = false
+        else
+            return Menu.Open
         end
     end
 end

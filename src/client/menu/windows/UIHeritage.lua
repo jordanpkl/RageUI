@@ -21,7 +21,7 @@ local Heritage = {
 }
 
 ---@type Window
-function RageUI.Window.HeritageWindow(Mum, Dad)
+function RageUI.Window.Heritage(Mum, Dad)
     ---@type table
     local CurrentMenu = RageUI.CurrentMenu;
     if CurrentMenu ~= nil then

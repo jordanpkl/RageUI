@@ -17,6 +17,7 @@ print("^1 RageUI - testing file is started. ^0")
 RMenu.Add('showcase', 'main', RageUI.CreateMenu("RageUI", "Undefined for using SetSubtitle"))
 RMenu:Get('showcase', 'main'):SetSubtitle("RageUI Showcase")
 RMenu:Get('showcase', 'main'):DisplayGlare(false);
+
 RMenu:Get('showcase', 'main').Closed = function()
     print('Closed Showcase Menu')
 end;
@@ -43,8 +44,10 @@ Citizen.CreateThread(function()
     while (true) do
         Citizen.Wait(1.0)
 
+
         RageUI.IsVisible(RMenu:Get('showcase', 'main'), function()
-            for i = 1, 100 do
+
+            for i = 1, 20 do
                 RageUI.Item.Button('Basic Items', nil, {  }, true, {
                     onHovered = function()
 
@@ -56,12 +59,11 @@ Citizen.CreateThread(function()
 
                     end,
                 }, RMenu:Get('showcase', 'submenu'))
-
             end
+
         end)
 
         RageUI.IsVisible(RMenu:Get('showcase', 'submenu'), function()
-
             for i = 1, 20 do
                 RageUI.Item.List("List Items", { "Yes", "No", "Maybe ?", "Money" }, 1, nil, {}, true, {
                     onListChange = function(Index, Items)
@@ -75,10 +77,9 @@ Citizen.CreateThread(function()
                     end
                 })
             end
-
         end, function()
 
-            RageUI.Panel.GridPanel(0.5, 0.2, 'TopText', 'BottomText', 'LeftText', 'RightText', {
+            RageUI.Panel.Grid(0.5, 0.2, 'TopText', 'BottomText', 'LeftText', 'RightText', {
                 onPositionChange = function(X, Y)
                     print(X, Y)
                 end,
@@ -86,6 +87,24 @@ Citizen.CreateThread(function()
 
                 end
             }, 1)
+
+            RageUI.Panel.GridHorizontal(0.1,  'LeftText', 'RightText', {
+                onPositionChange = function(X, Y)
+                    print(X, Y)
+                end,
+                onSelected = function(X, Y)
+
+                end
+            }, 2)
+
+            RageUI.Panel.GridVertical(0.1,  'TopText', 'BottomText', {
+                onPositionChange = function(X, Y)
+                    print(X, Y)
+                end,
+                onSelected = function(X, Y)
+
+                end
+            }, 3)
 
         end)
 

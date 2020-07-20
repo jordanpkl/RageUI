@@ -12,7 +12,6 @@
 --- @see RageUI
 ---
 
-
 ---@class RageUI
 RageUI = {}
 
@@ -52,7 +51,7 @@ end
 ---Get
 ---@param Type string
 ---@param Name string
----@return table
+---@return RageUIMenus
 ---@public
 function RMenu:Get(Type, Name)
     if self[Type] ~= nil and self[Type][Name] ~= nil then
