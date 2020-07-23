@@ -154,7 +154,7 @@ function RageUI.Menus:SetTitle(Title)
     self.Title = Title
 end
 
-function RageUI.Menus:SetStyleSize(Value)
+function RageUI.Menus:SetSizeWidth(Value)
     local witdh
     if Value >= 0 and Value <= 100 then
         witdh = Value

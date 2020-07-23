@@ -16,7 +16,7 @@ print("^1 RageUI - testing file is started. ^0")
 
 RMenu.Add('showcase', 'main', RageUI.CreateMenu("RageUI", "Undefined for using SetSubtitle"))
 RMenu:Get('showcase', 'main'):SetSubtitle("RageUI Showcase")
-RMenu:Get('showcase', 'main'):DisplayGlare(false);
+RMenu:Get('showcase', 'main'):DisplayGlare(true);
 
 
 RMenu:Get('showcase', 'main').Closed = function()
@@ -58,7 +58,7 @@ Citizen.CreateThread(function()
                     onActive = function()
 
                     end,
-                }, RMenu:Get('showcase', 'submenu'))
+                })
             end
 
         end)

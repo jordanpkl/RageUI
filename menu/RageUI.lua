@@ -411,7 +411,7 @@ function RageUI.Banner()
                 ---@type number
                 local Glareheight = RageUI.Settings.Items.Title.Background.Height
                 ---@type number
-                local GlareX = CurrentMenu.X / 1860 + (CurrentMenu.SafeZoneSize.X / (64.399 - (CurrentMenu.WidthOffset * 0.065731)))
+                local GlareX = CurrentMenu.X / 1920 + (CurrentMenu.SafeZoneSize.X / (64.399 - (CurrentMenu.WidthOffset * 0.065731)))
                 ---@type number
                 local GlareY = CurrentMenu.Y / 1080 + CurrentMenu.SafeZoneSize.Y / 33.195020746888
                 RageUI.SetScaleformParams(ScaleformMovie, {

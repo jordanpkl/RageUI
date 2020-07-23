@@ -55,7 +55,7 @@ client_scripts {
 }
 
 client_scripts {
-     --'example.lua',
+     'example.lua',
 }
 
 
