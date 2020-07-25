@@ -15,11 +15,12 @@ If you like this project and you want thank us, you can become a [sponsor of Rag
 
 # Major Update!
 RageUI V2 experimental tests are now finished. You've from now on access to the new version of RageUI. This major update solve a lot of issues found in RageUI V1.
-## - New Features
+## New Features
 The arrival of RageUI V2 offers you some new features and a lot of issues fixed :
 - Glare position is fix when you set a custom menu position.
 - Simplify item closure. RageUI use now a table to set actions.
-- A lot code optimisation0
+- A lot of code optimisations
+- Automatic management of items index
 - Better and more explicit [documentation](https://github.com/iTexZoz/RageUI-Docs).
 - Rewrite readme.
 
