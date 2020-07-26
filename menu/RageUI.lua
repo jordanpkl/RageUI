@@ -54,7 +54,7 @@ RageUI.UI = {
     Current = "NativeUI",
     Style = {
         RageUI = {
-            Width = 100
+            Width = 0
         },
         NativeUI = {
             Width = 0
@@ -504,9 +504,15 @@ function RageUI.Render()
                     CurrentMenu.Controls.Back.Pressed = false
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].Back.audioName, Audio[Audio.Use].Back.audioRef)
+<<<<<<< HEAD:menu/RageUI.lua
                     if CurrentMenu.Closed ~= nil then
                         collectgarbage()
                         CurrentMenu.Closed()
+=======
+                    collectgarbage()
+                    if RageUI.CurrentMenu.Closed ~= nil then
+                        RageUI.CurrentMenu.Closed()
+>>>>>>> master:src/client/menu/RageUI.lua
                     end
                     if CurrentMenu.Parent ~= nil then
                         if CurrentMenu.Parent() then
