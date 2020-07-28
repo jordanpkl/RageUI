@@ -124,7 +124,9 @@ function RageUI.Item.List(Label, Items, StartedAtIndex, Description, Style, Enab
                         Index[Option].Current = #Items
                     end
                     if (Actions.onListChange ~= nil) then
-                        Actions.onListChange(Index, Items[Index]);
+                        Citizen.CreateThread(function()
+                            Actions.onListChange(Index[Option].Current, Items[Index[Option].Current]);
+                        end)
                     end
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].LeftRight.audioName, Audio[Audio.Use].LeftRight.audioRef)
