@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 [![RageUI](https://rageui.dylan-malandain.io/img/rageui.png)](https://github.com/iTexZoz/RageUI)
 
 RageUI is the official remplacement of NativeUI-Reloaded. This library allows you to create menus in GTA:O style. This project is open-source, so we rely on communtiy to help us to upgrade and update RageUI. You can also work with us on the project to try to patch some issues.
@@ -17,11 +16,11 @@ We invite you to respect our hard work to provide you a great and usefull menu l
 <br>
 ## Warning, downloading and publishing this resource on Github without using the github Fork option is not allowed and may result in a suspension of the repository. I invite you to respect my work and that of my collaborators. :snail:
 ## Hello to all of you. 
->>>>>>> master
 
 **Special thanks to**
   - Original creator : [Dylan Malandrin](https://github.com/iTexZoz)
   - [Spike Scarlatti](https://github.com/SpikeScarlatti)
+  - Sponsor
   - Discord helpers
   - Contributors
 
@@ -44,35 +43,3 @@ The arrival of RageUI V2 offers you some new features and a lot of issues fixed 
 
 **RageUI works with ESX/VRP ?**
 > You don't really have understood what's RageUI
-
-<<<<<<< HEAD
-=======
-## Empty menu example
-```lua
-RMenu.Add('showcase', 'main', RageUI.CreateMenu("RageUI", "~b~RAGEUI SHOWCASE"))
-RMenu.Add('showcase', 'submenu', RageUI.CreateSubMenu(RMenu:Get('showcase', 'main'), "RageUI", "~b~RAGEUI SHOWCASE", nil, nil, "root_cause", "shopui_title_dynasty8"))
-
--- RageUI.CreateWhile(wait, menu, key, closure)
-RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
-
- -- RageUI.IsVisible(menu, header, glare, instructional, items, panels)
-    RageUI.IsVisible(RMenu:Get('showcase', 'main'), true, true, true, function()
-        --- Items
-     
-    end, function()
-        ---Panels
-    end)
-
- -- RageUI.IsVisible(menu, header, glare, instructional, items, panels)
-    RageUI.IsVisible(RMenu:Get('showcase', 'submenu'), false, false, false, function()
-        --- Items
-
-    end, function()
-        ---Panels
-      
-    end)
-
-end)
-
-```
->>>>>>> master
