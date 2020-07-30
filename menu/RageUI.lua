@@ -504,16 +504,12 @@ function RageUI.Render()
                     CurrentMenu.Controls.Back.Pressed = false
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].Back.audioName, Audio[Audio.Use].Back.audioRef)
-<<<<<<< HEAD:menu/RageUI.lua
+
                     if CurrentMenu.Closed ~= nil then
                         collectgarbage()
                         CurrentMenu.Closed()
-=======
-                    collectgarbage()
-                    if RageUI.CurrentMenu.Closed ~= nil then
-                        RageUI.CurrentMenu.Closed()
->>>>>>> master:src/client/menu/RageUI.lua
                     end
+
                     if CurrentMenu.Parent ~= nil then
                         if CurrentMenu.Parent() then
                             RageUI.NextMenu = CurrentMenu.Parent
@@ -589,7 +585,7 @@ function RageUI.CurrentIsEqualTo(Current, To, Style, DefaultStyle)
 end
 
 function RageUI.IsVisible(Menu, Items, Panels)
-    if (RageUI.Visible(Menu)) then
+    if (RageUI.Visible(Menu)) and (UpdateOnscreenKeyboard() ~= 0) and (UpdateOnscreenKeyboard() ~= 3) then
         RageUI.Banner()
         RageUI.Subtitle()
         if (Items ~= nil) then
