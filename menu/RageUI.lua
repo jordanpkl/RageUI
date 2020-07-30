@@ -504,33 +504,33 @@ function RageUI.Render()
                     CurrentMenu.Controls.Back.Pressed = false
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].Back.audioName, Audio[Audio.Use].Back.audioRef)
+
                     if CurrentMenu.Closed ~= nil then
                         collectgarbage()
-                        if CurrentMenu.Closed ~= nil then
-                            CurrentMenu.Closed()
-                        end
-                        if CurrentMenu.Parent ~= nil then
-                            if CurrentMenu.Parent() then
-                                RageUI.NextMenu = CurrentMenu.Parent
-                                CurrentMenu:UpdateCursorStyle()
-                            else
-                                RageUI.NextMenu = nil
-                                RageUI.Visible(CurrentMenu, false)
-                            end
+                        CurrentMenu.Closed()
+                    end
+
+                    if CurrentMenu.Parent ~= nil then
+                        if CurrentMenu.Parent() then
+                            RageUI.NextMenu = CurrentMenu.Parent
+                            CurrentMenu:UpdateCursorStyle()
                         else
                             RageUI.NextMenu = nil
                             RageUI.Visible(CurrentMenu, false)
                         end
+                    else
+                        RageUI.NextMenu = nil
+                        RageUI.Visible(CurrentMenu, false)
                     end
                 end
-                if RageUI.NextMenu ~= nil then
-                    if RageUI.NextMenu() then
-                        RageUI.Visible(CurrentMenu, false)
-                        RageUI.Visible(RageUI.NextMenu, true)
-                        CurrentMenu.Controls.Select.Active = false
-                        RageUI.NextMenu = nil
-                        RageUI.LastControl = false
-                    end
+            end
+            if RageUI.NextMenu ~= nil then
+                if RageUI.NextMenu() then
+                    RageUI.Visible(CurrentMenu, false)
+                    RageUI.Visible(RageUI.NextMenu, true)
+                    CurrentMenu.Controls.Select.Active = false
+                    RageUI.NextMenu = nil
+                    RageUI.LastControl = false
                 end
             end
         end
@@ -585,7 +585,7 @@ function RageUI.CurrentIsEqualTo(Current, To, Style, DefaultStyle)
 end
 
 function RageUI.IsVisible(Menu, Items, Panels)
-    if (RageUI.Visible(Menu)) and (UpdateOnscreenKeyboard() == 0) then
+    if (RageUI.Visible(Menu)) and (UpdateOnscreenKeyboard() ~= 0) and (UpdateOnscreenKeyboard() ~= 3) then
         RageUI.Banner()
         RageUI.Subtitle()
         if (Items ~= nil) then
