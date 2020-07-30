@@ -585,7 +585,7 @@ function RageUI.CurrentIsEqualTo(Current, To, Style, DefaultStyle)
 end
 
 function RageUI.IsVisible(Menu, Items, Panels)
-    if (RageUI.Visible(Menu)) and not (UpdateOnscreenKeyboard()) then
+    if (RageUI.Visible(Menu)) and (UpdateOnscreenKeyboard() == 0) then
         RageUI.Banner()
         RageUI.Subtitle()
         if (Items ~= nil) then
