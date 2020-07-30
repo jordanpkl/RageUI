@@ -1,29 +1,61 @@
+---
+--- @author Dylan MALANDAIN
+--- @version 2.0.0
+--- @since 2020
+---
+--- RageUI Is Advanced UI Libs in LUA for make beautiful interface like RockStar GAME.
+---
+---
+--- Commercial Info.
+--- Any use for commercial purposes is strictly prohibited and will be punished.
+---
+--- @see RageUI
+---
+
 fx_version 'adamant'
 games { 'gta5' };
 
 name 'RageUI';
-description 'RageUI, and a project specially created to replace the NativeUILua-Reloaded library. This library allows to create menus similar to the one of Grand Theft Auto online.'
+description 'RageUI Is Advanced UI Libs in LUA for make beautiful interface like RockStar GAME.'
 
 client_scripts {
-    "src/client/RMenu.lua",
-    "src/client/menu/RageUI.lua",
-    "src/client/menu/Menu.lua",
-    "src/client/menu/MenuController.lua",
+    "RMenu.lua",
+    "menu/RageUI.lua",
+    "menu/Menu.lua",
+    "menu/MenuController.lua",
 
-    "src/client/components/*.lua",
+    "components/Audio.lua",
+    "components/Enum.lua",
+    "components/Keys.lua",
+    "components/Rectangle.lua",
+    "components/Sprite.lua",
+    "components/Text.lua",
+    "components/Visual.lua",
 
-    "src/client/menu/elements/*.lua",
+    "menu/elements/ItemsBadge.lua",
+    "menu/elements/ItemsColour.lua",
+    "menu/elements/PanelColour.lua",
 
-    "src/client/menu/items/*.lua",
+    "menu/items/UIButton.lua",
+    "menu/items/UICheckBox.lua",
+    "menu/items/UIList.lua",
+    "menu/items/UIProgress.lua",
+    "menu/items/UISeparator.lua",
+    "menu/items/UISlider.lua",
+    "menu/items/UISliderHeritage.lua",
+    "menu/items/UISliderProgress.lua",
 
-    "src/client/menu/panels/*.lua",
+    "menu/panels/UIButtonPanel.lua",
+    "menu/panels/UIColourPanel.lua",
+    "menu/panels/UIGridPanel.lua",
+    "menu/panels/UIPercentagePanel.lua",
+    "menu/panels/UIStatisticsPanel.lua",
 
-    "src/client/menu/windows/*.lua",
-
+    "menu/windows/UIHeritage.lua",
 }
 
 client_scripts {
-     --'tests/rmenu/basic.lua',
+     'example.lua',
 }
 
 

@@ -1,3 +1,10 @@
+[![RageUI](https://rageui.dylan-malandain.io/img/rageui.png)](https://github.com/iTexZoz/RageUI)
+
+RageUI is the official remplacement of NativeUI-Reloaded. This library allows you to create menus in GTA:O style. This project is open-source, so we rely on communtiy to help us to upgrade and update RageUI. You can also work with us on the project to try to patch some issues.
+If you wan't contribute to RageUI project, please use [Fork GitHub functionality](https://gist.github.com/Chaser324/ce0505fbed06b947d962). If someone copy our work without this functionnality, we will temporarily delete this repository.
+
+We invite you to respect our hard work to provide you a great and usefull menu library
+=======
 ### No one is allowed to sell resources with rageui. I will take the necessary sanctions if that is the case. Thank you for respecting my work.
 
 ### Discord : https://discord.gg/Jjb2c8Q
@@ -10,42 +17,29 @@
 ## Warning, downloading and publishing this resource on Github without using the github Fork option is not allowed and may result in a suspension of the repository. I invite you to respect my work and that of my collaborators. :snail:
 ## Hello to all of you. 
 
-### First of all, I wanted to present the RageUI project. 
+**Special thanks to**
+  - Original creator : [Dylan Malandrin](https://github.com/iTexZoz)
+  - [Spike Scarlatti](https://github.com/SpikeScarlatti)
+  - Sponsor
+  - Discord helpers
+  - Contributors
 
-## What is RageUI? 
+If you like this project and you want thank us, you can become a [sponsor of RageUI](paypal.me/malandaindylan)
 
-RageUI is a project specially created to replace the NativeUILua-Reloaded library. 
-This library allows to create menus similar to the one of GTA:O, however this library is still young and has many problems. 
+# Major Update!
+RageUI V2 experimental tests are now finished. You've from now on access to the new version of RageUI. This major update solve a lot of issues found in RageUI V1.
+## New Features
+The arrival of RageUI V2 offers you some new features and a lot of issues fixed :
+- Glare position is fix when you set a custom menu position.
+- Simplify item closure. RageUI use now a table to set actions.
+- A lot of code optimisations
+- Automatic management of items index
+- Better and more explicit [documentation](https://github.com/iTexZoz/RageUI-Docs).
+- Rewrite readme.
 
-The implementation of this open source project was done faster than expected in order to be able to count on the community to improve it and solve the concerns currently present on it. [See the tab]. 
+# FAQ - Frequently Asked Questions
+**Can i "convert" others menus libraries directly to RageUI ?**
+> No you can't. You must change all your code to use RageUI.
 
-This project would never have been possible without the trust [Frazzle] placed in me, so I wanted to thank him for trusting me to carry out this project. 
-
-## Empty menu example
-```lua
-RMenu.Add('showcase', 'main', RageUI.CreateMenu("RageUI", "~b~RAGEUI SHOWCASE"))
-RMenu.Add('showcase', 'submenu', RageUI.CreateSubMenu(RMenu:Get('showcase', 'main'), "RageUI", "~b~RAGEUI SHOWCASE", nil, nil, "root_cause", "shopui_title_dynasty8"))
-
--- RageUI.CreateWhile(wait, menu, key, closure)
-RageUI.CreateWhile(1.0, RMenu:Get('showcase', 'main'), 51, function()
-
- -- RageUI.IsVisible(menu, header, glare, instructional, items, panels)
-    RageUI.IsVisible(RMenu:Get('showcase', 'main'), true, true, true, function()
-        --- Items
-     
-    end, function()
-        ---Panels
-    end)
-
- -- RageUI.IsVisible(menu, header, glare, instructional, items, panels)
-    RageUI.IsVisible(RMenu:Get('showcase', 'submenu'), false, false, false, function()
-        --- Items
-
-    end, function()
-        ---Panels
-      
-    end)
-
-end)
-
-```
+**RageUI works with ESX/VRP ?**
+> You don't really have understood what's RageUI
