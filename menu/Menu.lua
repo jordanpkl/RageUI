@@ -53,6 +53,7 @@ function RageUI.CreateMenu(Title, Subtitle, X, Y, TextureDictionary, TextureName
     Menu.Options = 0
     Menu.Closable = true
     Menu.InstructionalScaleform = RequestScaleformMovie("INSTRUCTIONAL_BUTTONS")
+    Menu.InitScaleform = false
     Menu.CursorStyle = 1
 
     if string.starts(Menu.Subtitle, "~") then
