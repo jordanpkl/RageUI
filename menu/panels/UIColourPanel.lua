@@ -71,11 +71,6 @@ function RageUI.Panel.ColourPanel(Title, Colours, StartedAtIndex, Action, Displa
                         elseif CurrentIndex <= MinimumIndex then
                             ColourIndex[DisplayAtIndex].MinimumIndex = MinimumIndex - 1
                         end
-                        if (Action.onColourChange ~= nil) then
-                            Citizen.CreateThread(function()
-                                Action.onColourChange(ColourIndex[DisplayAtIndex].CurrentIndex)
-                            end)
-                        end
                     elseif RightArrowHovered then
                         ColourIndex[DisplayAtIndex].CurrentIndex = CurrentIndex + 1
                         if CurrentIndex >= #Colours then
@@ -90,6 +85,11 @@ function RageUI.Panel.ColourPanel(Title, Colours, StartedAtIndex, Action, Displa
                                 ColourIndex[DisplayAtIndex].CurrentIndex = MinimumIndex + Index - 1
                             end
                         end
+                    end
+                    if (Action.onColourChange ~= nil) then
+                        Citizen.CreateThread(function()
+                            Action.onColourChange(ColourIndex[DisplayAtIndex].CurrentIndex)
+                        end)
                     end
                 end
             end
