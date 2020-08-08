@@ -65,23 +65,18 @@ function RageUI.Panel.ColourPanel(Title, Colours, StartedAtIndex, Action, Displa
                     Selected = true
                     if LeftArrowHovered then
                         ColourIndex[DisplayAtIndex].CurrentIndex = CurrentIndex - 1
-                        if CurrentIndex < 1 then
+                        if CurrentIndex <= 1 then
                             ColourIndex[DisplayAtIndex].CurrentIndex = #Colours
                             ColourIndex[DisplayAtIndex].MinimumIndex = #Colours - Maximum + 1
-                        elseif CurrentIndex < MinimumIndex then
+                        elseif CurrentIndex <= MinimumIndex then
                             ColourIndex[DisplayAtIndex].MinimumIndex = MinimumIndex - 1
-                        end
-                        if (Action.onColourChange ~= nil) then
-                            Citizen.CreateThread(function()
-                                Action.onColourChange(ColourIndex[DisplayAtIndex].CurrentIndex)
-                            end)
                         end
                     elseif RightArrowHovered then
                         ColourIndex[DisplayAtIndex].CurrentIndex = CurrentIndex + 1
-                        if CurrentIndex > #Colours then
+                        if CurrentIndex >= #Colours then
                             ColourIndex[DisplayAtIndex].CurrentIndex = 1
                             ColourIndex[DisplayAtIndex].MinimumIndex = 1
-                        elseif CurrentIndex > MinimumIndex + Maximum - 1 then
+                        elseif CurrentIndex >= MinimumIndex + Maximum - 1 then
                             ColourIndex[DisplayAtIndex].MinimumIndex = MinimumIndex + 1
                         end
                     elseif Hovered then
@@ -90,6 +85,11 @@ function RageUI.Panel.ColourPanel(Title, Colours, StartedAtIndex, Action, Displa
                                 ColourIndex[DisplayAtIndex].CurrentIndex = MinimumIndex + Index - 1
                             end
                         end
+                    end
+                    if (Action.onColourChange ~= nil) then
+                        Citizen.CreateThread(function()
+                            Action.onColourChange(ColourIndex[DisplayAtIndex].CurrentIndex)
+                        end)
                     end
                 end
             end
