@@ -184,13 +184,13 @@ function RageUI.Item.Checkbox(Label, Description, Checked, Style, Actions)
                         RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
                         Index[Option].Current = not Index[Option].Current
                         if (Index[Option].Current) then
+                            Index[Option].Current = true
                             Citizen.CreateThread(function()
-                                Index[Option].Current = true
                                 Actions.onChecked();
                             end)
                         else
+                            Index[Option].Current = false
                             Citizen.CreateThread(function()
-                                Index[Option].Current = false
                                 Actions.onUnChecked();
                             end)
                         end
