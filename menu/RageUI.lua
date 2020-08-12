@@ -411,13 +411,14 @@ function RageUI.Banner()
                 ---@type number
                 local Glareheight = RageUI.Settings.Items.Title.Background.Height
                 ---@type number
-                local GlareX = CurrentMenu.X / 1920 + (CurrentMenu.SafeZoneSize.X / (64.399 - (CurrentMenu.WidthOffset * 0.065731)))
+                local GlareX = 0.4486 - ((1920 - GetSafeZoneSize() * 1920) / 1920) + (CurrentMenu.X + (1920 - GetSafeZoneSize() * 1920) + CurrentMenu.WidthOffset) / 1920
                 ---@type number
-                local GlareY = CurrentMenu.Y / 1080 + CurrentMenu.SafeZoneSize.Y / 33.195020746888
+                local GlareY = 0.4950 - ((1080 - GetSafeZoneSize() * 1080) / 1080) + (CurrentMenu.Y + (1080 - GetSafeZoneSize() * 1080)) / 1080     
+                print(CurrentMenu.SafeZoneSize.Y, CurrentMenu.SafeZoneSize.Y / 32.295020746888)
                 RageUI.SetScaleformParams(ScaleformMovie, {
                     { name = "SET_DATA_SLOT", param = { GetGameplayCamRelativeHeading() } }
                 })
-                DrawScaleformMovie(ScaleformMovie, GlareX, GlareY, Glarewidth / 430, Glareheight / 100, 255, 255, 255, 255, 0)
+                DrawScaleformMovie(ScaleformMovie, GlareX, GlareY, Glarewidth / 431, Glareheight / 96.75, 255, 255, 255, 255, 0)
             end
             RenderText(CurrentMenu.Title, CurrentMenu.X + RageUI.Settings.Items.Title.Text.X + (CurrentMenu.WidthOffset / 2), CurrentMenu.Y + RageUI.Settings.Items.Title.Text.Y, 1, RageUI.Settings.Items.Title.Text.Scale, 255, 255, 255, 255, 1)
             RageUI.ItemOffset = RageUI.ItemOffset + RageUI.Settings.Items.Title.Background.Height
