@@ -414,7 +414,6 @@ function RageUI.Banner()
                 local GlareX = 0.4486 - ((1920 - GetSafeZoneSize() * 1920) / 1920) + (CurrentMenu.X + (1920 - GetSafeZoneSize() * 1920) + CurrentMenu.WidthOffset) / 1920
                 ---@type number
                 local GlareY = 0.4950 - ((1080 - GetSafeZoneSize() * 1080) / 1080) + (CurrentMenu.Y + (1080 - GetSafeZoneSize() * 1080)) / 1080     
-                print(CurrentMenu.SafeZoneSize.Y, CurrentMenu.SafeZoneSize.Y / 32.295020746888)
                 RageUI.SetScaleformParams(ScaleformMovie, {
                     { name = "SET_DATA_SLOT", param = { GetGameplayCamRelativeHeading() } }
                 })
