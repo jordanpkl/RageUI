@@ -153,7 +153,7 @@ end
 
 function RageUI.Menus:SetSizeWidth(Value)
     local witdh
-    if Value >= 0 and Value <= 100 then
+    if Value >= 0 and Value <= 1000 then
         witdh = Value
     else
         witdh = 100
