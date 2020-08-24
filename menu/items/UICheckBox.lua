@@ -102,8 +102,10 @@ function RageUI.Item.Checkbox(Label, Description, Checked, Style, Actions)
                 ---@type boolean
                 if CurrentMenu.EnableMouse == true and (CurrentMenu.CursorStyle == 0) or (CurrentMenu.CursorStyle == 1) then
                     Hovered = RageUI.ItemsMouseBounds(CurrentMenu, Selected, Option, SettingsButton);
-                    if (Hovered) then
-                        Actions['onHovered']();
+                    if Actions["onHovered"] ~= nil then
+                        if (Hovered) then
+                            Actions['onHovered']();
+                        end
                     end
                 end
                 if Selected then
@@ -185,14 +187,18 @@ function RageUI.Item.Checkbox(Label, Description, Checked, Style, Actions)
                         Index[Option].Current = not Index[Option].Current
                         if (Index[Option].Current) then
                             Index[Option].Current = true
-                            Citizen.CreateThread(function()
-                                Actions.onChecked();
-                            end)
+                            if Actions.onChecked ~= nil then
+                                Citizen.CreateThread(function()
+                                    Actions.onChecked();
+                                end)
+                            end
                         else
                             Index[Option].Current = false
-                            Citizen.CreateThread(function()
-                                Actions.onUnChecked();
-                            end)
+                            if Actions.onUnChecked ~= nil then
+                                Citizen.CreateThread(function()
+                                    Actions.onUnChecked();
+                                end)
+                            end
                         end
                     end
 
@@ -205,9 +211,11 @@ function RageUI.Item.Checkbox(Label, Description, Checked, Style, Actions)
                 RageUI.ItemsDescription(CurrentMenu, Description, Selected)
 
                 if (((CurrentMenu.Controls.Select.Active or (Hovered and CurrentMenu.Controls.Click.Active)) and Selected)) then
-                    Citizen.CreateThread(function()
-                        Actions.onSelected(Index[Option].Current);
-                    end)
+                    if Actions.onSelected ~= nil then
+                        Citizen.CreateThread(function()
+                            Actions.onSelected(Index[Option].Current);
+                        end)
+                    end
                 end
                 if (Selected) then
                     if (Actions.onActive ~= nil) then
