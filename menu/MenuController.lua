@@ -168,13 +168,19 @@ function RageUI.Controls()
                     DisableAllControlActions(2)
                 end
 
-                if not IsInputDisabled(2) then
+                if not CurrentMenu.EnableMouse then
                     for Index = 1, #Controls.Enabled.Controller do
                         EnableControlAction(Controls.Enabled.Controller[Index][1], Controls.Enabled.Controller[Index][2], true)
+                    end
+                    for Index = 1, #Controls.Disabled.Controller do
+                        DisableControlAction(Controls.Disabled.Controller[Index][1], Controls.Disabled.Controller[Index][2], true)
                     end
                 else
                     for Index = 1, #Controls.Enabled.Keyboard do
                         EnableControlAction(Controls.Enabled.Keyboard[Index][1], Controls.Enabled.Keyboard[Index][2], true)
+                    end
+                    for Index = 1, #Controls.Disabled.Keyboard do
+                        DisableControlAction(Controls.Disabled.Keyboard[Index][1], Controls.Disabled.Keyboard[Index][2], true)
                     end
                 end
 

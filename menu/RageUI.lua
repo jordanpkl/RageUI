@@ -200,6 +200,14 @@ RageUI.Settings = {
                 { 0, 76 }, -- Vehicle Handbrake
             },
         },
+        Disabled = {
+            Controller = {
+
+            },
+            Keyboard = {
+                
+            },
+        }
     },
     Audio = {
         Id = nil,
@@ -400,7 +408,7 @@ function RageUI.Banner()
         if CurrentMenu() and (CurrentMenu.Display.Header) then
             RageUI.ItemsSafeZone(CurrentMenu)
             if CurrentMenu.Sprite.Dictionary then
-                RenderSprite(CurrentMenu.Sprite.Dictionary, CurrentMenu.Sprite.Texture, CurrentMenu.X, CurrentMenu.Y, RageUI.Settings.Items.Title.Background.Width + CurrentMenu.WidthOffset, RageUI.Settings.Items.Title.Background.Height, nil)
+                RenderSprite(CurrentMenu.Sprite.Dictionary, CurrentMenu.Sprite.Texture, CurrentMenu.X, CurrentMenu.Y, RageUI.Settings.Items.Title.Background.Width + CurrentMenu.WidthOffset, RageUI.Settings.Items.Title.Background.Height, CurrentMenu.Sprite.Color.R, CurrentMenu.Sprite.Color.G, CurrentMenu.Sprite.Color.B, CurrentMenu.Sprite.Color.A)
             else
                 RenderRectangle(CurrentMenu.X, CurrentMenu.Y, RageUI.Settings.Items.Title.Background.Width + CurrentMenu.WidthOffset, RageUI.Settings.Items.Title.Background.Height, CurrentMenu.Rectangle.R, CurrentMenu.Rectangle.G, CurrentMenu.Rectangle.B, CurrentMenu.Rectangle.A)
             end
@@ -549,9 +557,9 @@ function RageUI.ItemsDescription(CurrentMenu, Description, Selected)
         if Selected and CurrentMenu.Description ~= Description then
             CurrentMenu.Description = Description or nil
             ---@type number
-            local DescriptionLineCount = GetLineCount(CurrentMenu.Description, CurrentMenu.X + SettingsDescription.Text.X, CurrentMenu.Y + SettingsDescription.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsDescription.Text.Scale, 255, 255, 255, 255, nil, false, false, SettingsDescription.Background.Width + (CurrentMenu.WidthOffset - 5.0))
+            local DescriptionLineCount = GetLineCount(CurrentMenu.Description, CurrentMenu.X + SettingsDescription.Text.X, CurrentMenu.Y + SettingsDescription.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsDescription.Text.Scale, 255, 255, 255, 255, nil, false, false, SettingsDescription.Background.Width + (CurrentMenu.WidthOffset - 8.0))
             if DescriptionLineCount > 1 then
-                CurrentMenu.DescriptionHeight = SettingsDescription.Background.Height * DescriptionLineCount
+                CurrentMenu.DescriptionHeight = SettingsDescription.Background.Height * DescriptionLineCount + 3.5
             else
                 CurrentMenu.DescriptionHeight = SettingsDescription.Background.Height + 7
             end
@@ -618,3 +626,28 @@ function RageUI.GetStyleAudio()
     return RageUI.Settings.Audio.Use or "RageUI"
 end
 
+function RageUI.AddControl(Menu, Type, Enabled, Group, Control)
+    if Enabled then
+        table.insert(Menu.Controls.Enabled[Type], {Group, Control})
+    else    
+        table.insert(Menu.Controls.Disabled[Type], {Group, Control})
+        print("New " .. Type .. " disabled")
+    end
+end
+
+function RageUI.RemoveControl(Menu, Type, Enabled, Group, Control)
+    print("called")
+    if Enabled then
+        for key, control in pairs(Menu.Controls.Enabled[Type]) do
+            if control[1] == Group and control[2] == Control then
+                table.remove(Menu.Controls.Enabled[Type], key)
+            end
+        end
+    else    
+        for key, control in pairs(Menu.Controls.Disabled[Type]) do
+            if control[1] == Group and control[2] == Control then
+                table.remove(Menu.Controls.Disabled[Type], key)
+            end
+        end
+    end
+end
