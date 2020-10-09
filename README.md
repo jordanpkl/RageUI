@@ -1,5 +1,28 @@
 [![RageUI](https://rageui.dylan-malandain.io/img/rageui.png)](https://github.com/iTexZoz/RageUI)
 
+# Official Sponsor :
+
+[![PrivateHeberg](https://rageui.riveria.fr/ph.png)](https://privateheberg.com)
+I would like to make an announcement about the official partners of my projects.
+
+Today, I offer you the possibility to buy different virtual servers (VPS) LXC or KVM (Linux or Windows) via PrivateHeberg.net.
+
+The perfect solution for the conception / realisation of your projects.
+
+Let me point out that Privateheberg uses professional protection against DDOS attacks (VAC TILERA) in addition to the private protection provided by PrivateHeberg.
+
+A discount code of 8% is valid on all products on the site for a period of 3 months. (valid for renewals) 
+
+### PrivateHeberg is not a waste hosting company, it does not use a shitty technology like WHMCS or WorldPress. 
+
+I personally recommend NvME products (LXC / KVM) 
+
+https://privateheberg.net/
+
+Discount code : <code>PACO</code> (-8%)
+ 
+# RageUI
+
 RageUI is the official replacement for NativeUI-Reloaded. This library allows you to create menus in GTA:O style. This project is open-source, so we rely on the community to help us upgrade/update RageUI. You can also work with us on the project to try to patch some issues.
 If you want to contribute to this project, please use this guide: [Fork GitHub functionality](https://gist.github.com/Chaser324/ce0505fbed06b947d962). If someone copies our work without this functionality, we will temporarily delete the affected repository.
 
