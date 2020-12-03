@@ -2,7 +2,6 @@
 
 # Official Sponsor :
 
-[![PrivateHeberg](https://rageui.riveria.fr/ph.png)](https://privateheberg.com)
 I would like to make an announcement about the official partners of my projects.
 
 Today, I offer you the possibility to buy different virtual servers (VPS) LXC or KVM (Linux or Windows) via PrivateHeberg.net.
