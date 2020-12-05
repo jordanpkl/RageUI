@@ -5,7 +5,7 @@
 ---
 
 local TextPanels = {
-    Background = { Dictionary = "sooyoanalanal", Texture = "gradient_bgd", Y = 4, Width = 431, Height = 42 },
+    Background = { Dictionary = "commonmenu", Texture = "gradient_bgd", Y = 4, Width = 431, Height = 42 },
 }
 
 ---@type Panel
