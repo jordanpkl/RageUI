@@ -49,17 +49,17 @@ function RageUI.PercentagePanel(Percent, HeaderText, MinText, MaxText, Action, I
             RenderText(MaxText or "100%", CurrentMenu.X + Percentage.Text.Right.X + (CurrentMenu.WidthOffset / 2), CurrentMenu.Y + Percentage.Text.Right.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, Percentage.Text.Right.Scale, 245, 245, 245, 255, 1)
 
             if Hovered then
-                if IsDisabledControlPressed(0, 24) then
+                if IsDisabledControlPressed(0, 24) or IsControlPressed(0, 24) then
                     Selected = true
-
-                    Progress = math.round(GetControlNormal(2, 239) * 1920) - CurrentMenu.SafeZoneSize.X - (CurrentMenu.X + Percentage.Bar.X + (CurrentMenu.WidthOffset / 2))
-
+                    
+                    Progress = math.round((IsControlEnabled(2, 239) and GetControlNormal(2, 239) or GetDisabledControlNormal(2, 239)) * 1920 - CurrentMenu.SafeZoneSize.X - (CurrentMenu.X + Percentage.Bar.X + (CurrentMenu.WidthOffset / 2)))
+                    
                     if Progress < 0 then
                         Progress = 0
                     elseif Progress > (Percentage.Bar.Width) then
                         Progress = Percentage.Bar.Width
                     end
-
+                    
                     Percent = math.round(Progress / Percentage.Bar.Width, 2)
                     if (Action.onProgressChange ~= nil) then
                         Action.onProgressChange(Percent)
