@@ -86,7 +86,7 @@ function RageUI.UISliderHeritage(Label, ItemIndex, Description, Actions, Value)
                         RageUI.PlaySound(Audio[Audio.Use].Slider.audioName, Audio[Audio.Use].Slider.audioRef, true)
                     end
                     if (Actions.onSliderChange ~= nil) then
-                        Actions.onSliderChange(ItemIndex / 10, ItemIndex);
+                        Actions.onSliderChange(ItemIndex/10, ItemIndex);
                     end
                 elseif Selected and (CurrentMenu.Controls.SliderRight.Active or (CurrentMenu.Controls.Click.Active and RightArrowHovered)) and not (CurrentMenu.Controls.SliderLeft.Active or (CurrentMenu.Controls.Click.Active and LeftArrowHovered)) then
                     ItemIndex = ItemIndex + value
@@ -96,13 +96,13 @@ function RageUI.UISliderHeritage(Label, ItemIndex, Description, Actions, Value)
                         RageUI.PlaySound(Audio[Audio.Use].Slider.audioName, Audio[Audio.Use].Slider.audioRef, true)
                     end
                     if (Actions.onSliderChange ~= nil) then
-                        Actions.onSliderChange(ItemIndex / 10, ItemIndex);
+                        Actions.onSliderChange(ItemIndex/10, ItemIndex);
                     end
                 end
 
                 if Selected and (CurrentMenu.Controls.Select.Active or ((Hovered and CurrentMenu.Controls.Click.Active) and (not LeftArrowHovered and not RightArrowHovered))) then
                     if (Actions.onSelected ~= nil) then
-                        Actions.onSelected(ItemIndex / 10, ItemIndex);
+                        Actions.onSelected(ItemIndex/10, ItemIndex);
                     end
                     RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef, false)
                 elseif Selected then

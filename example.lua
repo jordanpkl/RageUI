@@ -41,6 +41,11 @@ local index = {
         primary = { 1, 5 },
         secondary = { 1, 5 }
     },
+    sliderPanel = {
+        min = 0,
+        ind = 1,
+        max = 64,
+    }
 }
 
 local description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur"
@@ -125,6 +130,8 @@ Citizen.CreateThread(function()
                 end
             })
 
+            RageUI.Button("SliderPanel", "Look right below", {}, true, {})
+
             RageUI.Button('SubMenu', "Description here", {}, true, {onSelected = function() print("HELLO WORLD !") end}, subMenu);
 
             RageUI.Button('Simple Bouton with background colour', "Description here", { RightLabel = "", Color = { HightLightColor = { 0, 155, 0, 150 }, BackgroundColor = { 38, 85, 150, 160 } }}, true, {onSelected = function() print("HELLO WORLD !") end});
@@ -184,7 +191,15 @@ Citizen.CreateThread(function()
                     index.color.secondary[2] = CurrentIndex
                 end
             }, 6)
+                
+            RageUI.SliderPanel(index.sliderPanel.ind, index.sliderPanel.min, "Slider Panel", index.sliderPanel.max, {
+                onSliderChange = function(Index)
+                    index.sliderPanel.ind = Index
+                    Visual.Subtitle("onSliderChange - Value : " .. Index, 100)
+                end
+			}, 8)
         end)
+
 
         --> SubMenu : 
         RageUI.IsVisible(subMenu, function()
