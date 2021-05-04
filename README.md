@@ -9,6 +9,11 @@ We invite you to respect the hard work that comes with providing this great and 
 
 ### Discord : https://discord.gg/Jjb2c8Q
 
+### Selling Autorizations 
+Member authorized to sell temporarily (can be changed at any time by https://github.com/NOSDEV1 https://github.com/iTexZoz or https://github.com/Kalyptus ):
+https://github.com/DakoooM
+https://github.com/SlySh0w55
+
 # Thanks to all the sponsors of this project! Without you all, this would not be what it is today. 
 
 ![OpenIssue](https://img.shields.io/github/issues/iTexZoz/RageUI.svg?style=flat)
