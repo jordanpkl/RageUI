@@ -26,7 +26,7 @@ function RageUI.SliderPanel(Value, MinValue, UpperText, MaxValue, Actions, Index
 	local CurrentMenu = RageUI.CurrentMenu
 	if CurrentMenu ~= nil then
 		if CurrentMenu() and ((CurrentMenu.Index == Index)) then
-			Value = Value or 0
+			Value = Value or MinValue
 			Slider.Bar.Width = Slider.RightArrow.X- Slider.LeftArrow.X - Slider.LeftArrow.Width - 5 + CurrentMenu.WidthOffset
 			Slider.Bar.X = Slider.LeftArrow.X + Slider.LeftArrow.Width
 			Slider.Text.Upper.X = (Slider.Bar.Width) / 2 + Slider.Bar.X
@@ -34,7 +34,9 @@ function RageUI.SliderPanel(Value, MinValue, UpperText, MaxValue, Actions, Index
 			local Hovered = false
 			local LeftArrowHovered, RightArrowHovered = false, false
 			local SliderW = Slider.Bar.Width / (64 + 1)
-			local SliderX =  CurrentMenu.X + Slider.Bar.X + Value * Slider.Bar.Width / MaxValue
+			local separation = (Slider.Bar.Width - SliderW) / (MaxValue-MinValue)
+			local currentMovement = separation * (Value - MinValue)
+			local SliderX = CurrentMenu.X + Slider.Bar.X + currentMovement
 
 			Hovered = RageUI.IsMouseInBounds(CurrentMenu.X + Slider.Bar.X + CurrentMenu.SafeZoneSize.X, CurrentMenu.Y + Slider.Bar.Y + CurrentMenu.SafeZoneSize.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset - 4, Slider.Bar.Width, Slider.Bar.Height + 8)
 
@@ -51,17 +53,21 @@ function RageUI.SliderPanel(Value, MinValue, UpperText, MaxValue, Actions, Index
 			LeftArrowHovered = RageUI.IsMouseInBounds(CurrentMenu.X + Slider.LeftArrow.X + CurrentMenu.SafeZoneSize.X, CurrentMenu.Y + Slider.LeftArrow.Y + CurrentMenu.SafeZoneSize.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, Slider.LeftArrow.Width, Slider.LeftArrow.Height)
 			RightArrowHovered = RageUI.IsMouseInBounds(CurrentMenu.X + Slider.RightArrow.X + CurrentMenu.SafeZoneSize.X + CurrentMenu.WidthOffset, CurrentMenu.Y + Slider.RightArrow.Y + CurrentMenu.SafeZoneSize.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, Slider.RightArrow.Width, Slider.RightArrow.Height)
 
+			RageUI.ItemOffset = RageUI.ItemOffset + Slider.Background.Height + Slider.Background.Y
+			
 			if Hovered then
 				if IsDisabledControlPressed(0, 24) then
 					local GetControl_X = GetDisabledControlNormal
-					Value = (math.round(GetControl_X(2, 239) * 1920) - CurrentMenu.SafeZoneSize.X - Slider.Bar.X )/ Slider.Bar.Width * MaxValue
-					if Value < 0 then
-						Value = 0
+					Value = (math.round(GetControl_X(2, 239) * 1920) - CurrentMenu.SafeZoneSize.X - Slider.Bar.X )/ Slider.Bar.Width * (MaxValue - MinValue) + MinValue
+					if Value < MinValue then
+						Value = MinValue
 					elseif Value >= MaxValue then
 						Value = MaxValue
 					end
 					Value = math.round(Value, 0)
-					print(Value)
+					-- print(Value)
+					local Audio = RageUI.Settings.Audio
+					RageUI.PlaySound(Audio[Audio.Use].Slider.audioName, Audio[Audio.Use].Slider.audioRef, true)
 					if (Actions.onSliderChange ~= nil) then
 						Actions.onSliderChange(Value)
 					end
@@ -74,7 +80,7 @@ function RageUI.SliderPanel(Value, MinValue, UpperText, MaxValue, Actions, Index
 				elseif Value > max  then
 					Value = MinValue
 				end
-				print(Value)
+				-- print(Value)
 				if (Actions.onSliderChange ~= nil) then
 					Actions.onSliderChange(Value);
 				end
