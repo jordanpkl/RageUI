@@ -29,8 +29,6 @@ https://github.com/SlySh0w55
   - Discord helpers
   - Contributors
 
-If you like this project and want thank me, you can become a [sponsor of RageUI](paypal.me/malandaindylan)
-
 # Major Update!
 RageUI V2 experimental tests are now finished. From now on, there's public access to the new version of RageUI. This major update solves a lot of issues found in RageUI V1.
 ## New Features
